@@ -15,6 +15,8 @@ un fichier de configuration qui définissait des "missions", qui seraient
 
 Voilà le résultat...
 
+![la première mission de GameShell](Images/gsh-fr.gif)
+
 N'hésitez pas à nous envoyer vos remarques, questions ou suggestions en
 ouvrant des ["issues"](https://github.com/phyver/GameShell/issues) ou en
 soumettant des ["pull requests"](https://github.com/phyver/GameShell/pulls).
@@ -75,6 +77,174 @@ programmes X depuis GameShell. Référez vous à [cette
 section](./doc/deps.md#running-GameShell-from-a-docker-container) du manuel
 d'utilisateur.
 
+
+Voila à quoi ressemble la première mission :
+````
+$ bash ./gameshell.sh
+
+  ____                      ____  _          _ _
+ / ___| __ _ _ __ ___   ___/ ___|| |__   ___| | |
+| |  _ / _` | '_ ` _ \ / _ \___ \| '_ \ / _ \ | |
+| |_| | (_| | | | | | |  __/___) | | | |  __/ | |
+ \____|\__,_|_| |_| |_|\___|____/|_| |_|\___|_|_|
+
+                             _
+                           _/ \
+          _               /    \
+         / \_   __       /\/\  /\
+        /    \ /  \     /    \/  \
+       /\/\  /\    `--./.'-    `-.\
+      /    \/  ' ^ _    _  _
+    /\ ____..      YY  Y     _   |~  _
+   /._/  _ \_        Y  Y   [_]--'--[_]
+  / / .'/#\_ `-.    Y  YY   |'|""`""|'|
+    .-_/#@##\  `\"" ' Y     | | /^\ | |
+   " "'"''"'"'''" '         |_|_|I|_|_|
+
+Appuyez sur Entrée pour continuer.
+
+
+
+  ,-------------------------------------------------------.
+ (_\                                                       \
+    |  Bienvenue dans GameShell !                           |
+    |                                                       |
+    |  Utiliser et gérer un ordinateur avec un système      |
+    |  d'exploitation de type Unix (comme Linux, BSD ou     |
+    |  macOS) demande l'utilisation d'une interface en      |
+    |  ligne de commande appelée "shell". Dans ce jeu vous  |
+    |  allez apprendre à utiliser le shell au travers de    |
+    |  diverses missions impliquant des tâches habituelles  |
+    |  comme :                                              |
+    |    - créer des répertoires,                           |
+    |    - créer, éditer ou visualiser des fichiers,        |
+    |    - chercher les fichiers satisfaisant certains      |
+    |      critères,                                        |
+    |    - lancer ou arrêter des programmes,                |
+    |    - etc.                                             |
+    |                                                       |
+    |  Durant votre aventure il vous sera demandé de        |
+    |  vous rendre dans des lieux, d'interagir avec des     |
+    |  personnages, et de trouver des objets. Cependant,    |
+    |  gardez à l'esprit que tous ces éléments du jeu       |
+    |  font référence à des concepts standards : des        |
+    |  répertoires, des programmes, et des fichiers (avec   |
+    |  un contenu qui peut être aléatoire). Ainsi, par      |
+    |  exemple :                                            |
+    |    - "construire une hutte" signifie créer un         |
+    |      dossier "Hutte",                                 |
+    |    - "mettre la pièce dans le coffre" signifie        |
+    |      déplacer un fichier "piece" dans un répertoire   |
+    |      "Coffre".                                        |
+   _|                                                       |
+  (_/_________________________________________________(*)___/
+                                                       \\
+                                                        ))
+                                                        ^
+
+
+Appuyez sur Entrée pour continuer.
+
+
+  |                                                     |
+--+-----------------------------------------------------+--
+  | Utilisez la commande                                |
+  |   $ gsh goal                                        |
+  | pour découvrir votre première mission.              |
+  |                                                     |
+  | Vous pouvez vérifier si l'objectif est atteint avec |
+  |   $ gsh check                                       |
+  |                                                     |
+  | La commande                                         |
+  |   $ gsh help                                        |
+  | affiche la liste des commandes (gsh) disponibles.   |
+--+-----------------------------------------------------+--
+  |                                                     |
+
+[mission 1] $ gsh goal
+
+     _______________________________________________________
+()==(                                                      (@==()
+     '______________________________________________________'|
+       |                                                     |
+       | Objectif                                            |
+       | ========                                            |
+       |                                                     |
+       | Allez tout en haut du donjon.                       |
+       |                                                     |
+       |                                                     |
+       | Commandes utiles                                    |
+       | ================                                    |
+       |                                                     |
+       | cd LIEU                                             |
+       |   Se déplace vers le lieu donné.                    |
+       |   Note : ``cd`` est une abréviation pour "change    |
+       |   directory".                                       |
+       |                                                     |
+       | ls                                                  |
+       |   Liste les lieux accessibles depuis la position    |
+       |   actuelle.                                         |
+       |   Note : ``ls`` est une abréviation pour "liste".   |
+       |                                                     |
+       | pwd                                                 |
+       |   Affiche la position actuelle.                     |
+       |   Note : ``pwd`` est une abréviation pour "print    |
+       |   working directory".                               |
+       |                                                     |
+       | gsh check                                           |
+       |   Vérifie si l'objectif de la mission a été         |
+       |   atteint.                                          |
+       |                                                     |
+       | gsh reset                                           |
+       |   Ré-initialise la mission au début.                |
+       |                                                     |
+       |                                                     |
+       | Remarque                                            |
+       | --------                                            |
+       |                                                     |
+       | Les termes apparaissant en MAJUSCULES dans les      |
+       | commandes sont des méta-variables : vous devez les  |
+       | remplacer par des valeurs (chaines de caractères)   |
+       | appropriées.                                        |
+       |                                                     |
+       | La plupart des systèmes de fichiers différencient   |
+       | les caractères majuscules et minuscules. Faites     |
+       | attention à utiliser le bon chemin.                 |
+     __)_____________________________________________________|
+()==(                                                       (@==()
+     '------------------------------------------------------'
+
+
+[mission 1] $ ls
+Chateau  Echoppe  Foret  Jardin  Montagne
+[mission 1] $ cd Chateau
+[mission 1] $ ls
+Batiment_principal  Cave  Donjon  Grande_salle	Observatoire
+[mission 1] $ cd Donjon/
+[mission 1] $ ls
+Premier_etage
+[mission 1] $ cd Premier_etage/
+[mission 1] $ ls
+Deuxieme_etage
+[mission 1] $ cd Deuxieme_etage/
+[mission 1] $ ls
+Haut_du_donjon
+[mission 1] $ cd Haut_du_donjon/
+[mission 1] $ gsh check
+
+Bravo, vous avez réussi la mission 1 !
+
+
+  |                                            |
+--+--------------------------------------------+--
+  | Tapez la commande                          |
+  |     $ gsh help                             |
+  | pour obtenir la liste des commandes "gsh". |
+--+--------------------------------------------+--
+  |                                            |
+
+[mission 2] $
+````
 
 Documentation
 -------------

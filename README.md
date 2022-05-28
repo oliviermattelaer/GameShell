@@ -1,7 +1,7 @@
 GameShell: a "game" to teach the Unix shell
 ===========================================
 
-![Illustration inspired by the game](art/illustration-small.png)
+![Illustration inspired by the game](Images/illustration-small.png)
 
 Teaching first-year university students or high schoolers to use a Unix shell
 is not always the easiest or most entertaining of tasks. GameShell was devised
@@ -14,6 +14,9 @@ with an appropriate configuration file that defined "missions" which would be
 "checked" in order to progress through the game.
 
 Here is the result...
+
+![GameShell's first mission](Images/gsh-en.gif)
+
 
 Feel free to send us your remarks, questions or suggestions by opening
 [issues](https://github.com/phyver/GameShell/issues) or submitting
@@ -71,6 +74,166 @@ you want to run X programs from inside GameShell. Refer to [this
 section](./doc/deps.md#running-GameShell-from-a-docker-container) of the user
 manual.
 
+
+Here is what the first mission looks like:
+````
+$ bash ./gameshell.sh
+  ____                      ____  _          _ _
+ / ___| __ _ _ __ ___   ___/ ___|| |__   ___| | |
+| |  _ / _` | '_ ` _ \ / _ \___ \| '_ \ / _ \ | |
+| |_| | (_| | | | | | |  __/___) | | | |  __/ | |
+ \____|\__,_|_| |_| |_|\___|____/|_| |_|\___|_|_|
+
+                             _
+                           _/ \
+          _               /    \
+         / \_   __       /\/\  /\
+        /    \ /  \     /    \/  \
+       /\/\  /\    `--./.'-    `-.\
+      /    \/  ' ^ _    _  _
+    /\ ____..      YY  Y     _   |~  _
+   /._/  _ \_        Y  Y   [_]--'--[_]
+  / / .'/#\_ `-.    Y  YY   |'|""`""|'|
+    .-_/#@##\  `\"" ' Y     | | /^\ | |
+   " "'"''"'"'''" '         |_|_|I|_|_|
+
+Press Enter to continue.
+
+
+  ___________________________________________________________________
+ /  __                                                           __  \
+|  /  \   Welcome to GameShell!                                 /  \  |
+|\ \   |                                                       |   / /|
+| \___/|  Using and administering a computer running a         |\___/ |
+|      |  Unix-like operating system (e.g., Linux, BSD or      |      |
+|      |  macOS) requires using a command line interface       |      |
+|      |  called "shell". In this game you will learn how      |      |
+|      |  to use the shell by journeying through various       |      |
+|      |  missions that will teach you to perform standard     |      |
+|      |  tasks such as:                                       |      |
+|      |    - creating directories,                            |      |
+|      |    - creating, viewing and editing files,             |      |
+|      |    - searching for files satisfying certain           |      |
+|      |      criteria,                                        |      |
+|      |    - running and interrupting programs,               |      |
+|      |    - etc.                                             |      |
+|      |                                                       |      |
+|      |  During your adventure you will need to visit         |      |
+|      |  locations, interact with people, and find various    |      |
+|      |  objects. However, you have to keep in mind that      |      |
+|      |  these are standard directories, programs, and        |      |
+|      |  files (often with random contents). So, for          |      |
+|      |  example:                                             |      |
+|      |    - "build a hut" means creating a directory         |      |
+|      |      called "Hut", and                                |      |
+|      |    - "put a coin in your chest" means moving a file   |      |
+|      |      called "coin" to a directory called "Chest".     |      |
+|      |                                                       |      |
+ \     |_______________________________________________________|     /
+  \___/                                                         \___/
+
+
+Press Enter to continue.
+
+
+
+  |                                                   |
+--+---------------------------------------------------+--
+  | Run the command                                   |
+  |     $ gsh goal                                    |
+  | to discover your first mission.                   |
+  |                                                   |
+  | You can check the mission has been completed with |
+  |     $ gsh check                                   |
+  |                                                   |
+  | The command                                       |
+  |     $ gsh help                                    |
+  | displays the list of available (gsh) commands.    |
+--+---------------------------------------------------+--
+  |                                                   |
+
+[mission 1] $ gs goal
+
+  ,------------------------------------------------------.
+ (_\                                                      \
+    |  Mission goal                                        |
+    |  ============                                        |
+    |                                                      |
+    |  Go to the top of the main tower of the castle.      |
+    |                                                      |
+    |                                                      |
+    |  Useful commands                                     |
+    |  ===============                                     |
+    |                                                      |
+    |  cd LOCATION                                         |
+    |    Move to the given location.                       |
+    |    Remark: ``cd`` is an abbreviation for "change     |
+    |    directory".                                       |
+    |                                                      |
+    |  pwd                                                 |
+    |    Show the path to your current location.           |
+    |    Remark: ``pwd`` is an abbreviation for "print     |
+    |    working directory".                               |
+    |                                                      |
+    |  ls                                                  |
+    |    Show a list of locations that are currently       |
+    |    accessible.                                       |
+    |    Remark: ``ls`` is an abbreviation of "list".      |
+    |                                                      |
+    |  gsh check                                           |
+    |    Check if the mission objective has been achieved. |
+    |                                                      |
+    |  gsh reset                                           |
+    |    Restart the mission from the beginning.           |
+    |                                                      |
+    |                                                      |
+    |  Remarks                                             |
+    |  -------                                             |
+    |                                                      |
+    |  UPPERCASE words appearing in commands are           |
+    |  meta-variables: you need to replace them by         |
+    |  appropriate (string) values.                        |
+    |                                                      |
+    |  Most filesystems treat uppercase and lowercase      |
+    |  characters differently. Make sure you use the       |
+    |  correct path.                                       |
+   _|                                                      |
+  (_/________________________________________________(*)___/
+                                                      \\
+                                                       ))
+                                                       ^
+
+[mission 1] $ ls
+Castle	Forest	Garden	Mountain  Stall
+[mission 1] $ cd Castle/
+[mission 1] $ ls
+Cellar	Great_hall  Main_building  Main_tower  Observatory
+[mission 1] $ cd Main_tower/
+[mission 1] $ ls
+First_floor
+[mission 1] $ cd First_floor/
+[mission 1] $ ls
+Second_floor
+[mission 1] $ cd Second_floor/
+[mission 1] $ ls
+Top_of_the_tower
+[mission 1] $ cd Top_of_the_tower/
+[mission 1] $ ls
+[mission 1] $ gsh check
+
+Congratulations, mission 1 has been successfully completed!
+
+
+  |                                    |
+--+------------------------------------+--
+  | Use the command                    |
+  |     $ gsh help                     |
+  | to get the list of "gsh" commands. |
+--+------------------------------------+--
+  |                                    |
+
+[mission 2] $
+````
 
 Documentation
 -------------
