@@ -131,7 +131,6 @@ else
   if [ -z "$width" ] || [ -z "$height" ]
   then
     w_h=$($AWK -f text_size.awk "$tmpfile")
-    echo "w_h = $w_h"
   fi
 
   if [ -z "$width" ]
