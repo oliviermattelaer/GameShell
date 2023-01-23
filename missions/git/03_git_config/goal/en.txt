@@ -1,0 +1,18 @@
+Mission goal
+============
+
+Provide information to git to identify yourself.
+This include
+  - Your name
+  - Your email
+
+
+Useful commands
+===============
+
+git config [--global] user.name "YOURNAME"
+git config [--global] user.email "NAME.LASTNAME@uclouvain.be"
+  Those command have to be run ONCE per project.
+  If run with the --global they need to be run only once per machine/cluster
+
+

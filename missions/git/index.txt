@@ -1,2 +1,3 @@
 01_git_init
 02_git_add
+03_git_config

@@ -1,0 +1,11 @@
+msgid   ""
+msgstr  "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+
+#, sh-format
+msgid "You did not add setup your name correctly"
+msgstr "Vous devez configurer git pour qu'il connaise votre nom/avatar"
+
+msgid "You did not add setup your email correctly"
+msgstr "Vous devez configurer git pour qu'il connaise votre nom/avatar"
+
