@@ -1,0 +1,15 @@
+Mission goal
+============
+
+Create a file hello.txt containing 'Hello world" and add it to the index.
+
+
+Useful commands
+===============
+
+vim, emacs
+  Create a write a file
+
+git add
+  Add a file to the index
+

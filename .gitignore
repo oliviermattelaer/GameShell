@@ -1,0 +1,14 @@
+tmp
+TODO
+.bin
+.sbin
+.config
+.tmp
+World
+locale/
+*~
+gameshell.sh
+gameshell-save.sh
+gameshell.tgz
+boxes-data.awk
+game shell*

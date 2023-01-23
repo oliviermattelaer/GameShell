@@ -1,0 +1,12 @@
+Mission goal
+============
+
+Create an empty Git repository
+
+
+Useful commands
+===============
+
+git init
+  Create a repository in the current directory
+

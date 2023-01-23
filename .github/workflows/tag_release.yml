@@ -1,0 +1,32 @@
+name: "Tagged release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  gh_pre_release:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 0
+
+      - name: "Install Linux deps"
+        run: |
+          sudo apt install gettext git
+
+      - name: "Creating the archive"
+        run: |
+          git fetch --tags --force && ./utils/archive.sh
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            LICENSE
+            gameshell.sh
+            Dockerfile
