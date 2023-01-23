@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cd "${GSH_ROOT}/World/Factory"
 if git config --get user.name
 then
     unset goal current
@@ -11,6 +12,7 @@ else
     false
 fi
 
+cd "${GSH_ROOT}/World/Factory"
 if git config --get user.email
 then
     unset goal current

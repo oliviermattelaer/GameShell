@@ -1,13 +1,24 @@
 #!/bin/sh
 
-if [ -d .git ]
+CURR_DIR=`pwd`
+
+cd "$GSH_HOME"
+if [ -d "Factory" ]
 then
-    unset goal current
-    true
+    cd "Factory"
+    if [ -d ".git" ]
+    then
+	unset goal current  CURR_DIR
+	true
+    else
+	echo "$(gettext "You do not have initialized a repository in the factory")"
+	echo "$(gettext "You need to run the git init commnand within that directory")"
+	cd "${CURR_DIR}"
+	unset goal current CURR_DIR
+	false
+    fi
 else
-    echo "$(gettext "You do not have initialized a repository here!")"
-    echo "$(gettext "You need to run the git init commnand")"
-    cd "$GSH_HOME"
-    unset goal current
+    echo "$(gettext "You do not have created a directory named Factory")"
+    unset goal current CURR_DIR
     false
 fi

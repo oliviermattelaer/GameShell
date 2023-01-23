@@ -1,11 +1,17 @@
 Mission goal
 ============
 
-Create an empty Git repository
+Create an empty Git repository named Factory
 
 
 Useful commands
 ===============
+
+mkdir NAME
+  Create a directory NAME
+
+cd NAME
+  Change directory
 
 git init
   Create a repository in the current directory

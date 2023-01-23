@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-Create a file hello.txt containing 'Hello world" and add it to the index.
+Create a file hello.txt containing 'Welcome to our factory" and add it to the index.
 
 
 Useful commands
