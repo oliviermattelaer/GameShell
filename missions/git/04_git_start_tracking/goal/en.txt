@@ -1,13 +1,13 @@
 Mission goal
 ============
 
-You are new in the Food Factory of the real. (directory: World/Factory)
+You are in the new Food Factory of the realm. (directory: World/Factory)
 This Factory is already a git repository (you can check that it has a .git directory).
 
 Currently the factory has only one file "welcome.txt".
-But this file is not secured by git (you can check it by running "git status").
+But the change to this file is not tracked by git (you can check it by running "git status").
 
-Your missing is to create a release containing this file.
+Your mission is to create a first release containing this file.
 
 
 Useful commands
@@ -16,7 +16,7 @@ Useful commands
 git status
   check the status of the current git repository
   indicates  which file are edited, not tracked,...
-  indicates commands that can be usefull.
+  Note: it indicates commands that can be usefull.
 
 git add
   Add a file to the index
