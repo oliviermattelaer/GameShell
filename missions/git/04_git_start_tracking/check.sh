@@ -10,7 +10,7 @@ then
     #unset goal current
     false
 else
-    if git status welcome.txt | grep "working tree clean" >& /dev/null
+    if git status welcome.txt | grep "nothing to commit" >& /dev/null
     then
 	if [ -e welcome.txt ]
 	then
