@@ -263,7 +263,7 @@ __gsh_start() {
 Aborting.")" >&2
         exit 1
       fi
-      color_echo yellow "$(eval_gettext "Error: mission \$MISSION_NB is cancelled because some dependencies are not met.")" >&2
+      color_echo yellow "$(eval_gettext "Error: mission \$MISSION_NB is bypassed see reason above")" >&2
       GSH_CANCELLED=$GSH_CANCELLED:$MISSION_NB
       __log_action "$MISSION_NB" "CANCEL_DEP_PB"
       __gsh_start "$((MISSION_NB + 1))"
@@ -427,10 +427,10 @@ You should use the command
       fi
     fi
 
+    export GSH_LAST_ACTION='check_true'
     __gsh_clean "$MISSION_NB"
 
     __log_action "$MISSION_NB" "CHECK_OK"
-    export GSH_LAST_ACTION='check_true'
 
     if [ -n "$GSH_AUTOSAVE" ] && [ "$GSH_AUTOSAVE" != "0" ]
     then
@@ -443,10 +443,10 @@ You should use the command
     echo
     color_echo red "$(eval_gettext "Sorry, mission \$MISSION_NB hasn't been completed.")"
     echo
-
+    export GSH_LAST_ACTION='check_false'
     __gsh_clean "$MISSION_NB"
     __log_action "$MISSION_NB" "CHECK_OOPS"
-    export GSH_LAST_ACTION='check_false'
+
 
     if [ -n "$GSH_AUTOSAVE" ] && [ "$GSH_AUTOSAVE" != "0" ]
     then

@@ -21,7 +21,7 @@ if git config --get user.name
 then
     if git config --get user.email
     then
-	echo "$(gettext "bypassed level3 since name/email already configured")"
+	echo "$(gettext "bypassed $MISSION_NB since name/email already configured")"
 	false
     fi
 else

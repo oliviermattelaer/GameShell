@@ -1,3 +1,6 @@
 Use the command
     $ gsh help
 to get the list of "gsh" commands.
+Use the command
+    $ gsh goal
+to get the description of the current mission.
