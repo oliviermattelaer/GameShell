@@ -1,0 +1,72 @@
+#!/bin/sh
+
+cd "${GSH_ROOT}/World/Factory"
+
+sub_mission=0
+
+echo "$(gettext "Checking SubMission 1: removal of to_remove.txt")"
+if [ ! -e to_remove.txt ];then
+   if git status to_remove.txt | grep "Changes to be committed" >& /dev/null
+   then
+       echo "$(gettext "removal of to_remove.txt is ready to be commited. But is not yet commited. You need to commit that change.")"
+   else
+       if git status to_remove.txt | grep "nothing to commit" >& /dev/null
+       then
+	   echo "$(gettext "Success")"
+	   let "sub_mission+=1"
+       else
+	   echo "$(gettext "you did remove the file but still need to commit your change: git commit -am")"
+       fi
+   fi
+else
+    echo "$(gettext "you did NOT remove the file, you can use 'git rm' or just the standard 'rm' to remove such file.")"
+fi
+      
+echo "$(gettext "Checking SubMission 2: REVERT wrong modification set in the index")"
+if git status in_index_but_change_to_discard.txt | grep "Changes to be committed" >& /dev/null
+then
+   echo "$(gettext "Your file in_index_but_change_to_discard.txt is still not in a clean state. Did you revert the change?")"
+elif cat in_index_but_change_to_discard.txt | grep "number of customer is 0" >& /dev/null;
+then
+	
+   echo "$(gettext "Your file in_index_but_change_to_discard.txt has been committed with the wrong version of the file.")"
+   echo "$(gettext "You can either reset the level with gsh reset")"
+   echo "$(gettext "or you can restore the file to the old status thanks to 'git restore FILE --source HEAD~1' [HEAD~1 means the last but one commit]")"
+else
+    echo "$(gettext "Success")"
+    let "sub_mission+=1"
+fi
+   
+echo "$(gettext "Checking SubMission 3: restore file at last commit")"
+
+if git status should_be_reverted_to_last_commit.txt | grep "Changes not staged" >& /dev/null
+then
+   echo "$(gettext "The file should_be_reverted_to_last_commit.txt contains modification compare to last commit. You should either commit them. Or, more likely, restore previous state)")"
+elif git status should_be_reverted_to_last_commit.txt | grep "Changes to be committed" >& /dev/null
+then
+    echo "$(gettext "The file should_be_reverted_to_last_commit.txt contains modification compare to last commit. You have put those modification in the index but not yet commited them.")"
+    echo "$(gettext "You should either commit them. Or, more likely, restore previous state)")"
+    
+elif cat should_be_reverted_to_last_commit.txt | grep "no data" >& /dev/null
+then
+     echo "$(gettext "The file should_be_reverted_to_last_commit.txt is commited but with the wrong information inside")"
+   echo "$(gettext "You can either reset the level with gsh reset")"
+   echo "$(gettext "or you can restore the file to the old status thanks to 'git restore FILE --source HEAD~1' [HEAD~1 means the last but one commit]")"
+else
+    echo "$(gettext "Success")"
+    let "sub_mission+=1"     
+fi
+    
+if [[ $sub_mission = 3 ]];
+then
+    echo "Good Job: All passed"
+    true
+else
+    echo "$(gettext "You only succeed $sub_mission/3 sub-missions.")"
+    false
+fi
+
+
+
+
+

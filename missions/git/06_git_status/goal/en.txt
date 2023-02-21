@@ -1,0 +1,22 @@
+Mission goal
+============
+
+Someone put a mess in this Factory.
+Can you clean the mess?
+From the name of the file, you should be able to guess what to do.
+
+Useful commands
+===============
+
+git status 
+  check the status of the current git repository
+
+git restore FILENAME
+  restore file to last commit status
+
+git rm FILENAMW
+  remove a file from being within the git repo
+  Note this will also remove the file
+
+
+

@@ -12,3 +12,4 @@ gameshell-save.sh
 gameshell.tgz
 boxes-data.awk
 game shell*
+missions/git/*/i18n/
