@@ -5,6 +5,7 @@ cd "${GSH_ROOT}/World/Factory"
 sub_mission=0
 
 echo "$(gettext "Checking SubMission 1: removal of to_remove.txt")"
+echo "$(gettext "===============================================")"
 if [ ! -e to_remove.txt ];then
    if git status to_remove.txt | grep "Changes to be committed" >& /dev/null
    then
@@ -21,8 +22,9 @@ if [ ! -e to_remove.txt ];then
 else
     echo "$(gettext "you did NOT remove the file, you can use 'git rm' or just the standard 'rm' to remove such file.")"
 fi
-      
-echo "$(gettext "Checking SubMission 2: REVERT wrong modification set in the index")"
+   echo "$(gettext " ")"
+   echo "$(gettext "Checking SubMission 2: REVERT wrong modification set in the index")"
+   echo "$(gettext "=================================================================")"
 if git status in_index_but_change_to_discard.txt | grep "Changes to be committed" >& /dev/null
 then
    echo "$(gettext "Your file in_index_but_change_to_discard.txt is still not in a clean state. Did you revert the change?")"
@@ -30,14 +32,19 @@ elif cat in_index_but_change_to_discard.txt | grep "number of customer is 0" >& 
 then
 	
    echo "$(gettext "Your file in_index_but_change_to_discard.txt has been committed with the wrong version of the file.")"
-   echo "$(gettext "You can either reset the level with gsh reset")"
-   echo "$(gettext "or you can restore the file to the old status thanks to 'git restore FILE --source HEAD~1' [HEAD~1 means the last but one commit]")"
+   echo "$(gettext "You can either reset the level with gsh reset --this will also impact other submission--")"
+   echo "$(gettext "Or you can reset only this part of the mission by running 'reset_sub2.sh'")"
+   echo "$(gettext "In production, you could")"
+   echo "$(gettext "   - restore back the old status of the file via the command 'git restore in_index_but_change_to_discard.txt --source HEAD~1' [HEAD~1 means the last but one commit]")"
+   echo "$(gettext "   - remove completely the wrong commit (can be dangerous) via 'git reset --hard HEAD~1 (for the game prefer gsh reset)'")"
 else
     echo "$(gettext "Success")"
     let "sub_mission+=1"
 fi
-   
+
+echo "$(gettext " ")"
 echo "$(gettext "Checking SubMission 3: restore file at last commit")"
+echo "$(gettext "==================================================")"
 
 if git status should_be_reverted_to_last_commit.txt | grep "Changes not staged" >& /dev/null
 then
@@ -59,9 +66,11 @@ fi
     
 if [[ $sub_mission = 3 ]];
 then
+    echo "$(gettext " ")"
     echo "Good Job: All passed"
     true
 else
+    echo "$(gettext " ")"
     echo "$(gettext "You only succeed $sub_mission/3 sub-missions.")"
     false
 fi
