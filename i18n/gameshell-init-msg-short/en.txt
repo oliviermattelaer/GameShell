@@ -4,3 +4,6 @@ to get the list of "gsh" commands.
 Use the command
     $ gsh goal
 to get the description of the current mission.
+Use the command
+    $ gsh check
+to check if you pass the level (and help if you did not)

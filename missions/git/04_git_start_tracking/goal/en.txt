@@ -14,15 +14,15 @@ Useful commands
 ===============
 
 git status
-  check the status of the current git repository
-  indicates  which file are edited, not tracked,...
-  Note: it indicates commands that can be usefull.
+~~ check the status of the current git repository
+~~ indicates  which file are edited, not tracked,...
+~~ Note: it indicates commands that can be usefull.
 
 git add
-  Add a file to the index
-  Start to track a new file
+~~ Add a file to the index
+~~ Start to track a new file
 
 git commit
-  save the current index as a commit of the history
-  usefull option:
-   -m "MSG" : provide directly the commit message (MSG) without opening a text editor
+~~ save the current index as a commit of the history
+~~ usefull option:
+~~  -m "MSG" : provide directly the commit message (MSG) without opening a text editor
