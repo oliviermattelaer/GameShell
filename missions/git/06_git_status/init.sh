@@ -18,13 +18,13 @@ then
    git commit -m "first commit"
 
    # maybe not the correct test
-   if [ ! -e "$GSH_HOME/Factory/to_remove.txt" ]
-   then
-      echo "OOOPS" > to_remove.txt
-      git add to_remove.txt
-      git commit -m "adding file that need to be removed"
-      echo "This file needs to be remove from the next commit" > to_remove.txt
-   fi
+   #if [ ! -e "$GSH_HOME/Factory/to_remove.txt" ]
+   #then
+   #   echo "OOOPS" > to_remove.txt
+   #   git add to_remove.txt
+   #   git commit -m "adding file that need to be removed"
+   #   echo "This file needs to be remove from the next commit" > to_remove.txt
+   #fi
    #git restore should_be_reverted_to_last_commit.txt
    #git restore --staged in_index_but_change_to_discard.txt
    in_index="in_index_but_change_to_discard.txt"

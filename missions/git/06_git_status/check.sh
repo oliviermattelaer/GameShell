@@ -4,26 +4,26 @@ cd "${GSH_ROOT}/World/Factory"
 
 sub_mission=0
 
-echo "$(gettext "Checking SubMission 1: removal of to_remove.txt")"
-echo "$(gettext "===============================================")"
-if [ ! -e to_remove.txt ];then
-   if git status to_remove.txt | grep "Changes to be committed" >& /dev/null
-   then
-       echo "$(gettext "removal of to_remove.txt is ready to be commited. But is not yet commited. You need to commit that change.")"
-   else
-       if git status to_remove.txt | grep "nothing to commit" >& /dev/null
-       then
-	   echo "$(gettext "Success")"
-	   let "sub_mission+=1"
-       else
-	   echo "$(gettext "you did remove the file but still need to commit your change: git commit -am")"
-       fi
-   fi
-else
-    echo "$(gettext "you did NOT remove the file, you can use 'git rm' or just the standard 'rm' to remove such file.")"
-fi
+#echo "$(gettext "Checking SubMission 1: removal of to_remove.txt")"
+#echo "$(gettext "===============================================")"
+#if [ ! -e to_remove.txt ];then
+#   if git status to_remove.txt | grep "Changes to be committed" >& /dev/null
+#   then
+#       echo "$(gettext "removal of to_remove.txt is ready to be commited. But is not yet commited. You need to commit that change.")"
+#   else
+#       if git status to_remove.txt | grep "nothing to commit" >& /dev/null
+#       then
+#	   echo "$(gettext "Success")"
+#	   let "sub_mission+=1"
+#       else
+#	   echo "$(gettext "you did remove the file but still need to commit your change: git commit -am")"
+#       fi
+#   fi
+#else
+#    echo "$(gettext "you did NOT remove the file, you can use 'git rm' or just the standard 'rm' to remove such file.")"
+#fi
    echo "$(gettext " ")"
-   echo "$(gettext "Checking SubMission 2: REVERT wrong modification set in the index")"
+   echo "$(gettext "Checking SubMission 1: REVERT wrong modification set in the index")"
    echo "$(gettext "=================================================================")"
 if git status in_index_but_change_to_discard.txt | grep "Changes to be committed" >& /dev/null
 then
@@ -43,7 +43,7 @@ else
 fi
 
 echo "$(gettext " ")"
-echo "$(gettext "Checking SubMission 3: restore file at last commit")"
+echo "$(gettext "Checking SubMission 2: restore file at last commit")"
 echo "$(gettext "==================================================")"
 
 if git status should_be_reverted_to_last_commit.txt | grep "Changes not staged" >& /dev/null
@@ -64,14 +64,14 @@ else
     let "sub_mission+=1"     
 fi
     
-if [[ $sub_mission = 3 ]];
+if [[ $sub_mission = 2 ]];
 then
     echo "$(gettext " ")"
     echo "Good Job: All passed"
     true
 else
     echo "$(gettext " ")"
-    echo "$(gettext "You only succeed $sub_mission/3 sub-missions.")"
+    echo "$(gettext "You only succeed $sub_mission/2 sub-missions.")"
     false
 fi
 
