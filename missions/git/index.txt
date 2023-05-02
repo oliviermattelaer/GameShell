@@ -2,3 +2,4 @@
 04_git_start_tracking
 05_git_edit_file
 06_git_status
+07_git_patch
