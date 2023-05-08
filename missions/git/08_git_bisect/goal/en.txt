@@ -21,7 +21,7 @@ Then you need to specify one "good" and one "bad" revision.
 Let's start by indicating that the current/last commit is problematic
  >>> git bisect bad
 Then indicate that the (tagged) version is working nice
- >>> git bisect before_shutdown
+ >>> git bisect good before_shutdown
 
 Then git will print something like
 > Bisecting: 32 revisions left to test after this (roughly 5 steps)
@@ -45,7 +45,9 @@ After a couple of iterations, you will see a message like.
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 
 at that stage you can do
+ >>> git checkout  BAD_COMMIT 
  >>> git diff HEAD~1
+replace BAD_COMMIT by the commit number above
 then edit produce.py and fix the issue (and check that ./produce.py works now).
 
 To propagate your change to the latest commit you can do
