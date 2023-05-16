@@ -18,11 +18,13 @@ then
 elif ! diff -q produce.py $MISSION_DIR/../00_git/produce_target.py &>/dev/null; then
     echo "$(gettext "not reach expected target. See below for remaining difference.")"
     diff produce.py $MISSION_DIR/../00_git/produce_target.py
+    echo "$(gettext "*********************")"
+    echo "$(gettext " Remember that you can reset (and retry) the level by running \"gsh reset\"")"
     unset goal current
     false
 else
     unset goal current
-    echo "Code set as fail for check: Good Work"
+    echo "Good Work"
     true
 fi
 

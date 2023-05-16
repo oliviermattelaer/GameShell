@@ -15,14 +15,14 @@ then
    git init &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    git add welcome.txt &> /dev/null
-   git commit -m "first commit"
+   git commit -m "first commit" &> /dev/null
 fi
 
 if [ ! -e "$GSH_HOME/Factory/produce.py" ]
 then
     cp "$MISSION_DIR/../00_git/produce.py" "$GSH_HOME/Factory/"
     git add produce.py &> /dev/null
-    git commit -m "version1 of produce.py"
+    git commit -m "version1 of produce.py" &> /dev/null
     cp "$MISSION_DIR/../00_git/produce2.py" "$GSH_HOME/Factory/produce.py"
 fi
 

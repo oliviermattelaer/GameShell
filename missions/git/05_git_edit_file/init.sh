@@ -16,12 +16,12 @@ then
    git init &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    git add welcome.txt &> /dev/null
-   git commit -m "first commit"
+   git commit -m "first commit" &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    echo "MISSION: Please remove any line starting with a hash (#)." >> welcome.txt
    echo "# TODO: check that our factory has electricity: OK Done" >> welcome.txt
    echo "# TODO: check our supply chain: OK done" >> welcome.txt
-   git commit -am "Update TODO LIST"
+   git commit -am "Update TODO LIST" &> /dev/null
 fi
 
 

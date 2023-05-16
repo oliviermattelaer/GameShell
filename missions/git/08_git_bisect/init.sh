@@ -15,8 +15,8 @@ then
    git init &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    git add welcome.txt &> /dev/null
-   git commit -m "first commit"
-   rm produce.py
+   git commit -m "first commit" &> /dev/null
+   rm produce.py &> /dev/null
 fi
 
 if [ ! -e "$GSH_HOME/Factory/produce.py" ]
@@ -25,8 +25,8 @@ then
     cp "$MISSION_DIR/../00_git/change_bisect.py" "$GSH_HOME/Factory/change_bisect.py"
     chmod +x produce.py
     git add produce.py &> /dev/null
-    git commit -m "version1 of produce.py"
-    git tag before_shutdown
+    git commit -m "version1 of produce.py" &> /dev/null
+    git tag before_shutdown &> /dev/null
     python3 change_bisect.py &> /dev/null
     rm change_bisect.py 
 fi

@@ -5,7 +5,7 @@ if [ ! -d "$GSH_HOME/Factory" ]
 then
     mkdir "$GSH_HOME/Factory"
     cd "$GSH_HOME/Factory"
-    git init
+    git init  &> /dev/null
 fi
 
 
@@ -17,9 +17,9 @@ fi
 
 
 cd "$GSH_HOME/Factory"
-if git config --get user.name
+if git config --get user.name &> /dev/null
 then
-    if git config --get user.email
+    if git config --get user.email  &> /dev/null
     then
 	echo "$(gettext "bypassed $MISSION_NB since name/email already configured")"
 	false

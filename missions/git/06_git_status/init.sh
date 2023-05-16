@@ -15,7 +15,7 @@ then
    git init &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    git add welcome.txt &> /dev/null
-   git commit -m "first commit"
+   git commit -m "first commit" &> /dev/null
 
    # maybe not the correct test
    #if [ ! -e "$GSH_HOME/Factory/to_remove.txt" ]
@@ -27,24 +27,24 @@ then
    #fi
    #git restore should_be_reverted_to_last_commit.txt
    #git restore --staged in_index_but_change_to_discard.txt
-   in_index="in_index_but_change_to_discard.txt"
-   to_revert="should_be_reverted_to_last_commit.txt"
+   in_index="should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt"
+   to_revert="should_be_restore_to_last_commit.txt"
    if [ ! -e "$GSH_HOME/Factory/$to_revert" ]
    then
       echo "last correct information" > $to_revert
-      git add $to_revert
-      git commit -m "original file financial information"
+      git add $to_revert &> /dev/null
+      git commit -m "original file financial information" &> /dev/null
       echo "no data (all erased) what did I do?" > $to_revert
    fi
    # this need to be last since we need to not have any commit
    # after the git add
    if [ ! -e "$GSH_HOME/Factory/$in_index" ]
    then
-      echo "number of customer is 363" > $in_index
-      git add $in_index
-      git commit -m "original file number of customer"
+      echo "number of customer is 363" > $in_index 
+      git add $in_index &> /dev/null
+      git commit -m "original file number of customer" &> /dev/null
       echo "number of customer is 0" > $in_index
-      git add $in_index
+      git add $in_index &> /dev/null
    fi
 
 fi
