@@ -3,6 +3,7 @@ Mission goal
 
 Someone put a mess in this Factory.
 Can you clean the mess?
+
 From the name of the file, you should be able to guess what to do.
 Use git status to see the status of the files and act accordingly.
 Note that some change have already be put in the index !!

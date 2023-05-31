@@ -1,0 +1,19 @@
+Mission goal
+============
+
+Your boss wants that you start to devellop the next generation of the Factory.
+But still wants you to solve the day to day issue of the current Factory...
+Hopefully, you know that the git has the concept of branch.
+
+Your mission is to create a new branch named "NEXTGEN"
+and to update the welcome.txt accordingly (see instructions inside that file)
+
+
+Useful commands
+===============
+
+git switch BRANCH
+~~ change the current branch to the one name BRANCH
+~~ OPTIONS:
+~~   -c : create the new branch
+
