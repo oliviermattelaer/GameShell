@@ -1,0 +1,6 @@
+Good choice,
+now you can use
+git lg
+and have the pretty display
+
+

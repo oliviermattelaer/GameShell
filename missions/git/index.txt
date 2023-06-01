@@ -5,3 +5,4 @@
 07_git_patch
 08_git_bisect
 p2_01_newbranch
+p2_02_gitlog

@@ -6,7 +6,8 @@ curr_branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 ### CHECK BRANCH
 if [[ "$curr_branch" == "main" ]]
 then
-    echo "$(gettext "You are still in the main branch. To create (and change branch) you can use git switch -c NAME.")"
+    echo "$(gettext "You are still in the main branch.")"
+    echo "$(gettext "To create (and change branch) you can use git switch -c NAME.")"
     unset goal current curr_branch
     false
 elif [[ "$curr_branch" != "NEXTGEN" ]]
