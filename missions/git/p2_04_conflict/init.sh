@@ -20,7 +20,7 @@ then
    echo "This is Readme for v1.0" > readme.txt
    git add readme.txt
    echo "echo 'running factory'" > factory.sh
-   for i in {1..100}
+   for i in {1..10}
    do
        echo "echo '$i'" >> factory.sh 
    done
@@ -41,9 +41,22 @@ then
    sed  's/factory/better factory/g' factory.sh > factory2.sh
    mv factory2.sh factory.sh
    git commit -am "even better factory.sh script"    &> /dev/null
+   echo "echo 'running updated better factory'" > factory.sh
+   echo "echo '#Note: replace a list of echo from 1 to 10 by a nice for loop'" >> factory.sh
+#   for i in {1..10}
+#   do
+#       echo "#echo '$i'" >> factory.sh 
+#   done
+   echo "for i in {1..10}" >> factory.sh
+   echo "do" >> factory.sh
+   echo "  echo '\$i'" >> factory.sh
+   echo "done" >> factory.sh
+   git commit -am "Avoid code repetition and use a for loop"    &> /dev/null
    # back to main
    git switch main  &> /dev/null
-   echo "echo '101'" >> factory.sh
+   echo "echo '11'" >> factory.sh
+   sed  's/1.0/1.1/g' welcome.txt > welcome2.txt
+   mv welcome2.txt welcome.txt
    git commit -am "fixing main script end condition was wrong"    &> /dev/null
 fi
 
