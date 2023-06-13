@@ -6,3 +6,6 @@
 08_git_bisect
 p2_01_newbranch
 p2_02_gitlog
+p2_03_gitmerge
+p2_04_conflict
+p2_05_stash
