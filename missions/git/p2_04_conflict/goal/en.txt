@@ -1,8 +1,8 @@
 Mission goal
 ============
 
-Another develloper has push an additional fix to the main branch.
-Can you do the same as the previous level and merge the commit in main in your NEXTGEN branch.
+Another develloper pushed an additional fix to the main branch.
+Can you do the same as the previous level and merge the commit of the main in your NEXTGEN branch.
 
 Useful commands
 ===============

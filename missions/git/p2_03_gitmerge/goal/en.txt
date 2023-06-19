@@ -2,11 +2,12 @@ Mission goal
 ============
 
 Your boss ask you to merge the bug fix that you found in the "main" branch and include in your NEXTGEN branch.
+Do not touch to the main branch!
 
 After the merging your graph of commit should look like this:
 *   143837c - (HEAD -> NEXTGEN)
 |\
-| * 52e81ea - (main) fixing main script 
+| * 52e81ea - (main) fixing main script
 * | 1a3cfbe - even better factory.sh script
 * | 41871d1 - better factory.sh script
 * | da4f7cb - update welcome.txt to start v2
