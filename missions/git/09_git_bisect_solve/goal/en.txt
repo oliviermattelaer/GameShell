@@ -4,10 +4,8 @@ Mission goal
 You were suppose to restart an "old" factory line today.
 But when you ran "./produce.py" you got "FATAL ERROR" instead of "success".
 
-Your mission is to find which commit introduced the bug.
-To pass the mission, you will need to enter the hash of the commit introducing the bug
-You can use the "git bisect" functionality for finding easily such hash
-
+Your mission is to debug the file "produce.py". To do so, the easiest is to find which commit introduce the bug.
+You can use "git bisect" functionality for that.
 Note that the last working version (that you know) is tagged with name "before_shutdown".
 
 GIT BISECT TUTO
@@ -46,11 +44,25 @@ After a couple of iterations, you will see a message like.
 > produce.py | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 
-You now have the require information to succeed the mission.
-But please quit the bisect mode first:
->>> git bisect reset
+at that stage you can do
+ >>> git checkout  BAD_COMMIT 
+ >>> git diff HEAD~1
+replace BAD_COMMIT by the commit number above
+then edit produce.py and fix the issue (and check that ./produce.py works now).
 
-You can now do "gsh check" and answer the question.
+To propagate your change to the latest commit you can do
+# save the diff compare to the latest commit
+ >>> git stash
+# get out of the bisect mode (going back to the latest commit) 
+ >>> git bisect reset
+# apply the diff that you save
+ >>> git stash pop
+# check that the code is now working
+ >>> ./produce.py
+# commit your change
+ >>> git commit -am "produce.py back to working state"
+
+
 
 Useful commands
 ===============
@@ -70,6 +82,14 @@ git bisect good
 git bisect reset
 ~   get out of the bisect mode (goes back to last commit for the working directory)
 
+git stash
+~   take the diff of the working directory and index on the side to be used later
+~   your current directory will be back on the state of the lastest commit.
+~   This is usefull when you worked in the "wrong" place (like in bisect mode or in the wrong branch)
+
+
+git stash pop
+~   Apply the latest diff that was store by git stash
 
 
 

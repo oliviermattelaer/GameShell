@@ -1,6 +1,8 @@
-Good choice,
-now you can use
+You have a new treasure.
+We have defined a shortcut such that 
+you can use
 git lg
-and have the pretty display
+and have a pretty display (see below).
+
 
 

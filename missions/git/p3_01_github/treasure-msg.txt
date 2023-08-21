@@ -1,0 +1,5 @@
+Congratulations,
+You have found a treasure.
+It will update your prompt...
+With the current git branch you are working on.
+
