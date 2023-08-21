@@ -1,0 +1,34 @@
+Mission goal
+============
+
+Next step is to be able to communicate with the github repo via secure connection (ssh).
+This step needs to be done only once for all your github repo.
+
+We advise to use a dedicated ssh key for github (and a unique one for each server/machine used).
+On the otherhand, we advised that you do not use a passphrase to avoid to type your password everytime.
+(If you have an agent running, you can obviously put a passphrase).
+
+Step 1: Generate a (new and local) ssh key.
+===========================================
+(bypass this step if you want to use an agent and a ssh key from your laptop/workstation/...)
+
+For this run the following command:
+ssh-keygen -t rsa -f ~/.ssh/id_rsa.git
+and enter (twice) the passphrase of your choice (just type enter twice to not have any passphrase).
+
+
+Step 2: tell github about the key you want to use.
+=================================================
+run
+cat ~/.ssh/id_rsa.git
+and copy the output in your clipboard, then go to 
+https://github.com/settings/keys
+click on "New ssh key" put as title the name of the cluster
+and paste the content of your clipboard.
+
+
+Step 3: check the connection
+============================
+run gsh check to test the connection and/or run
+ssh -T git@github.com
+to see what the problem is.
