@@ -1,0 +1,17 @@
+Mission goal
+============
+
+Now that you have a local copy of your repository and that your ssh key is correctly setup.
+It is time to push some modification on your github repo.
+
+Edit the file product.list
+and change the price of the philosopher's stone to zero. (Big promotion day)
+Then create a commit and sync your github repo to have that change in.
+
+Usefull command
+===============
+git push
+    (try to) add your new additional commit to the remote repository
+
+git remote -v
+    get access to the url use for the push command

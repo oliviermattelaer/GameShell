@@ -27,8 +27,10 @@ ssh -T git@github.com 1> /tmp/f 2>&1
 
 if cat /tmp/f | grep "successfully"
 then
-    echo "ssh setup already configured -> bypass level"
-    false
+    echo "ssh setup already configured"
+    echo "LEVEL is an autowin."
+    echo "please run gsh check to go to next level"
+    true
 else
     #echo "you do not have ssh configured yet (see below)"
     #cat /tmp/f

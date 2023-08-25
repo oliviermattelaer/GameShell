@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git clone https://github.com/billmoruuv/gitlectures
+git clone git@github.com:billmoruuv/gitlectures.git
 gsh check
 
 

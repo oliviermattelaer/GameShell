@@ -1,0 +1,20 @@
+Mission goal
+============
+
+Let's finish the promotion and reset the philosopher's stone to a more relevant price (50) and put this new price within your github repo.
+
+Now something "new" will happen since a collaborator (in this case an automatic script) has submit a new commit before you.
+
+Usefull command
+===============
+git pull
+    try to update your current repo and update your HEAD to the one of the
+    remote repository
+
+IF you have local commit this will break and you will need to use one of the following option:
+
+git pull --rebase
+    re-apply your local commit one by one on top of the commit on the remote repository. (give a linear history)
+
+git pull --merge
+    Do a standard merge operation. 
