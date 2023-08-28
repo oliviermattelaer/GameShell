@@ -1,6 +1,5 @@
 #!/bin/sh
 
-echo "run init.sh"
 
 if [ ! -d "$GSH_HOME/Factory" ]
 then
@@ -33,19 +32,25 @@ status=`cat /tmp/test | grep origin`
 i=0
 while [[ $status == '' ]]
 do
-    echo "waiting for github remote repository to setup itself for next level"
-    git fetch --dry-run
-    sleep 1
-    i=$i+1
-    if (( $i == 10 ))
+    if (( $i <5 ))
     then
-	echo "second try"
-	echo "# add line to force github action" >> product.dat
-	git add product.list
-	git commit -am "second try with github action"
+	echo "waiting for github remote repository to setup itself for next level ${i}/5"
+    else
+	echo "waiting for github remote repository to setup itself for next level $i/15"
+    fi
+    #git fetch --dry-run
+    sleep 1
+    i=$(($i+1))
+    #i=`$i+1`
+    if (( $i == 5 ))
+    then
+	echo "Force a new commit to force the setting of github"
+	echo "# add line to force github action" >> product.list
+	git add product.list &> /dev/null
+	git commit -am "second try with github action" &> /dev/null
 	#git push --set-upstream $fork master
-	git push 
-    elif (( $i > 25 ))
+	git push  &> /dev/null
+    elif (( $i > 15 ))
     then
 	break
     fi
@@ -56,10 +61,8 @@ done
 
 
 
-git fetch --dry-run &> /tmp/test
-cat /tmp/test
-
-cd $GSH_HOME/Factory/gitlectures
+#git fetch --dry-run &> /tmp/test
+#cd $GSH_HOME/Factory/gitlectures
 
 
 

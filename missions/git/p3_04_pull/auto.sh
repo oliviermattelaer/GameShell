@@ -2,12 +2,12 @@
 git pull
 #reset file
 echo "reset file product.list to initial value"
-echo "# product price" > product.list
-echo "arrow 1" >> product.list
-echo "bow 10" >> product.list
-echo "philosopher's_stone 50" >> product.list
-git add product.list &> /dev/null
-git commit -m "change philosopher stone price in product.list" &>   /dev/null
+echo "# product price" > SOLDOUT_waiting_for_stock.list
+echo "arrow 1" >> SOLDOUT_waiting_for_stock.list
+echo "bow 10" >> SOLDOUT_waiting_for_stock.list
+echo "philosopher's stone 50" >> SOLDOUT_waiting_for_stock.list
+git add SOLDOUT_waiting_for_stock.list &> /dev/null
+git commit -m "change philosopher stone put in sold out" &>   /dev/null
 git push 
 gsh check
 

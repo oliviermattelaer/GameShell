@@ -1,9 +1,11 @@
 Mission goal
 ============
 
-Let's finish the promotion and reset the philosopher's stone to a more relevant price (50) and put this new price within your github repo.
+Your promotion on the philosopher's stone had a hug impact. And the product is now sold out.
+It's time to add that product in the file SOLDOUT_waiting_for_stock.list
+Then publish it within your github repo.
 
-Now something "new" will happen since a collaborator (in this case an automatic script) has submit a new commit before you.
+This is the same as previous level BUT something "new" will happen since a collaborator (in this case an automatic script) has submit a new commit before you.
 
 Usefull command
 ===============
