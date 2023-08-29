@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-You were suppose to restart an "old" factory line today.
+You were suppose to restart an "old" factory that produce gold bracelet..
 But when you ran "./produce.py" you got "FATAL ERROR" instead of "success".
 
 Your mission is to find which commit introduced the bug.

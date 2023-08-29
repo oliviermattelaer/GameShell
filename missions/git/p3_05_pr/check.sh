@@ -6,10 +6,9 @@ if git status SOLDOUT_waiting_for_stock.list | grep "nothing to commit" >& /dev/
 then
     # check that the file was edited has expected
     price_line= cat SOLDOUT_waiting_for_stock.list | grep excalibur -i
-    echo "price_line is at $price_line"
-    read -ra ADDR <<< "$price_line"
-    price=${ADDR[1]}
-    echo "price is set at $price"
+#    echo "price_line is at !$price_line!"
+#    read -ra ADDR <<< "$price_line"
+#    price=${ADDR[1]}
     if [[ $price_line != "" ]]
     then
 	echo "$(gettext "Check the comment on your Pull Request for instructions on how to finish the level")"

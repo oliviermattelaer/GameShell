@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-Your boss wants to know how much progress has been made since you first created the NEXTGEN branch. Can you answer him with how many bug fix have been pushed in the main version and how many commit did you achieved in the NEXTGEN branch?
+Your boss wants to know how much progress has been made since you first created the NEXTGEN branch. Can you answer him with how many bug fix have been pushed in the master branch (the official version) and how many commit did you achieved in the NEXTGEN branch?
 
 
 Useful commands

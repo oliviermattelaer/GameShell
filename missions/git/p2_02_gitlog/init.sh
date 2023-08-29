@@ -13,7 +13,7 @@ cd "$GSH_HOME/Factory"
 if [ ! -d "$GSH_HOME/Factory/.git" ]
 then
    # First commit (three file welcome, readme, factory.sh)
-   git init &> /dev/null
+   git init --initial-branch=master &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    echo "This is Factory v1.0 " >> welcome.txt
    git add welcome.txt &> /dev/null
@@ -42,7 +42,7 @@ then
    mv factory2.sh factory.sh
    git commit -am "even better factory.sh script"    &> /dev/null
    # back to main
-   git switch main  &> /dev/null
+   git switch master  &> /dev/null
    echo "echo '101'" >> factory.sh
    git commit -am "fixing main script end condition was wrong"    &> /dev/null
 fi
