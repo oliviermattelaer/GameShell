@@ -1,3 +1,4 @@
+!00_git
 03_git_config
 04_git_start_tracking
 05_git_edit_file
