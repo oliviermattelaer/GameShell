@@ -1,0 +1,14 @@
+Mission goal
+============
+
+github is not only a place to share a common git repository
+but also a place where you can collaborate.
+The typical place for discussion on github is via issue and  Pull Request.
+Pull Request allow you to discuss a proposed changed of code modification.
+
+Your current mission is to propose to port back your change to the original github repo (the one that you clone from: https://github.com/oliviermattelaer/gitlectures).
+
+For that go to your github repo.
+then click on pull request and then on new pull request.
+
+You will be able to choose which of your branch of your repo (in this case the master branch) you want to merge with which branch of your/another repository. (you can target the master branch). 

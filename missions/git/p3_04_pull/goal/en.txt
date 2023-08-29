@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-Your promotion on the philosopher's stone had a hug impact. And the product is now sold out.
+Your promotion on the philosopher's stone had a huge impact. And the product is now sold out.
 It's time to add that product in the file SOLDOUT_waiting_for_stock.list
 Then publish it within your github repo.
 
