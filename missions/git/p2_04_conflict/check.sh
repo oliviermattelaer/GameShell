@@ -34,12 +34,12 @@ then
 elif ! git rev-parse HEAD^2 &>/dev/null;
 then
     echo "$(gettext "Did you forget to merge the two branches? (or did you do it by hand)?")."
-    echo "$(gettext "Our advise would be to run \"git lg main NEXTGEN\" to see the status and in case reset the level with \"gsh reset\".")"
+    echo "$(gettext "Our advise would be to run \"git lg master NEXTGEN\" to see the status and in case reset the level with \"gsh reset\".")"
     unset goal current
     false
-elif [[ `git rev-parse --abbrev-ref HEAD` == 'main' ]];
+elif [[ `git rev-parse --abbrev-ref HEAD` == 'master' ]];
 then
-    echo "$(gettext "Looks like you did merge in the wrong direction. You did merge the content of 'NEXTGEN' into the main branch and not the opposite.")"
+    echo "$(gettext "Looks like you did merge in the wrong direction. You did merge the content of 'NEXTGEN' into the master branch and not the opposite.")"
     echo "$(gettext "Did you forget to switch branch first?")"
     echo "$(gettext "We advise to reset the level with \"gsh reset\" and retry the level.")"
     unset goal current

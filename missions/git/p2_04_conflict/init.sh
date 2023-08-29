@@ -13,7 +13,7 @@ cd "$GSH_HOME/Factory"
 if [ ! -d "$GSH_HOME/Factory/.git" ]
 then
    # First commit (three file welcome, readme, factory.sh)
-   git init &> /dev/null
+   git init --initial-branch=master &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    echo "This is Factory v1.0 " >> welcome.txt
    git add welcome.txt &> /dev/null
@@ -53,7 +53,7 @@ then
    echo "done" >> factory.sh
    git commit -am "Avoid code repetition and use a for loop"    &> /dev/null
    # back to main
-   git switch main  &> /dev/null
+   git switch master  &> /dev/null
    echo "echo '11'" >> factory.sh
    sed  's/1.0/1.1/g' welcome.txt > welcome2.txt
    mv welcome2.txt welcome.txt
