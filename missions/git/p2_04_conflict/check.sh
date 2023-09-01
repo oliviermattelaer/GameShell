@@ -8,11 +8,13 @@ then
      echo "$(gettext "Your merge command fail due to conflict (see gsh goal for information on what this is).")"
      echo "$(gettext "Your file welcome.txt is currently waiting for resolution (and maybe factory.sh too)")"
      echo "$(gettext "Please open that file, fix the issue, then do \"git add\" and when all conflicts are solved commit your change.")"
+     false
 elif   git status factory.sh | grep "You have unmerged paths." &> /dev/null;
 then
      echo "$(gettext "Your merge command fail due to conflict (see gsh goal for information on what this is).")"
      echo "$(gettext "Your file factory.sh is currently waiting for resolution")"
      echo "$(gettext "Please open that file, fix the issue, then do \"git add\" and when all conflicts are solved commit your change.")"
+     false
 elif ! git diff HEAD~2 --name-only -G"<<<<<|=====|>>>>>" &>/dev/null;
 then
     git diff HEAD~2 --name-only -G"<<<<<|=====|>>>>>"
