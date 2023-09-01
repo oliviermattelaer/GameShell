@@ -1,14 +1,15 @@
 Mission goal
 ============
 
-You were suppose to restart an "old" factory that produce gold bracelet..
+You were suppose to restart an "old" factory that produced gold bracelet..
 But when you ran "./produce.py" you got "FATAL ERROR" instead of "success".
 
 Your mission is to find which commit introduced the bug.
 To pass the mission, you will need to enter the hash of the commit introducing the bug
 You can use the "git bisect" functionality for finding easily such hash
 
-Note that the last working version (that you know) is tagged with name "before_shutdown".
+Note that the last working version (that you know) is tagged with name "before_shutdown". (Note that in git tag are human readable version of git hash --and they have to be provide manually)
+
 
 GIT BISECT TUTO
 ===============

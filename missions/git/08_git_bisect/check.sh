@@ -9,7 +9,7 @@ then
      echo "$(gettext "please exit that mode with 'git bisect reset'")"
      false
 else
-    read -p "What is the hash number of the first bad commit" anscommit
+    read -p "What is the hash number of the first bad commit? " anscommit
     git bisect start &> /dev/null
     git bisect bad HEAD~1 &> /dev/null
     git bisect good HEAD~64 &> /dev/null
