@@ -13,7 +13,7 @@ and click on "fork" (button on top right of the page)
 
 3) click on the green button and copy the link of your repo
 and then link it locally with a command like 
-git clone https://github.com/olivier-cism/gitlectures.git
+git clone THE_LINK_THAT_YOU_COPY_HERE
 
 Useful commands
 ===============
