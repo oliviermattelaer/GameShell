@@ -1,8 +1,8 @@
 #!/bin/sh
 
 cd "${GSH_ROOT}/World/Factory"
-in_index="should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt"
-to_revert="should_be_restore_to_last_commit.txt"
+in_index="should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt"
+to_revert="should_be_restored_to_last_commit.txt"
 
 
 sub_mission=0
@@ -28,20 +28,20 @@ sub_mission=0
    echo "$(gettext " ")"
    echo "$(gettext "Checking SubMission 1: RESTORE wrong modification set in the index")"
    echo "$(gettext "=================================================================")"
-if git status should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes to be committed" >& /dev/null
+if git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes to be committed" >& /dev/null
 then
-    echo "$(gettext "Your file should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Did you restore the file?")"
-elif git status should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes not staged for commit" >& /dev/null
+    echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Did you restore the file?")"
+elif git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes not staged for commit" >& /dev/null
 then
-     echo "$(gettext "Your file should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Your modified file is not in the staging anymore but you ALSO need to restore the one in your working directory.")"
-elif cat should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "number of customer is 0" >& /dev/null;
+     echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Your modified file is not in the staging anymore but you ALSO need to restored the one in your working directory.")"
+elif cat should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "number of customer is 0" >& /dev/null;
 then
 	
-   echo "$(gettext "Your file should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt has been committed with the wrong version of the file.")"
+   echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt has been committed with the wrong version of the file.")"
    echo "$(gettext "You can either reset the level with gsh reset --this will also impact other submission--")"
    echo "$(gettext "Or you can reset only this part of the mission by running 'reset_sub2.sh'")"
    echo "$(gettext "In production, you could")"
-   echo "$(gettext "   - restore back the old status of the file via the command 'git restore should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt --source HEAD~1' [HEAD~1 means the last but one commit]")"
+   echo "$(gettext "   - restore back the old status of the file via the command 'git restore should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt --source HEAD~1' [HEAD~1 means the last but one commit]")"
    echo "$(gettext "   - remove completely the wrong commit (can be dangerous) via 'git reset --hard HEAD~1 (for the game prefer gsh reset)'")"
 else
     echo "$(gettext "Success")"
@@ -52,17 +52,17 @@ echo "$(gettext " ")"
 echo "$(gettext "Checking SubMission 2: restore file at last commit")"
 echo "$(gettext "==================================================")"
 
-if git status should_be_restore_to_last_commit.txt | grep "Changes not staged" >& /dev/null
+if git status should_be_restored_to_last_commit.txt | grep "Changes not staged" >& /dev/null
 then
-   echo "$(gettext "The file should_be_restore_to_last_commit.txt contains modification compare to last commit. You should either commit them. Or, more likely, restore previous state)")"
-elif git status should_be_restore_to_last_commit.txt | grep "Changes to be committed" >& /dev/null
+   echo "$(gettext "The file should_be_restored_to_last_commit.txt contains modification compare to last commit. You should either commit them. Or, more likely, restore previous state)")"
+elif git status should_be_restored_to_last_commit.txt | grep "Changes to be committed" >& /dev/null
 then
-    echo "$(gettext "The file should_be_restore_to_last_commit.txt contains modification compare to last commit. You have put those modification in the index but not yet commited them.")"
+    echo "$(gettext "The file should_be_restored_to_last_commit.txt contains modification compare to last commit. You have put those modification in the index but not yet commited them.")"
     echo "$(gettext "You should either commit them. Or, more likely, restore previous state)")"
     
-elif cat should_be_restore_to_last_commit.txt | grep "no data" >& /dev/null
+elif cat should_be_restored_to_last_commit.txt | grep "no data" >& /dev/null
 then
-     echo "$(gettext "The file should_be_restore_to_last_commit.txt is commited but with the wrong information inside")"
+     echo "$(gettext "The file should_be_restored_to_last_commit.txt is commited but with the wrong information inside")"
    echo "$(gettext "You can either reset the level with gsh reset")"
    echo "$(gettext "or you can restore the file to the old status thanks to 'git restore FILE --source HEAD~1' [HEAD~1 means the last but one commit]")"
 else
