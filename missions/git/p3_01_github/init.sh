@@ -12,7 +12,7 @@ fi
 cd "$GSH_HOME/Factory"
 if [ ! -d "$GSH_HOME/Factory/.git" ]
 then
-   git init &> /dev/null
+   git init --initial-branch=master &> /dev/null
    echo "Welcome to our Factory." > welcome.txt
    echo "This is Factory v1.0 " >> welcome.txt
    echo "# Instructions: remove the 1.0 and replace it by 2.0.ALPHA" >> welcome.txt

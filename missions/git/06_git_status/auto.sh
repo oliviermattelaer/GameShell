@@ -1,7 +1,7 @@
 #!/bin/sh
 
-in_index="should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt"
-to_revert="should_be_restore_to_last_commit.txt"
+in_index="should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt"
+to_revert="should_be_restored_to_last_commit.txt"
 
 cd "${GSH_ROOT}/World/Factory"
 git restore --staged $in_index
