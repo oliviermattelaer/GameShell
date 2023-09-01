@@ -23,17 +23,19 @@ fi
 
 #echo "testing if ssh is correctly configured for github"
 # testing if ssh setup is already done
-ssh -T git@github.com 1> /tmp/f 2>&1
+ssh -oStrictHostKeyChecking=no -T git@github.com 1> $GSH_HOME/log 2>&1
 
-if cat /tmp/f | grep "successfully"
+if cat $GSH_HOME/log | grep "successfully"
 then
     echo "ssh setup already configured"
     echo "LEVEL is an autowin."
     echo "please run gsh check to go to next level"
+    rm -rf $GSH_HOME/log &> /dev/null
     true
 else
     #echo "you do not have ssh configured yet (see below)"
-    #cat /tmp/f
+    # cat $GSH_HOME/log
+    rm -rf $GSH_HOME/log &> /dev/null
     true
 fi
 

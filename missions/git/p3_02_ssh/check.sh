@@ -3,15 +3,17 @@
 cd "${GSH_ROOT}/World/Factory"
 
 # testing if ssh setup is already done
-ssh -T git@github.com &> /tmp/f
+ssh -oStrictHostKeyChecking=no -T git@github.com &> $GSH_HOME/log
 
-if cat /tmp/f | grep "successfully"
+if cat $GSH_HOME/log | grep "successfully"
 then
     echo "well done"
+    rm -rf $GSH_HOME/log &> /dev/null
   true
 else
     echo "error is"
-    cat /tmp/f
+    cat $GSH_HOME/log
+    rm -rf $GSH_HOME/log &> /dev/null
   false
 fi
 

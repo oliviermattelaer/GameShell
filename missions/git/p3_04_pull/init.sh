@@ -27,8 +27,8 @@ fork=$(cat $GSH_HOME/.fork)
 
 cd $GSH_HOME/Factory/gitlectures
 
-git fetch --dry-run &> /tmp/test
-status=`cat /tmp/test | grep origin`
+git fetch --dry-run &> $GSH_HOME/log
+status=`cat $GSH_HOME/log | grep origin`
 i=0
 while [[ $status == '' ]]
 do
@@ -54,15 +54,13 @@ do
     then
 	break
     fi
-    git fetch --dry-run &> /tmp/test
-    cat /tmp/test
-    status=`cat /tmp/test | grep origin`
+    git fetch --dry-run &> $GSH_HOME/log
+#    cat $GSH_HOME/log
+    status=`cat $GSH_HOME/log | grep origin`
 done
 
 
 
-#git fetch --dry-run &> /tmp/test
-#cd $GSH_HOME/Factory/gitlectures
 
 
 
