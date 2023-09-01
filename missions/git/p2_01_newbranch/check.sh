@@ -32,7 +32,7 @@ then
     unset goal current curr_branch
     false
 ### CHECK CONTENT OF THE FILE
-elif ! grep "Factory v2.0.ALPHA" welcome.txt >& /dev/null
+elif grep "Factory v1.0 " welcome.txt >& /dev/null
 then
     echo "$(gettext "Did you edit the file welcome.txt? It does not contain the correct version information.")"
     echo "$(gettext " Remember that you can reset (and retry) the level by running \"gsh reset\"")"

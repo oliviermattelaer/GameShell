@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-Your boss wants that you start to devellop the next generation of the Factory.
+Your boss wants that you start to develop the next generation of the Factory.
 But still wants you to solve the day to day issue of the current Factory...
 Hopefully, you know that the git has the concept of branch.
 
