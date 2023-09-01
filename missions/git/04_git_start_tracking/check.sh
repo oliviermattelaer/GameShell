@@ -14,8 +14,17 @@ else
     then
 	if [ -e welcome.txt ]
 	then
-	   unset goal current
-	   true
+	    commit=$(git log -1 --pretty=%B)
+	    if (( ${#commit} < 5 ))
+	    then 
+		echo "$(gettext "It is important to set informative commit message. Please change your commit message via the command")"
+		echo  "$(gettext "git commit --amend -m \"a message like, adding file welcome.txt\"")"
+	       unset goal current commit
+	       false
+	    else
+		unset goal current commit
+		true
+	    fi
 	else
 	    echo "$(gettext "Why we do not have the file welcome.txt. Please run gsh reset to retry the level")"
 	    unset goal current
