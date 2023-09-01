@@ -20,7 +20,7 @@ and enter (twice) the passphrase of your choice (just type enter twice to not ha
 Step 2: tell github about the key you want to use.
 =================================================
 run
-cat ~/.ssh/id_rsa.git
+cat ~/.ssh/id_rsa.git.pub
 and copy the output in your clipboard, then go to 
 https://github.com/settings/keys
 click on "New ssh key" put as title the name of the cluster

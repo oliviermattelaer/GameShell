@@ -5,7 +5,7 @@ Your promotion on the philosopher's stone had a huge impact. And the product is 
 It's time to add that product in the file SOLDOUT_waiting_for_stock.list
 Then publish it within your github repo.
 
-This is the same as previous level BUT something "new" will happen since a collaborator (in this case an automatic script) has submit a new commit before you.
+This is the same as previous level BUT something "new" will happen since a collaborator (in this case an automatic script) has submitted a new commit before you.
 
 Usefull command
 ===============
