@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-Your boss ask you to merge the bug fix that you found in the "master" branch and include in your NEXTGEN branch.
+Your boss asks you to merge the bug fix that you found in the "master" branch and include in your NEXTGEN branch.
 Do not touch to the master branch!
 
 After the merging your graph of commit should look like this:
