@@ -2,7 +2,7 @@ Mission goal
 ============
 
 You just have finish a tedious debugging of the file produce.py
-You did change usefull line in the code but also poluted it with many spurious print statement.
+You did change useful line in the code but also poluted it with many spurious print statement.
 
 Your goal is to clean the situation (i.e. remove the print statement) and to commit the change to the file.
 
@@ -11,6 +11,8 @@ Useful commands
 
 git add -p FILENAME
 ~~ check the change to the file by block and indicate which part to put to the index and which one you do not want to keep.
+
+WARNING: This command does not change your file in the current work directory. If you want to remove the line that you did not put in the index you will need to use to overwrite your file in your working directory by the one that you put in the index (see next command)
 
 git restore FILENAME
 ~~  restore file to last index status

@@ -27,8 +27,8 @@ then
    #fi
    #git restore should_be_reverted_to_last_commit.txt
    #git restore --staged in_index_but_change_to_discard.txt
-   in_index="should_be_restore_to_last_commit_WARNING_change_already_pushed_in_index.txt"
-   to_revert="should_be_restore_to_last_commit.txt"
+   in_index="should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt"
+   to_revert="should_be_restored_to_last_commit.txt"
    if [ ! -e "$GSH_HOME/Factory/$to_revert" ]
    then
       echo "last correct information" > $to_revert

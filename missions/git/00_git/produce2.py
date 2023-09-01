@@ -846,7 +846,7 @@ class CommonRunCmd(HelpToCmd, CheckValidForCmd, cmd.Cmd):
     def do_treatcards(self, line, amcatnlo=False):
         """Advanced commands: create .inc files from param_card.dat/run_card.dat"""
 
-        print("Can you remove this print statement? Type 'n' to put this part in the index")
+        print("Can you remove this print statement? Type 'n' in order to not include this line in the index")
         #ensure that the cluster/card are consistent
         if hasattr(self, 'run_card'):
             self.cluster.modify_interface(self)
