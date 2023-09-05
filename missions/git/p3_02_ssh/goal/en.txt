@@ -10,12 +10,31 @@ On the otherhand, we advised that you do not use a passphrase to avoid to type y
 
 Step 1: Generate a (new and local) ssh key.
 ===========================================
-(bypass this step if you want to use an agent and a ssh key from your laptop/workstation/...)
 
-For this run the following command:
-ssh-keygen -t rsa -f ~/.ssh/id_rsa.git
+ - Option 1: automatic setup:
+ ============================
+We have create a script for you to setup the code correctly.
+Run
+$> ./setup_ssh
+We will first ask you if you want to keep this ssh key only for the game or if you want to setup that key for the cluster that you are currently using
+
+ - Option 2: manual setup:
+ =========================
+ 1)  create a .ssh directory in your home by running 
+  $> mkdir ~/.ssh
+ 2) create a new ssh key
+  $> ssh-keygen -t rsa -f ~/.ssh/id_rsa.git
 and enter (twice) the passphrase of your choice (just type enter twice to not have any passphrase).
-
+ 3) check the real path of the ~ directory [this step is only needed within gitshell]
+  echo ~
+ 4) create the file ~/.ssh/config
+  and write within the file the following lines (but replace ~ by the real path given in step 3):
+  
+  Host github.com
+    Hostname github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa.git
+  
 
 Step 2: tell github about the key you want to use.
 =================================================
@@ -29,6 +48,4 @@ and paste the content of your clipboard.
 
 Step 3: check the connection
 ============================
-run gsh check to test the connection and/or run
-ssh -T git@github.com
-to see what the problem is.
+run gsh check to test the connection

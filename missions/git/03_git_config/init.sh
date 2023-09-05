@@ -22,6 +22,7 @@ then
     if git config --get user.email  &> /dev/null
     then
 	echo "$(gettext "bypassed $MISSION_NB since name/email already configured")"
+	gsh check
 	false
     fi
 else

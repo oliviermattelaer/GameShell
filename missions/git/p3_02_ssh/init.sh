@@ -29,16 +29,27 @@ if cat $GSH_HOME/log | grep "successfully"
 then
     echo "ssh setup already configured"
     echo "LEVEL is an autowin."
-    echo "please run gsh check to go to next level"
+#    echo "please run gsh check to go to next level"
     rm -rf $GSH_HOME/log &> /dev/null
-    true
+    #cp "$MISSION_DIR/setup_ssh.sh" "$GSH_HOME/Factory/gitlectures/setup_ssh"
+    #chmod +x $GSH_HOME/Factory/gitlectures/setup_ssh
+    false
+#    if $(gsh check &> /dev/null)
+#    then
+#       $MISSION_DIR/treasure.sh
+#       true
+#    fi
 else
     #echo "you do not have ssh configured yet (see below)"
     # cat $GSH_HOME/log
     rm -rf $GSH_HOME/log &> /dev/null
+    cp "$MISSION_DIR//setup_ssh.sh" "$GSH_HOME/Factory/gitlectures/setup_ssh"
+    chmod +x $GSH_HOME/Factory/gitlectures/setup_ssh 
+    
     true
 fi
 
+cd $GSH_HOME/Factory/gitlectures
 
 
 

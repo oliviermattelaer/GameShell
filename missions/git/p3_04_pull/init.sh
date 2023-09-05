@@ -5,7 +5,12 @@ if [ ! -d "$GSH_HOME/Factory" ]
 then
    mkdir "$GSH_HOME/Factory"
 fi
-   
+
+if [ -e ~/.ssh/config ]
+then
+    export GIT_SSH_COMMAND="ssh -F ${GSH_HOME}/.ssh/config"
+fi
+
 ### SET/RESET file has expected at the end of previous mission 
 if [ ! -d "$GSH_HOME/Factory/gitlectures" ]
 then

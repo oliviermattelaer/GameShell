@@ -2,8 +2,14 @@
 
 cd "${GSH_ROOT}/World/Factory"
 
+if [ -e ~/.ssh/config ]
+then
+    export SSH_CONFIG="-F ${GSH_HOME}/.ssh/config"
+    export GIT_SSH_COMMAND="ssh -F ${GSH_HOME}/.ssh/config"
+fi
+
 # testing if ssh setup is already done
-ssh -oStrictHostKeyChecking=no -T git@github.com &> $GSH_HOME/log
+ssh -oStrictHostKeyChecking=no -T git@github.com ${SSH_CONFIG} &> $GSH_HOME/log
 
 if cat $GSH_HOME/log | grep "successfully"
 then

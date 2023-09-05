@@ -263,7 +263,7 @@ __gsh_start() {
 Aborting.")" >&2
         exit 1
       fi
-      color_echo yellow "$(eval_gettext "Error: mission \$MISSION_NB is bypassed see reason above")" >&2
+      color_echo yellow "$(eval_gettext "INFO: mission \$MISSION_NB is an auto-win (code already setup)")" >&2
       GSH_CANCELLED=$GSH_CANCELLED:$MISSION_NB
       __log_action "$MISSION_NB" "CANCEL_DEP_PB"
       __gsh_start "$((MISSION_NB + 1))"

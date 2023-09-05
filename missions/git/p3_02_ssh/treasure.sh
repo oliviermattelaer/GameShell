@@ -27,14 +27,18 @@ gitfork=`git remote get-url origin`
 #echo "GITFORK IS $gitfork"
 prefix="https://"
 if [[ "$gitfork" =~ ^"$prefix" ]]; then
-    echo "change fork remote to use ssh protocol"
+    echo "Congratulations for adding your ssh key"
+    echo "Your repo is still setup to use htpps protocol"
+    echo "to simplify our setup, the game has change your fork to use ssh protocol for the remote repository"
     IFS='/' read -ra ADDR <<< "$gitfork"
     OWNER=${ADDR[3]}
     echo $OWNER
     #echo "OWNER IS $OWNER"
     git remote set-url origin git@github.com:$OWNER/gitlectures.git
     echo "git@github.com:$OWNER/gitlectures.git" > $GSH_HOME/.fork
-    git remote
+    echo "new adress is now git@github.com:$OWNER/gitlectures.git"
+    echo "in future you can copy/paste directly the \"ssh\" adress of your fork"
+    #git remote
 fi
 
 
