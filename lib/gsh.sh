@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # warning about "echo $(cmd)", used many times with echo "$(gettext ...)"
 # shellcheck disable=SC2005
@@ -432,6 +432,7 @@ You should use the command
 
     __log_action "$MISSION_NB" "CHECK_OK"
 
+
     if [ -n "$GSH_AUTOSAVE" ] && [ "$GSH_AUTOSAVE" != "0" ]
     then
       __save
@@ -443,10 +444,11 @@ You should use the command
     echo
     color_echo red "$(eval_gettext "Sorry, mission \$MISSION_NB hasn't been completed.")"
     echo
-    export GSH_LAST_ACTION='check_false'
+
+   export GSH_LAST_ACTION='check_false'
     __gsh_clean "$MISSION_NB"
     __log_action "$MISSION_NB" "CHECK_OOPS"
-
+    
 
     if [ -n "$GSH_AUTOSAVE" ] && [ "$GSH_AUTOSAVE" != "0" ]
     then
