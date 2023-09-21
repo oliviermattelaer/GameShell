@@ -1,0 +1,32 @@
+Mission goal
+============
+
+Your boss asks you to merge the bug fix that you found in the "master" branch and include in your NEXTGEN branch.
+Do not touch to the master branch!
+
+After the merging your graph of commit should look like this:
+*   143837c - (HEAD -> NEXTGEN)
+|\
+| * 52e81ea - (master) fixing main script
+* | 1a3cfbe - even better factory.sh script
+* | 41871d1 - better factory.sh script
+* | da4f7cb - update welcome.txt to start v2
+|/
+* 57fb117 - update Readme
+* bd5512b - first commit
+
+Useful commands
+===============
+
+git switch NAME
+~~  switch to a specified branch
+    NOTE: This will change the file on disk to be one on that branch
+    
+git merge NAME
+~~  Incorporates the changes from the other branch and merge the development histories
+
+git branch
+~~  display the list of the branch
+
+
+

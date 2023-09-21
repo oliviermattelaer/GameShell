@@ -263,7 +263,7 @@ __gsh_start() {
 Aborting.")" >&2
         exit 1
       fi
-      color_echo yellow "$(eval_gettext "Error: mission \$MISSION_NB is cancelled because some dependencies are not met.")" >&2
+      color_echo yellow "$(eval_gettext "INFO: mission \$MISSION_NB is an auto-win (code already setup)")" >&2
       GSH_CANCELLED=$GSH_CANCELLED:$MISSION_NB
       __log_action "$MISSION_NB" "CANCEL_DEP_PB"
       __gsh_start "$((MISSION_NB + 1))"
@@ -431,7 +431,7 @@ You should use the command
     __gsh_clean "$MISSION_NB"
 
     __log_action "$MISSION_NB" "CHECK_OK"
-    
+
 
     if [ -n "$GSH_AUTOSAVE" ] && [ "$GSH_AUTOSAVE" != "0" ]
     then

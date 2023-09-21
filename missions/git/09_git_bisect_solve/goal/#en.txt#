@@ -1,0 +1,103 @@
+Mission goal
+============
+
+You were suppose to restart an "old" factory line today.
+But when you ran "./produce.py" you got "FATAL ERROR" instead of "success".
+
+Your mission is to find which commit introduced the bug.
+To pass the mission, you will need to enter the hash of the commit introducing the bug
+You can use the "git bisect" functionality for finding easyly such hash
+
+Note that the last working version (that you know) is tagged with name "before_shutdown".
+
+GIT BISECT TUTO
+===============
+
+git bisect will provide you different version of the code and will need to indicate if that version is bugged or not
+(by either typing "git bisect good" or "git bisect bad").
+
+To start the scan of the revision you need to use
+ >>> git bisect start
+
+Then you need to specify one "good" and one "bad" revision.
+Let's start by indicating that the current/last commit is problematic
+ >>> git bisect bad
+Then indicate that the (tagged) version is working nice
+ >>> git bisect good before_shutdown
+
+Then git will print something like
+> Bisecting: 32 revisions left to test after this (roughly 5 steps)
+> [c10a971c05911c03885efc7af99c1f0b7909c1ba] bug fix 1683534647.656214
+
+Then you can run
+ >>> ./produce.py
+And then depending of the status indicate to git if it is a "good"/"bad" commit
+ >>> git bisect	good
+ >>> git bisect bad
+
+After a couple of iterations, you will see a message like.
+> 60b201f06c8ae04633c33d908650b7f1fac482f0 is the first bad commit
+> commit 60b201f06c8ae04633c33d908650b7f1fac482f0
+> Author: Olivier Mattelaer <olivier.mattelaer@uclouvain.be>
+> Date:   Mon May 8 10:30:47 2023 +0200
+>
+>    bug fix 1683534647.610827
+>
+> produce.py | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+
+And you are done for the mission (i.e. you can do gsh check).
+
+
+
+at that stage you can do
+ >>> git checkout  BAD_COMMIT 
+ >>> git diff HEAD~1
+replace BAD_COMMIT by the commit number above
+then edit produce.py and fix the issue (and check that ./produce.py works now).
+
+To propagate your change to the latest commit you can do
+# save the diff compare to the latest commit
+ >>> git stash
+# get out of the bisect mode (going back to the latest commit) 
+ >>> git bisect reset
+# apply the diff that you save
+ >>> git stash pop
+# check that the code is now working
+ >>> ./produce.py
+# commit your change
+ >>> git commit -am "produce.py back to working state"
+
+
+
+Useful commands
+===============
+
+git bisect start
+~   enter the bisect mode to scan the various commit and find the commit responsible for a crash/bug/...
+
+git bisect bad
+~   specify that the current working directory state is "bad"
+~   options:
+~    - git bisect bad REV
+~      specify that the commit with hash (or tag) REV is "bad"
+
+git bisect good 
+~   specify that the current working directory state is "good"
+
+git bisect reset
+~   get out of the bisect mode (goes back to last commit for the working directory)
+
+git stash
+~   take the diff of the working directory and index on the side to be used later
+~   your current directory will be back on the state of the lastest commit.
+~   This is usefull when you worked in the "wrong" place (like in bisect mode or in the wrong branch)
+
+
+git stash pop
+~   Apply the latest diff that was store by git stash
+
+
+
+
+

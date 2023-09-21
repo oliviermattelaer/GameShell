@@ -1,0 +1,24 @@
+Mission goal
+============
+
+By mistake you started to fix a bug within the NEXTGEN branch but such bug fix should rather be fixed in the main branch. So you need to move all your uncommit change from one branch to the next.
+Hopefully, GIT has the solution for you.
+
+
+Useful commands
+===============
+
+git stash
+~~  Reset the current work directory (and the index) to the last commit state.
+    All the difference are saved and can be re-applied later (so you will not loose your change with this command)
+
+git switch NAME
+~~  change the current working branch to the one with name "NAME"
+
+git stash apply
+~~ apply the last saved stash to the current branch.
+
+git stash show
+git stash list
+~~ provide information on the list of stash available and their content
+

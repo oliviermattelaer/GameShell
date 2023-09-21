@@ -1,0 +1,40 @@
+Mission goal
+============
+
+You are in the new Food Factory of the realm. (directory: World/Factory)
+This Factory is already a git repository (you can check that it has a .git directory).
+
+Currently the factory has only one file "welcome.txt".
+But the change to this file is not tracked by git (you can check it by running "git status").
+
+YOUR MISSION is to create a first release containing this file.
+
+
+Useful commands
+===============
+
+git status
+~~ check the status of the current git repository
+~~ indicates  which file are edited, not tracked,...
+~~ Note: it indicates commands that can be usefull.
+
+git add
+~~ Add a file to the index
+~~ Start to track a new file
+
+git commit
+~~ save the current index as a commit of the history
+~~ usefull option:
+~~  -m "MSG" : provide directly the commit message (MSG) without opening a text editor
+
+
+HINT/HELP
+=========
+
+Remember the two required steps:
+1) add the file to the index/staging area (git add command)
+2) do the commit of the file in the staging area (git commit command)
+
+If you do not know the status of your files. you can use "git status"
+which typically tells you the command that you might need to use next.
+

@@ -1,0 +1,78 @@
+Mission goal
+============
+
+You were suppose to restart an "old" factory that produced gold bracelet..
+But when you ran "./produce.py" you got "FATAL ERROR" instead of "success".
+
+Your mission is to find which commit introduced the bug.
+To pass the mission, you will need to enter the hash of the commit introducing the bug
+You can use the "git bisect" functionality for finding easily such hash
+
+Note that the last working version (that you know) is tagged with name "before_shutdown". (Note that in git tag are human readable version of git hash --and they have to be provide manually)
+
+
+GIT BISECT TUTO
+===============
+
+git bisect will provide you different version of the code and will need to indicate if that version is bugged or not
+(by either typing "git bisect good" or "git bisect bad").
+
+To start the scan of the revision you need to use
+ >>> git bisect start
+
+Then you need to specify one "good" and one "bad" revision.
+Let's start by indicating that the current/last commit is problematic
+ >>> git bisect bad
+Then indicate that the (tagged) version is working nice
+ >>> git bisect good before_shutdown
+
+Then git will print something like
+> Bisecting: 32 revisions left to test after this (roughly 5 steps)
+> [c10a971c05911c03885efc7af99c1f0b7909c1ba] bug fix 1683534647.656214
+
+Then you can run
+ >>> ./produce.py
+And then depending of the status indicate to git if it is a "good"/"bad" commit
+ >>> git bisect	good
+ >>> git bisect bad
+
+After a couple of iterations, you will see a message like.
+> 60b201f06c8ae04633c33d908650b7f1fac482f0 is the first bad commit
+> commit 60b201f06c8ae04633c33d908650b7f1fac482f0
+> Author: Olivier Mattelaer <olivier.mattelaer@uclouvain.be>
+> Date:   Mon May 8 10:30:47 2023 +0200
+>
+>    bug fix 1683534647.610827
+>
+> produce.py | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+
+You now have the require information to succeed the mission.
+But please quit the bisect mode first:
+>>> git bisect reset
+
+You can now do "gsh check" and answer the question.
+
+Useful commands
+===============
+
+git bisect start
+~   enter the bisect mode to scan the various commit and find the commit responsible for a crash/bug/...
+
+git bisect bad
+~   specify that the current working directory state is "bad"
+~   options:
+~    - git bisect bad REV
+~      specify that the commit with hash (or tag) REV is "bad"
+
+git bisect good 
+~   specify that the current working directory state is "good"
+
+git bisect reset
+~   get out of the bisect mode (goes back to last commit for the working directory)
+
+
+
+
+
+

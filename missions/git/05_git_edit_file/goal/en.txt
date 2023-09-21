@@ -1,0 +1,23 @@
+Mission goal
+============
+
+Update the content of the file "welcome.txt" according to the instruction inside the file.
+And save the new version of the file within the git history/repository
+
+Useful commands
+===============
+
+git add
+~~ Add a file to the index (make modification ready for commit)
+~~ Start to track a new file
+
+git commit
+~~ save the current index as a commit of the history
+~~ usefull option:
+~~  -m "MSG" : provide directly the commit message (MSG)
+~~  -a : automatically run git add for all modified file already tracked by git
+
+
+git status
+~~ check the status of the current git repository
+

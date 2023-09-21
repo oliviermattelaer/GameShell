@@ -1,0 +1,31 @@
+Mission goal
+============
+
+Another develloper pushed an additional fix to the master branch.
+Can you do the same as the previous level and merge the commit of the master in your NEXTGEN branch.
+
+Useful commands
+===============
+
+git switch NAME
+~~  switch to a specified branch
+    NOTE: This will change the file on disk to be one on that branch
+
+git merge NAME
+~~  Incorporates the changes from the other branch and merge the development histories
+
+git status
+~~ tell you the status of your repo include the file that have issue with the ongoing merge
+
+INFO
+====
+
+If two divergent branch are both changing the same line of code. You will need to indicate how to proceed.
+For that open the problematic file with your favorite text editor and search for lines like
+>>>>>>
+line that was included in the current branch
+======
+line that was included in the  branch that you are trying to merge
+<<<<<
+
+Then remove the ">>>>", the "====" and the "<<<<<" and adjust the code as needed.

@@ -1,0 +1,22 @@
+Mission goal
+============
+
+Your promotion on the philosopher's stone had a huge impact. And the product is now sold out.
+It's time to add that product in the file SOLDOUT_waiting_for_stock.list
+Then publish it within your github repo.
+
+This is the same as previous level BUT something "new" will happen since a collaborator (in this case an automatic script) has submitted a new commit before you.
+
+Usefull command
+===============
+git pull
+    try to update your current repo and update your HEAD to the one of the
+    remote repository
+
+IF you have local commit this will break and you will need to use one of the following option:
+
+git pull --rebase
+    re-apply your local commit one by one on top of the commit on the remote repository. (give a linear history)
+
+git pull --merge
+    Do a standard merge operation. 

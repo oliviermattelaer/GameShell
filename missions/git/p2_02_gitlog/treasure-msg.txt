@@ -1,0 +1,8 @@
+You have a new treasure.
+We have defined a shortcut such that 
+you can use
+git lg
+and have a pretty display (see below).
+
+
+
