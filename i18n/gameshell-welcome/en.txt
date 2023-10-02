@@ -1,4 +1,4 @@
-Welcome to GitGameShell!
+Welcome to GitShell!
 
 This game is inspired by GameShell which was designed for learning Unix command.
 
