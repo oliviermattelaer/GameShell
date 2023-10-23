@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git switch NEXTGEN &> /dev/null
-git merge main &> /dev/null
+git merge master &> /dev/null
 echo "tmp" > welcome.txt
 echo "tmp" > factory.sh
 git add welcome.txt factory.sh
