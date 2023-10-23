@@ -8,3 +8,4 @@ bad_commit=`git bisect run ./produce.py | grep "is the first bad commit" | awk '
 git bisect reset
 #git revert $bad_commit --no-edit
 echo $bad_commit | gsh check 
+cd "$GSH_HOME/Factory"
