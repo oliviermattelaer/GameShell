@@ -6,7 +6,7 @@ intermediate/02_alias_journal
 intermediate/03_tab_spider_lair
 intermediate/04_bg_xeyes
 !finding_files_maze/00_shared
-finding_files_maze/01_ls_cd
+#finding_files_maze/01_ls_cd
 finding_files_maze/02_tree
 finding_files_maze/03_find_1
 pipe_intro_book_of_potions/index.txt
