@@ -18,7 +18,7 @@ else
     if [ "$bad_commit" != "$anscommit" ] ;
     then
 	echo "$(gettext "Wrong this is not the bad commit")"
-	echo "@$bad_commit@ @$anscommit@"
+	#echo "@$bad_commit@ @$anscommit@"
 	unset goal current
 	false
     else

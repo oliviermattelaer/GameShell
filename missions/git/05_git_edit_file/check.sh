@@ -11,7 +11,7 @@ then
 	unset goal current
 	false	
     else
-	echo "CORRECT"
+	#echo "CORRECT"
 	# sounds correct
 	unset goal current
 	true	

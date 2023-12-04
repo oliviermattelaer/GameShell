@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-By mistake you started to fix a bug within the NEXTGEN branch but such bug fix should rather be fixed in the main branch. So you need to move all your uncommit change from one branch to the next.
+By mistake you started to fix a bug within the NEXTGEN branch but such bug fix should rather be fixed in the master branch. So you need to move all your uncommit change from one branch to the next.
 Hopefully, GIT has the solution for you.
 
 

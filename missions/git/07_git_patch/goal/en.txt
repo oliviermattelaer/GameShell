@@ -17,6 +17,10 @@ WARNING: This command does not change your file in the current work directory. I
 git restore FILENAME
 ~~  restore file to last index status
 
-
+git diff
+~~  compare your local files to your current index
+~~  options:
+~~   git diff HEAD
+~~     compare your local files with the latest commit
 
 

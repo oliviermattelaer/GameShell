@@ -18,7 +18,7 @@ git status
 ~~ indicates  which file are edited, not tracked,...
 ~~ Note: it indicates commands that can be usefull.
 
-git add
+git add FILE
 ~~ Add a file to the index
 ~~ Start to track a new file
 

@@ -7,7 +7,7 @@ And save the new version of the file within the git history/repository
 Useful commands
 ===============
 
-git add
+git add FILE
 ~~ Add a file to the index (make modification ready for commit)
 ~~ Start to track a new file
 
