@@ -19,50 +19,36 @@ then
     then 
        read -p "Please specify the github address of your fork:" fork
        git clone $fork
-       echo $yn > $GSH_HOME/.fork
+       echo $fork > $GSH_HOME/.fork
     else
 	fork=$(cat $GSH_HOME/.fork)
 	git clone $fork
     fi
     cd $GSH_HOME/Factory/gitlectures
     # check that the file is set at initial valuee
-fi
+elif [ ! -e "$GSH_HOME/.fork" ]
+then
+    cd $GSH_HOME/Factory/gitlectures
+    fork=$(git remote get-url origin)
+    echo $fork > $GSH_HOME/.fork
+fi 
 fork=$(cat $GSH_HOME/.fork)
 
+### create a secondary repo for creating an out-of-sync situation
+cd $GSH_HOME
+git clone $fork
+cd gitlectures
+echo "I have succeed level 14 on `date`" >> status
+git add status &> /dev/null
+git commit -m "automatic push of one more commit to create out of sync" &> /dev/null
+git push &> /dev/null
+cd $GSH_HOME
+rm -rf gitlectures
 
+
+
+### go back to original directory:
 cd $GSH_HOME/Factory/gitlectures
-
-git fetch --dry-run &> $GSH_HOME/log
-status=`cat $GSH_HOME/log | grep origin`
-i=0
-while [[ $status == '' ]]
-do
-    if (( $i <5 ))
-    then
-	echo "waiting for github remote repository to setup itself for next level ${i}/5"
-    else
-	echo "waiting for github remote repository to setup itself for next level $i/15"
-    fi
-    #git fetch --dry-run
-    sleep 1
-    i=$(($i+1))
-    #i=`$i+1`
-    if (( $i == 5 ))
-    then
-	echo "Force a new commit to force the setting of github"
-	echo "# add line to force github action" >> product.list
-	git add product.list &> /dev/null
-	git commit -am "second try with github action" &> /dev/null
-	#git push --set-upstream $fork master
-	git push  &> /dev/null
-    elif (( $i > 15 ))
-    then
-	break
-    fi
-    git fetch --dry-run &> $GSH_HOME/log
-#    cat $GSH_HOME/log
-    status=`cat $GSH_HOME/log | grep origin`
-done
 
 
 
