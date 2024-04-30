@@ -1,20 +1,25 @@
-Welcome to GameShell!
+Welcome to GameSlurm!
 
-Using and administering a computer running a Unix-like operating 
-system (e.g., Linux, BSD or macOS) requires using a command line 
-interface called "shell". In this game you will learn how to use 
-the shell by journeying through various missions that will teach 
-you to perform standard tasks such as:
-  - creating directories,
-  - creating, viewing and editing files,
-  - searching for files satisfying certain criteria,
-  - running and interrupting programs,
-  - etc.
+After your fascinating adventures in the command
+line where you explored a castle in a forest and
+met with wise and weird people, you realise that
+the castle emplyes a set of worker gnomes hosted
+in the stable.
 
-During your adventure you will need to visit locations, interact 
-with people, and find various objects. However, you have to keep 
-in mind that these are standard directories, programs, and files 
-(often with random contents). So, for example:
-  - "build a hut" means creating a directory called "Hut", and
-  - "put a coin in your chest" means moving a file called "coin" 
-    to a directory called "Chest".
+They obey to their master Slurm the Great, or
+Slurm for short.  Slurm organises their work based
+on work orders that you can submit. The work order
+must contain a description of the resources that
+the gnomes will need to perform the job, and the
+tasks that they must do.
+
+Gnomes can work in teams, that is how they are the
+strongest, and they are organised into partitions
+based on their capabilities or policies that they
+observe.
+
+In this new adventures, you will learn how to
+submit jobs to the workers using Slurm commands,
+how to check that your work has been done as
+intended, etc.
+

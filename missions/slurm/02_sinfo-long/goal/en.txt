@@ -1,0 +1,28 @@
+Mission goal
+============
+
+Learn more about the workers. They have some capabilities for mental tasks, described in terms of compute-capable neurons, called CPUs, and memory-related neurons, called MBs. Some have specific skills, called features. They are sometimes too sick to work, and of course some of them are more lazy than others and prefer not to work if others can do the job and just sit idle.  Others are worker to the best of their abilities. They are said to be allocated. Most of the time, though, workers are in a mixed state, meaning that they are working but still have resources available for other jobs.
+
+The goals of the mission is to have a look at the amount of CPUs and memory each worker has, and to count the number of workers that sit idle.
+
+Useful commands
+===============
+
+sinfo -Nl
+  lists the workers and their attributes. The column titles are
+  mostly self-explanatory, except maybe for 
+
+  - S:C:T: how CPUs are organised in the worker's head
+  - WEIGHT: a measure of how lazy a worker is
+  - AVAIL_FE: list of features of the worker (his skills)
+  - REASON: a reason for which a worker is sick
+  You can ignore them for now, we'll come back at those
+  concepts later.
+
+grep -co word
+  counts the number of occurences of `word` in stdin
+
+Remarks
+-------
+
+You will need to combine again the above commands to answer the question. Please beware that between the moment you get the number and the moment you answer the question, the situation can change.  Be sure to run `gsh check` with no delay once you have the answer.

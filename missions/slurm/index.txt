@@ -1,0 +1,10 @@
+01_sinfo
+02_sinfo-long
+03_manpage
+04_defpart
+05_squeue
+06_submitscript_template
+07_submitscript_resources
+08_submitscript_steps
+09_submit
+10_check_output

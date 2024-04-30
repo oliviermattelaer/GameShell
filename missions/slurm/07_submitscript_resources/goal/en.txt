@@ -1,0 +1,34 @@
+Mission goal
+============
+
+Although an empty submission script is technically a valid submission script is most cases, it is not useful as is. There are two main section that are needed in the submission script.
+
+The first one is the description of the resources that your job will require. The most important resources to specify are
+
+- the needed number of CPUs ;
+- the required amount of memory.
+
+You also need to specify how long the job will need those resources. Remember that there is a limit on the maximum duration of a job! 
+
+To specify a resource, you must include lines in the submission scripts, that start with #SBATCH and then the parameter name, followed by an optional equal sign and its value.
+
+Exemple:
+
+#SBATCH --time=10:00
+
+There are unfortunately no magic solution to find out the correct amount of resources and duration for a given job as it will depend on many factors. Only experience will tell you what amount of resource to request for a given job.
+
+To fullfill this mission, insert in the submission script the three require lines to specify that the job should run for 10 minutes using 4 CPUs and 1000MB of RAM per CPU.
+
+Useful parameters
+=================
+
+--time
+Specify the maximum duration of the job. It is expressed as days, hours, minutes and second in the format  d-hh:mm:ss but can be simplified as hh:mm
+
+--cpus-per-task
+Number of CPUs required by the job. For now, we will ignore the word 'task' in the parameter name. We'll come back at this later.
+
+--mem-per-cpu
+Amount of memory, in MB, that are required for each CPU to work properly.
+

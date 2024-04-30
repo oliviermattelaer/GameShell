@@ -1,0 +1,24 @@
+Mission goal
+============
+
+The workers are organised into partitions, sets of workers that share the same skills or are obey the same policies. For instance, there is a maximum time that a job is allowed to take before completion.
+
+The goal of the mission is to discover the default partition and its time limit. The default partition is the set of workers to which a job will be submitted if the partition is not specified explicitly. It is marked with an asterisk.
+
+
+Useful commands
+===============
+
+sinfo -s
+  lists the partitions defined in the system.
+  The (A/I/O/T) column stands for number of workers in the
+  states Allocated, Idle, and Other and the T is for Total.
+  
+
+Remarks
+-------
+
+Slurm has a specific syntax for expressing time:
+ days-hours:minutes:seconds.
+
+Also, the workers like to call themselves 'nodes'.

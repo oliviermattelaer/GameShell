@@ -1,0 +1,37 @@
+Mission goal
+============
+
+As stated in the previous mission, there are two main sections in a submission script. The first one is related to the resources requests. The second one is the set of operations that must be carried out. The operations are called `steps`.
+
+Note that operations must be written *after* resource requests.
+
+Step 0 is the submission script itself. All commands will be part of this step by default. 
+
+To further create more steps, use the `srun` command. That command
+will 
+
+- setup the environment for parallel tasks
+- monitor resource usage by the tasks
+- manage the tasks input/output and signals.
+
+The general usage of `srun` is 
+
+    srun [SRUN_ARGS] COMMAND [COMMAND_ARGS]
+
+All arguments are optional. The COMMAND to run must be an executable.
+
+To fullfill this mission, insert in the submission script the two needed lines to instruct the worker to perform two steps, the first one being to identify itself and the second being to sleep for 90 seconds.
+
+In this example, we do not specify explicitely the number of (parallel) tasks; it is one by default.
+
+Useful commands
+===============
+
+srun COMMAND
+  The `srun` command will start a job "step" by executing COMMAND.
+
+hostname
+  That command prints out the name of the worker.
+
+sleep N
+  As the name implies the sleep command will do nothing for N seconds.

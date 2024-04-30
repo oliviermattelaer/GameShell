@@ -1,0 +1,27 @@
+Mission goal
+============
+
+You have now submitted a job. Upon completion, the worker will create
+one or two file(s) in the directory where you issued the sbatch command.
+Those files will contain the standard output (and standard error if any)
+of the operations listed in the job. 
+
+To pass this mission, wait until your job has completed, and look for the
+output file. Its name follows the format slurm-JJJJJJJ.out where JJJJJJ is
+the job ID. It should contain the name of the worker. That information is
+the key to the next mission.
+
+To check whether your job has completed, is running, or is still pending, use
+the squeue command. 
+ Once a job is completed, or failed, it exists the queue.
+
+Useful commands
+===============
+
+squeue --me
+
+Lists all of your job in the queue. 
+
+cat
+
+shows the contents of a file.

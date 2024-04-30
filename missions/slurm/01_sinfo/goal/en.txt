@@ -1,0 +1,20 @@
+Mission goal
+============
+
+Get the list of the worker gnomes in the stable.  Count how many there are.
+
+Useful commands
+===============
+
+sinfo -N
+  lists the workers
+
+wc -l
+   counts the number of lines from stdin
+
+Remarks
+-------
+
+You will need to combine both commands to get the correct answer.
+
+Beware that the first line of the output is the header and must not be counted. You can look in the sinfo man page to find out which argument supresses the head line. Otherwise, you can simply subtract one from the number you get.

@@ -1,0 +1,16 @@
+Mission goal
+============
+
+Now that the work order (submission script) is complete, it must be submitted to Slurm for background scheduling and allocation to a worker.
+
+This is done with the sbatch command. 
+
+If no error is found in the resource requests, Slurm will respond with a job ID. That ID will be used afterwards to refer to that job while querying its status, requeuing, or cancelling it for instance.
+
+To pass this mission, submit the submit.sh script and note the job ID.
+
+Useful commands
+===============
+
+sbatch [OPTIONS] SUBMISSIONSCRIPT
+  Submits the submission script SUBMISSIONSCRIPT to Slurm for scheduling.  Slurm responds with the job ID upon successful submission.
