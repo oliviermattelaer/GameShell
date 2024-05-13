@@ -118,6 +118,9 @@ msgid   "Error: no mission was found!\n"
 msgstr  "Error: no mission was found!\n"
         "Aborting."
 
+msgid   "Error: save mode can only be 'index', 'simple' or 'overwrite'"
+msgstr  "Error: save mode can only be 'index', 'simple' or 'overwrite'"
+
 msgid   "Error: the 'goto' command requires a mission number as argument."
 msgstr  "Error: the 'goto' command requires a mission number as argument."
 
@@ -293,6 +296,9 @@ msgstr  "test $nb_tests failed"
 #, awk-format
 msgid   "total time: %s"
 msgstr  "total time: %s"
+
+msgid   "use 'gsh help' to get a list of available commands"
+msgstr  "use 'gsh help' to get a list of available commands"
 
 msgid   "y"
 msgstr  "y"

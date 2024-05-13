@@ -171,7 +171,8 @@ Do you still want to quit? [y/n]") "
   __gsh_clean "$MISSION_NB"
   [ "$GSH_MODE" != "DEBUG" ] && ! [ -d "$GSH_ROOT/.git" ] && gsh unprotect
   [ -e "$GSH_ROOT/.save" ] && __save
-  # remove the ".save" file to make sure we don't always save from now on!
+  # remove the ".save" file to make sure we don't automatically save if call
+  # start.sh directly from the directory
   rm -f "$GSH_ROOT/.save"
 
   ## NOTE: without that, calling exit in zsh doesn't work if there are running
@@ -261,12 +262,14 @@ __gsh_start() {
       then
         echo "$(gettext "Error: no mission was found!
 Aborting.")" >&2
+        rm -f "$env_before" "$env_after"
         exit 1
       fi
       color_echo yellow "$(eval_gettext "Error: mission \$MISSION_NB is cancelled because some dependencies are not met.")" >&2
       GSH_CANCELLED=$GSH_CANCELLED:$MISSION_NB
       __log_action "$MISSION_NB" "CANCEL_DEP_PB"
       __gsh_start "$((MISSION_NB + 1))"
+      rm -f "$env_before" "$env_after"
       return
     fi
     unset GSH_CANCELLED
@@ -281,10 +284,10 @@ Aborting.")" >&2
 Run the command
     \$ gsh reset
 to make sure the mission is initialized properly.")" >&2
-        rm -f "$env_before" "$env_after"
       fi
     fi
   fi
+  rm -f "$env_before" "$env_after"
 
   __log_action "$MISSION_NB" "START"
 
@@ -296,6 +299,7 @@ to make sure the mission is initialized properly.")" >&2
     else
       parchment -B Inverted "$(eval_gettext '$GSH_ROOT/i18n/gameshell-init-msg-short/en.txt')"
     fi
+    [ "$GSH_HELP_HINT" = "never" ] || [ "$GSH_HELP_HINT" = "always" ] || GSH_HELP_HINT=0
   fi
 }
 

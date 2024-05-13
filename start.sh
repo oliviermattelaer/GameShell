@@ -37,28 +37,19 @@ GSH_MODE="ANONYMOUS"
 # if GSH_NO_GETTEXT is non-empty, gettext won't be used anywhere, the only language will thus be English
 # export GSH_NO_GETTEXT=1  # DO NOT CHANGE OR REMOVE THIS LINE, it is used by utils/archive.sh
 RESET=""
-# hack to parse long options --index-savefiles --overwrite-savefiles --simple-savefiles
-# cf https://stackoverflow.com/questions/402377/using-getopts-to-process-long-and-short-command-line-options
-_long_option=0
-while getopts ":hnPdDACRXUVqGL:KBZc:F-:" opt
+while getopts ":hnPdDACRXUVqGL:KBZc:FS:" opt
 do
-  if [ "$opt" = "-" ]
-  then
-    opt="${OPTARG%%=*}"       # extract long option name
-    OPTARG="${OPTARG#$opt}"   # extract long option argument (may be empty)
-    OPTARG="${OPTARG#=}"      # if long option argument, remove assigning `=`
-    _long_option=1
-  fi
-
   case $opt in
-    index-savefiles)
-      GSH_SAVEFILE_MODE=index
-      ;;
-    simple-savefiles)
-      GSH_SAVEFILE_MODE=simple
-      ;;
-    overwrite-savefiles)
-      GSH_SAVEFILE_MODE=overwrite
+    S)
+      case "$OPTARG" in
+        "index" | "simple" | "overwrite")
+          GSH_SAVEFILE_MODE=$OPTARG
+          ;;
+        *)
+          echo "$(gettext "Error: save mode can only be 'index', 'simple' or 'overwrite'")" >&2
+          exit 1
+          ;;
+      esac
       ;;
     h)
       display_help
@@ -95,10 +86,6 @@ do
     G)
       export GSH_NO_GETTEXT=1
       ;;
-    X | U)
-      echo "$(gettext "Error: this option is only available from an executable archive!")" >&2
-      exit 1
-      ;;
     V)
       # when lib/header.sh sees the -V flag, it displays the version and exits,
       # so the next case isn't used.
@@ -120,16 +107,17 @@ do
     c)
       GSH_COMMAND=$OPTARG
       ;;
-    K|F)
-      :  # used by the self-extracting archive
-      ;;
-    *)
-      if [ "$_long_option" = "1" ]
-      then
-        OPTARG="-$opt"
-      fi
+    '?')
       echo "$(eval_gettext "Error: invalid option: '-\$OPTARG'")" >&2
       exit 1
+      ;;
+    X | U)
+      echo "$(gettext "Error: this option is only available from an executable archive!")" >&2
+      exit 1
+      ;;
+    *)
+      :  # other options are used by the self-extracting archive and passed on
+         # we ignore them
       ;;
   esac
 done
@@ -269,7 +257,6 @@ Do you want to remove it and start a new game? [y/N]') "
 
   mkdir -p "$GSH_CONFIG"
   awk -v seed_file="$GSH_CONFIG/PRNG_seed" 'BEGIN { srand(); printf("%s", int(2^32 * rand())) > seed_file; }'
-  cp "$GSH_LIB/gshrc" "$GSH_CONFIG"
 
   # save current locale
   locale > "$GSH_CONFIG"/config.sh
@@ -311,8 +298,8 @@ Do you want to remove it and start a new game? [y/N]') "
     _confirm_passport "$PASSPORT" && break
   done
 
-  printf '\n==========\nRANDOM=%d\n' $RANDOM >> "$PASSPORT"
-
+  # some random part added to the file so that GSH_UID is randomized
+  printf '==========\nrandom salt: %d\n' "$("$GSH_ROOT/scripts/RANDOM")" >> "$PASSPORT"
 
   # Generation of a unique identifier for the the player.
   export GSH_UID="$(checksum < "$PASSPORT" | cut -c 1-40)"
@@ -518,9 +505,6 @@ fi
 cd "$GSH_HOME"
 export GSH_UID=$(cat "$GSH_CONFIG/uid")
 date "+%Y-%m-%d %H:%M:%S" | sed 's/^/#>>> /' >> "$GSH_CONFIG/missions.log"
-
-# put a ".save" file to indicate the archive needs to be saved on exit
-touch "$GSH_ROOT/.save"
 
 # if the user uses a special TERMINFO entry, it might not be found because
 # GameShell redefines HOME
