@@ -28,7 +28,7 @@ if [ -s "$tempfile" ]
 then
   export PAGER=more
 fi
-rm -f "$mktemp"
+rm -f "$tempfile"
 
 # try to prevent using sudo and similar
 su() {
@@ -89,6 +89,20 @@ _check_pwd() {
 to go back to the GameShell's starting directory.")" >&2
       echo
   esac
+}
+
+# display a small message so players know how to get help about gameshell
+_help_hint() {
+  [ -n "$GSH_QUIET_INTRO" ] || [ "$GSH_HELP_HINT" = "never" ] && return
+
+  if [ "$GSH_HELP_HINT" != "always" ] &&
+    { [ "$(gsh pcm)" -gt 3 ] || [ "$GSH_MODE" = "DEBUG" ] || [ "$GSH_HELP_HINT" = "0" ] ; }
+  then
+    unset GSH_HELP_HINT
+    return
+  fi
+  echo
+  echo "[$(gettext "use 'gsh help' to get a list of available commands")]"
 }
 
 [ "$GSH_MODE" != "DEBUG" ] && ! [ -d "$GSH_ROOT/.git" ] && gsh protect
