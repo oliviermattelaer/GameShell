@@ -12,6 +12,8 @@ srun hostname
 srun sleep 90
 EOT
 
+true
+
 #if ! sacct | tail -1 | grep sleep &>/dev/null ; then
 #sbatch --parsable $GSH_HOME/testjob/submit.sh >/dev/null
 #fi
