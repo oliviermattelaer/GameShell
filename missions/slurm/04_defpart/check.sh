@@ -12,8 +12,11 @@ else
     if [[ $PARTA == ${PART,,} ]] ; then
         echo "Warning! The partition names are case sensitive. Please give the name with the correct case."
         false
+    elif [[ $PARTA == ${PART}'*' ]] ; then
+        echo 'Warning: the asterix (*) is not part of the name.'
+        false
     else
         echo "Are you sure? Look carefully for the asterisk (*)."
-    false
+        false
     fi
 fi
