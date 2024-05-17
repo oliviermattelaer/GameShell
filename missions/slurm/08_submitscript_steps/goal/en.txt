@@ -5,10 +5,9 @@ As stated in the previous mission, there are two main sections in a submission s
 
 Note that operations must be written *after* resource requests.
 
-Step 0 is the submission script itself. All commands will be part of this step by default. 
+Step 0 is the submission script itself. It is implicit. All commands will be part of this step by default. 
 
-To further create more steps, use the `srun` command. That command
-will 
+To further create more steps, use the `srun` command. That command will 
 
 - setup the environment for parallel tasks
 - monitor resource usage by the tasks
@@ -20,7 +19,7 @@ The general usage of `srun` is
 
 All arguments are optional. The COMMAND to run must be an executable.
 
-To fullfill this mission, insert in the submission script the two needed lines to instruct the worker to perform two steps, the first one being to identify itself and the second being to sleep for 90 seconds.
+To fullfill this mission, insert, in the submission script, the two needed lines to instruct the worker to perform two steps (in addition to the submission script), the first one being to identify itself and the second being to sleep for 90 seconds.
 
 In this example, we do not specify explicitely the number of (parallel) tasks; it is one by default.
 
