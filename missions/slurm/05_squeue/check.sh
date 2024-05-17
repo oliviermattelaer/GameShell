@@ -1,6 +1,7 @@
 #!/usr/bin/env bash -x
 
-JOBID=$(squeue -t PD -p Def | awk '/Resources/ {print $1}')
+PART=$(sinfo -ho%P | grep \*)
+JOBID=$(squeue -t PD -p ${PART%%\*} | awk '/Resources/ {print $1}')
 read -p "What is the job ID of the next job to be scheduled in the default partition ? " JOBIDA
 
 if [[ $JOBID == $JOBIDA ]]
