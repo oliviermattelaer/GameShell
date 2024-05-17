@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-Find out about the list of jobs currently managed by Slurm. Jobs are identified by a numerical job ID. Some of them are currently being worked on by the workers, they are in the R (Running) state. The others are in the PD (PenDing) state. Jobs can be given names to better recognize them.
+Find out about the list of jobs currently managed by Slurm. Jobs are identified by a numerical job ID. Some of them are currently being worked on by the workers, they are in the R (Running) state. The others are in the PD (PenDing) state. Jobs can be given names to better recognize them. The jobs that will start next are the one that have "(Resources)" as listed "reason".
 
 What is the job ID of the next job to start in the default partiton?
 
@@ -9,12 +9,7 @@ Useful commands
 ===============
 
 squeue
-  lists the jobs in the system. Most column titles are
-  self-explanatory. The last one will show which worker(s)
-  are buzy with that job, or, in parenthese, the reason
-  why no worker is taking care of it. The jobs that will
-  start next are the one that have (Resources) as listed
-  reason.
+  lists the jobs in the system. Most column titles are self-explanatory. The last one will show which worker(s) are buzy with that job, or, in parenthese, the reason why no worker is taking care of it. 
 
 squeue -t PD
   shows only the jobs that are pending
