@@ -1,0 +1,32 @@
+Goal of the  mission
+====================  
+
+
+Good job! 
+Now your goal is to be able to load an (old) version of Python.
+Can you load a version of Python2?
+
+Information
+===========
+
+Note that the program are organised into "releases" which related to the compiler of a given year.
+Old program need to change this release to switch to an older one.
+To switch release this is the same as for module: module load releases/XXXXXX
+To know which releases is needed use module spider with the full name of the module that you want.
+
+When the module is loaded, you can use gsh check (no question this time)
+
+Useful commands
+===============
+
+module spider NAME
+  list all possible version of the program containing NAME in their NAME
+  
+module spider NAME/VERSION
+  gives the details on the other modules to be loaded to get access to that particular module
+
+module load XXXXXX
+ml XXXXXX
+  loading the specify module / release 
+
+

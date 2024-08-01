@@ -1,0 +1,23 @@
+Goal of the  mission
+====================  
+
+Now that you find the correct default version, you can tell your shell to activate it.
+Your goal is to activate such version and tell the check script where is the file that correspond to the python executable (you can use the command 'which python' for that)  
+
+Useful commands
+===============
+
+module av XXXXX
+  list various currently available program containing name XXXXX
+  a (D) indicates the default version.
+
+
+module load NAME
+  activating a given program (such that you can use the related commands)
+   NAME  can just be the name (like module load Python) then it takes the default
+         can be a name and a version number to load a dedicated version (like module load Python/3.12.1) 
+
+which python 
+   print the full path of the executable python command
+
+

@@ -1,0 +1,23 @@
+Goal of the  mission
+====================  
+
+The command "python" is not available by default.
+Your goal is to find  the default version of python.
+and to pass the level, you need to indicate which version of python is the default one. 
+
+
+Useful commands
+===============
+
+module av XXXXX
+  list various currently available program containing name XXXXX
+  a (D) indicates the default version.
+
+
+module load XXXXX
+   activating a given program (such that you can use the related commands)
+
+python --version
+   print the version of python
+
+
