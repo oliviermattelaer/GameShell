@@ -2,4 +2,5 @@ lmod/01_avail
 lmod/02_load
 lmod/03_spider
 lmod/04_release
+lmod/05_list
 FINAL_MISSION

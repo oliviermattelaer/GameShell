@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-version=`python --version | awk '{print $NF}' | tr "." "\n"| head -n1`
-
+version=`python --version 2>&1 | awk '{print $NF}' | tr "." "\n"| head -n1`
+echo "version detected $version"
 if [ "$version" = "2" ]
 then
     unset goal anscommit uniq_version

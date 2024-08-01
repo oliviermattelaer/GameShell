@@ -6,7 +6,7 @@ release=`module -t --redirect spider $target | grep releases | head -n1`
 
 
 
-major_version=`python --version | awk '{print $NF}' | tr "." "\n"| head -n1`
+major_version=`python --version 2>&1 | awk '{print $NF}' | tr "." "\n"| head -n1`
 
 if [ "$major_version" = "2" ]
 then
@@ -14,15 +14,17 @@ then
     unset version target release major_version
     false
 else
-    curr_version = =`python --version | awk '{print $NF}'`
-    if [ "$curr_version" = "$version" ]then
+    curr_version=`python --version 2>&1| awk '{print $NF}'`
+    if [ "$curr_version" = "$version" ] 
+    then
        echo "correct version of python detected. Good Job"
     else
        echo "We were expecting another pyton version, but ok let check for the current one. "
     fi	    
     nb=`module  -t --redirect list | wc -l`
     read -p "How many modules are currently loaded? " anscommit
-    if [ "$nb" = "$anscommit" ] then
+    if [ "$nb" = "$anscommit" ] 
+    then
 	unset version target release major_version nb
 	true
     else
