@@ -1,0 +1,23 @@
+Goal of the  mission
+====================  
+
+As you know program depends on each other, so when you load a program, you also automatically load those depencies.
+For this mission, load the most recent version of Python and determine the number of module that has been loaded effectively.
+
+
+Useful commands
+===============
+
+module spider NAME
+  list all possible version of the program containing NAME in their NAME
+  
+module spider NAME/VERSION
+  gives the details on the other modules to be loaded to get access to that particular module
+
+module load XXXXXX
+ml XXXXXX
+  loading the specify module / release 
+
+module list
+  print all the currently loaded module 
+
