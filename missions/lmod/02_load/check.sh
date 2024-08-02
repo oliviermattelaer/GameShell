@@ -2,7 +2,7 @@
 
 goal=`module load Python && which python`
 defpython=`which python3 2&> /dev/null | awk '{print $NF}'`
-echo "target $goal bad: $defpython "
+#echo "target $goal bad: $defpython "
 read -p "What is the output of the command 'which python'? " anscommit
 
 if [ "$goal" = "$anscommit" ]

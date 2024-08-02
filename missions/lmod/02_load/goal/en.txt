@@ -1,8 +1,12 @@
 Goal of the  mission
 ====================  
 
-Now that you find the correct default version, you can tell your shell to activate it.
-Your goal is to activate such version and tell the check script where is the file that correspond to the python executable (you can use the command 'which python' for that)  
+Now that you find the correct default version, you can ask the librarian to put that spell in your book of spell.
+Such that you can launch such spell as well.
+
+For this mission, Your goal is to activate the default version of the "python" spell.
+To succeed the "gsh check" you will need to provide the place where such spell is store in the library 
+(path of the executable). You can use the command 'which python' for that.  
 
 Useful commands
 ===============

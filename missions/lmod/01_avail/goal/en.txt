@@ -1,10 +1,12 @@
 Goal of the  mission
 ====================  
 
-The command "python" is not available by default.
-Your goal is to find  the default version of python.
-and to pass the level, you need to indicate which version of python is the default one. 
+The command "python" is not provided by the system by default.
+"python" is a very convienient scripting language which can be activated.
+For your first mission, you will need to ask the librarian what is the default 
+"python" version he can provide.
 
+Then when you have the information, please run "gsh check" and tell me which version it is.
 
 Useful commands
 ===============

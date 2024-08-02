@@ -2,7 +2,7 @@
 
 goal=`module load Python && python --version | awk '{print $NF}'`
 defpython=`python3 --version | awk '{print $NF}'`
-echo "target $goal bad: $defpython "
+#echo "target $goal bad: $defpython "
 read -p "What is the version number of the default python program that you can use? " anscommit
 
 if [ "$goal" = "$anscommit" ]

@@ -10,14 +10,18 @@ Useful commands
 
 module spider NAME
   list all possible version of the program containing NAME in their NAME
-  
+
+ 
 module spider NAME/VERSION
   gives the details on the other modules to be loaded to get access to that particular module
 
+
 module load XXXXXX
-ml XXXXXX
+  (shortcut: ml XXXXXX)
   loading the specify module / release 
 
+
 module list
+  (shortcut ml)
   print all the currently loaded module 
 

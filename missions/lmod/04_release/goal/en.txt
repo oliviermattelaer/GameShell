@@ -1,32 +1,31 @@
 Goal of the  mission
 ====================  
 
-
 Good job! 
 Now your goal is to be able to load an (old) version of Python.
 Can you load a version of Python2?
 
-Information
-===========
+For that you will need to change the section of the library you are in. This is also easy for example: 
+module load releases/2021b
+To check in which section you are now, you can simply run "module av" and the list of sections available to you are the various sections (in top of the releases section, you always have access to other section of the library). 
 
-Note that the program are organised into "releases" which related to the compiler of a given year.
-Old program need to change this release to switch to an older one.
-To switch release this is the same as for module: module load releases/XXXXXX
-To know which releases is needed use module spider with the full name of the module that you want.
-
-When the module is loaded, you can use gsh check (no question this time)
-
+When the python2 spell is available, you can simply run the "gsh check" command. You do not have to answer any question for this level. 
+ 
 Useful commands
 ===============
 
 module spider NAME
   list all possible version of the program containing NAME in their NAME
-  
+
 module spider NAME/VERSION
   gives the details on the other modules to be loaded to get access to that particular module
 
-module load XXXXXX
-ml XXXXXX
+module load XXXXXX 
+  (shortcut:  ml XXXXXX)
   loading the specify module / release 
+
+module av NAME
+  list various currently available program containing name NAME
+  a (L) indicates that the module is currently loaded.
 
 
