@@ -25,3 +25,14 @@ which python
    print the full path of the executable python command
 
 
+Technical Information
+=====================
+
+In order to launch a program you need a couple of information including:
+- Where the executable is
+- where the dependencies are
+Those information are typically store within environment variables ($PATH, $LD_LIBRARY_PATH,...).
+The module will technically add/clean those environement variable, allowing you to have an easy way to
+handle such variables.
+
+
