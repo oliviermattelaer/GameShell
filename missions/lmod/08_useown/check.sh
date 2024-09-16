@@ -11,8 +11,14 @@ then
     false
 elif thx_1138.sh > /dev/null; then
    echo "well done"
+elif ! which thx_1138.sh; then
+   echo "PATH environment variable does not seem to be correctly updated by your module. Please retry"
+   false
 else
    echo "failed to run script thx_1138.sh (check above for the reason)"
+   echo "If the error is ModuleNotFoundError: No module named 'thx1138'"
+   echo "Then the issue is that PYTHONPATH is not correctly set"
+   echo " Check in particular that the path is absolute"
    false	
 fi
 

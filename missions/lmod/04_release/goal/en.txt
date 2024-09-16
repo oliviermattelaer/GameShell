@@ -5,8 +5,7 @@ Good job!
 Now your goal is to be able to load an (old) version of Python.
 Can you load a version of Python2?
 
-For that you will need to change the section of the library you are in. This is also easy for example: 
-module load releases/2021b
+For that you will need to change the section of the library you are in. This can be done with the same command as seen before (e.g. module load releases/2021b)
 To check in which section you are now, you can simply run "module av" and the list of sections available to you are the various sections (in top of the releases section, you always have access to other section of the library). 
 
 When the python2 spell is available, you can simply run the "gsh check" command. You do not have to answer any question for this level. 

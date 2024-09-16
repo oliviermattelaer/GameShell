@@ -2,7 +2,7 @@ Goal of the  mission
 ====================  
 
 The command "python" is not provided by the system by default.
-"python" is a very convienient scripting language which can be activated.
+"python" is a very convenient scripting language which can be activated.
 For your first mission, you will need to ask the librarian what is the default 
 "python" version he can provide.
 

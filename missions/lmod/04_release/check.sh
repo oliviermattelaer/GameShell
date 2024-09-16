@@ -7,7 +7,7 @@ then
     unset goal anscommit uniq_version
     true
 else
-	echo "$(gettext "Looks like this is not python2")"
+	echo "$(gettext "Looks like this is not python2. If you just did module load Python, it is likely that you loaded a newer version (python3) which is also available here.")"
     echo "$(gettext "Please Retry")"
     false
 fi

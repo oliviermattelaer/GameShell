@@ -37,6 +37,9 @@ CONTENT OF THE FILE
   - prepend_path("NAME","VALUE")
     Update the environment variable NAME to add an additional path 
     Here you need to update PATH and PYTHONPATH
+      Note: 
+       - Path should be absolute
+       - "~" can be used
 
   - load("NAME")
     Indicate that you need first to load the module "NAME"

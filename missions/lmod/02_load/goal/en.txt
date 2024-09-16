@@ -1,8 +1,7 @@
 Goal of the  mission
 ====================  
 
-Now that you find the correct default version, you can ask the librarian to put that spell in your book of spell.
-Such that you can launch such spell as well.
+Now that you find the correct default version, you can ask the librarian to put that spell in your spell's book, such that you can launch it.
 
 For this mission, Your goal is to activate the default version of the "python" spell.
 To succeed the "gsh check" you will need to provide the place where such spell is store in the library 
@@ -19,10 +18,11 @@ module av XXXXX
 module load NAME
   activating a given program (such that you can use the related commands)
    NAME  can just be the name (like module load Python) then it takes the default
-         can be a name and a version number to load a dedicated version (like module load Python/3.12.1) 
+         can be a name and a version number to load a dedicated version 
+         (like "module load Python/3.12.1") 
 
-which python 
-   print the full path of the executable python command
+which NAME
+   print the full path of the executable "NAME"
 
 
 Technical Information
@@ -31,8 +31,7 @@ Technical Information
 In order to launch a program you need a couple of information including:
 - Where the executable is
 - where the dependencies are
-Those information are typically store within environment variables ($PATH, $LD_LIBRARY_PATH,...).
-The module will technically add/clean those environement variable, allowing you to have an easy way to
-handle such variables.
+Those information are typically stored within environment variables ($PATH, $LD_LIBRARY_PATH,...).
+The module command will technically add/clean those environement variable, allowing you to have an easy way to handle such variables. 
 
 
