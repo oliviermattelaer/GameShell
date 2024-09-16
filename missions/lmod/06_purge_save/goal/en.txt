@@ -1,0 +1,44 @@
+Goal of the  mission
+====================  
+
+
+In this mission the goal is to create your own collection of spell.
+Such that you can activate multiple spell with a name of your choice.
+
+Do a collection with the following module:
+    R/4.2.2-foss-2022b
+    netCDF/4.9.0-gompi-2022b
+    Java/11.0.20
+and name it VESUVE.
+
+First, you will need to remove all the module that you have loaded.
+
+Useful commands
+===============
+
+module purge
+  remove all the module that are currently loaded. 
+  Important module (releases/...) will stay loaded as they should.
+
+
+module spider NAME/VERSION
+  gives the details on the other modules to be loaded to get access to that particular module
+
+
+module load XXXXXX
+  (shortcut: ml XXXXXX)
+  loading the specify module / release 
+
+
+module save XXXXXX
+  save the currently loaded module as a "collection" such that you can load them back via the command
+  module load XXXXXX"
+
+
+Useful Trick
+============
+
+If you want to arrive on the cluster and have a collections activated by default you can use
+module save 
+
+All the module currently loaded will be available by default at each new connection to the cluster.
