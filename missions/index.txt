@@ -3,4 +3,7 @@ lmod/02_load
 lmod/03_spider
 lmod/04_release
 lmod/05_list
+lmod/06_purge_save
+lmod/07_eb
+lmod/08_useown
 FINAL_MISSION

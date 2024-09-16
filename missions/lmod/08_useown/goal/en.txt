@@ -1,0 +1,47 @@
+Goal of the  mission
+====================
+
+The library is not large enough for you!
+
+You have started to create your own spell and you realise that it would be great
+to organise your self a bit in order to keep all those spell organised and easy to use.
+In short you want to have your own library.
+
+Your mission is to create a module for your script:
+thx_1138.sh
+that you have install in the following directory:
+./Movies/gl_1971/
+and that requires:
+ 
+ 1. python3.10 to run
+ 2. an update on an environment variable PYTHONPATH to include ./Movies/lib/site-package/python3.10
+
+
+Useful Information
+==================
+
+ 1. You can use ``module show XXXX`` to show the syntax of other module such that you can have template.
+ 
+ 2. You can store your module in .local/modules (the module to activate those is module load use.own)
+ 
+ 3. The recommended method is to create a directory with the name of the program (here THX) and within that directory create a file with the number version as name and extension ".lua". So the file to create is 
+  '~/.local/modules/THX/1138.lua' 
+
+CONTENT OF THE FILE
+===================
+ 
+  - conflict("NAME")
+    This line is not mandatory, but indicates that you need first to unload any module the name NAME.
+    It is quite typical to put any module with the same name in conflict so here ``conflict("THX")``
+  
+  - prepend_path("NAME","VALUE")
+    Update the environment variable NAME to add an additional path 
+    Here you need to update PATH and PYTHONPATH
+
+  - load("NAME")
+    Indicate that you need first to load the module "NAME"
+    Here you need to indicate that you need to load PYTHON3.10 (and the associated release)
+
+
+
+

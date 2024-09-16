@@ -1,0 +1,36 @@
+Goal of the  mission
+====================
+
+If you do not have have book/spell program in the library,
+You can check if you can add it ... yourself.
+
+The library has a simple way to add spell: Easybuild
+
+To succeed this mission, you need to install a new version of VIM on the system
+
+Instruction
+===========
+
+ 1. Search what easybuild can install as version of VIM
+    eb --search vim
+    It will report a list of path with version that you can install
+
+ 2. From the name, you will see that vim depend on GCCcore, so check the current version of GCCcore (this depend on the release) 
+    module av GCCcore/
+
+ 3. Select the path that you think is correct and check what you are going to install:
+   eb PATH_TO_FILE -Dr 
+   "-Dr" is for dry run
+   a line starting with "- [ ]" is a for a dependence that will be installed
+   a line starting with "- [x]" is a dependence already installed
+  
+   NOTE: If you have more than one "- [ ]" in this case, this means that you are using a wrong file for this tuto.  
+
+ 4. launch the installation:
+   eb PATH_TO_FILE
+
+ 5. Wait one minute and you are done
+
+ 6. load the module with:
+   module load use.own VIM
+
