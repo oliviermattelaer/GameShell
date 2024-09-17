@@ -116,10 +116,10 @@ then
 
   if [ -n "$LAST_SAVEFILE" ] && [ "$GSH_EXEC_DIR/$GSH_EXEC_FILE" != "$LAST_SAVEFILE" ]
   then
-    echo "Warning: there is a more recent savefile"
+    echo "We detect that you run this version of the game before."
     echo "You can"
-    echo "  (1) keep the given file ("$GSH_EXEC_FILE")"
-    echo "  (2) switch to the last savefile ($(basename "$LAST_SAVEFILE"))"
+    echo "  (1) Restart a game from scratch"
+    echo "  (2) Restart the game where you left"
     echo "  (3) abort"
     echo
     R=""
