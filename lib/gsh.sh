@@ -44,7 +44,7 @@ __log_action() {
 
 
 _gsh_reset() {
-  local MISSION_NB="$(_gsh_pcm)"
+  local MISSION_NB="${1:-$(_gsh_pcm)}"
   if [ -z "$MISSION_NB" ]
   then
     local fn_name="${FUNCNAME[0]}"
@@ -226,10 +226,9 @@ __gsh_start() {
     color_echo red "$(eval_gettext "Error: mission \$MISSION_NB doesn't exist!")" >&2
     echo
     __log_action "$MISSION_NB" "UNKNOWN_MISSION"
-    gsh reset
+    gsh reset $(($MISSION_NB-1))    # reset the previous (current) mission
     return 1
   fi
-
 
   # re-source static.sh, in case some important directory was removed by accident
   [ -f "$MISSION_DIR/static.sh" ] && mission_source "$MISSION_DIR/static.sh"
@@ -639,6 +638,17 @@ _gsh_test() {
 }
 
 
+###
+# don't put the next 2 functions in $GSH_ROOT/scripts/_gsh_help / _gsh_HELP
+# because it doesn't work on case insensitive filesystems
+_gsh_help() {
+  parchment "$(eval_gettext '$GSH_ROOT/i18n/gameshell-help/en.txt')" Parchment2 | pager
+}
+
+_gsh_HELP() {
+  parchment "$(eval_gettext '$GSH_ROOT/i18n/gameshell-full-help/en.txt')" Parchment2 | pager
+}
+
 gsh() {
   local _TEXTDOMAIN=$TEXTDOMAIN
   export TEXTDOMAIN="gsh"
@@ -660,8 +670,8 @@ gsh() {
       ;;
     "reset")
       export GSH_LAST_ACTION='reset'
-      __gsh_clean
-      _gsh_reset
+      __gsh_clean "$1"
+      _gsh_reset "$1"
       ;;
     "resetstatic")
       _gsh_resetstatic
@@ -706,6 +716,14 @@ gsh() {
       export GSH_LAST_ACTION='goto'
       __gsh_clean
       __gsh_start "$@"
+      ;;
+
+    "help")
+      _gsh_help
+      ;;
+
+    "HELP")
+      _gsh_HELP
       ;;
 
     *)
