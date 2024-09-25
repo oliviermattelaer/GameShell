@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
 cd "$GSH_HOME"
-git disable VESUVE 2&> /dev/null
-module purge
+module disable VESUVE 2&> /dev/null
+#module purge
 
 cd "$GSH_HOME"
 
