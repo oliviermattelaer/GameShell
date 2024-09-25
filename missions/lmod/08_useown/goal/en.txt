@@ -4,12 +4,12 @@ Goal of the  mission
 The library is not large enough for you!
 
 You have started to create your own spell and you realise that it would be great
-to organise your self a bit in order to keep all those spell organised and easy to use.
+to organise yourself a bit in order to keep all those spell organised and easy to use.
 In short you want to have your own library.
 
 Your mission is to create a module for your script:
 thx_1138.sh
-that you have install in the following directory:
+that you have installed in the following directory:
 ./Movies/gl_1971/
 and that requires:
  
@@ -20,7 +20,7 @@ and that requires:
 Useful Information
 ==================
 
- 1. You can use ``module show XXXX`` to show the syntax of other module such that you can have template.
+ 1. You can use ``module show GCCcore`` to show the syntax of other module such that you can have template.
  
  2. You can store your module in .local/modules (the module to activate those is module load use.own)
  

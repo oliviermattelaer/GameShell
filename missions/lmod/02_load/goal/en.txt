@@ -12,7 +12,7 @@ Useful commands
 
 module av XXXXX
   list various currently available program containing name XXXXX
-  a (D) indicates the default version.
+  if more than one program with the same name are present a (D) indicates the default version.
 
 
 module load NAME

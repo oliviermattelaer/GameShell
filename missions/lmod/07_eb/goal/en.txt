@@ -1,7 +1,7 @@
 Goal of the  mission
 ====================
 
-If you do not have have book/spell program in the library,
+If you do not have book/spell program in the library,
 You can check if you can add it ... yourself.
 
 The library has a simple way to add spell: Easybuild
@@ -32,5 +32,5 @@ Instruction
  5. Wait one minute and you are done
 
  6. load the module with:
-   module load use.own VIM
+   module load use.own Vim
 

@@ -8,7 +8,7 @@ Now all commands are not directly available for you, like for example the one se
 a burning torch towards a Python, or the one for doing abinitio alchemy.
 
 Those commands you need to find them first and then activate them.
-The reason is that multiple person might not want the exact same version of such command and
+The reason is that multiple people might not want the exact same version of such command and
 that they might not be compatible with each other (and that you have dependency).
 
 The purpose of this game is to teach you, how to find the verstion of a command/code that you want to use.

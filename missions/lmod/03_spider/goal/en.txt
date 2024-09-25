@@ -4,10 +4,10 @@ Goal of the  mission
 
 Good job! 
 Do you know that "module av / module avail" does not show the full list of module/program that you can use.
-They only show you one section (named releases) of the full library. 
+They only show one section (named releases) of the full library. 
 Careful, you can not have spells/programs from two different sections loaded in your spell book at the same time.
 
-The goal of this mission is to find how many different version of Python is available in the FULL library and not only in the current section (release) that you are in.
+The goal of this mission is to find how many different versions of Python is available in the FULL library and not only in the current section (release) that you are in.
 
 Useful commands
 ===============
@@ -16,7 +16,7 @@ module av NAME
   list various currently available program containing name NAME
 
 module spider NAME
-  list all possible version of the program containing NAME in their NAME
+  list all possible versions of the program containing NAME in their NAME
 
   
 module spider NAME/VERSION
