@@ -1,16 +1,7 @@
 #!/usr/bin/env sh
 
-cd "$GSH_HOME"
+cd "$GSH_HOME/Movies/gl_1971"
 git disable VESUVE 2&> /dev/null
-if [ ! -e Movies ]; then
-	mkdir Movies
-fi
-cd Movies
-if [ ! -e gl_1971 ]; then
-        mkdir gl_1971
-fi
-cd gl_1971
-
 
 if [ ! -e thx_1138.sh ];then
 	echo "#!/usr/bin/env python3" > thx_1138.sh
@@ -19,33 +10,12 @@ if [ ! -e thx_1138.sh ];then
 fi
 chmod +x thx_1138.sh
 
-cd "$GSH_HOME"/Movies
-if [ ! -e lib ]; then
-        mkdir lib
-fi
-cd lib
-if [ ! -e site-package ]; then
-        mkdir site-package
-fi
-cd site-package
-if [ ! -e "python3.10" ]; then
-        mkdir "python3.10"
-fi
-cd python3.10
+cd "$GSH_HOME"/Movies/lib/site-package/python3.10
 
 if [ ! -e thx1138.py ];then
 	echo "print(\"quote from the movie...\")" > thx1138.py
 fi
 
-cd "$GSH_HOME"
-
-if [ ! -e .local ]; then
-        mkdir .local
-fi
-cd .local
-if [ ! -e modules ]; then
-        mkdir modules
-fi
 cd "$GSH_HOME"
 
 
