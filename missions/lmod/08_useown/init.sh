@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 cd "$GSH_HOME/Movies/gl_1971"
-git disable VESUVE 2&> /dev/null
+#git disable VESUVE 2&> /dev/null
 
 if [ ! -e thx_1138.sh ];then
 	echo "#!/usr/bin/env python3" > thx_1138.sh
