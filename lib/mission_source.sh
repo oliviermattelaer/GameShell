@@ -56,7 +56,7 @@ mission_source() {
     TEXTDOMAIN=$_TEXTDOMAIN
     MISSION_NAME=$_MISSION_NAME
     MISSION_DIR=$_MISSION_DIR
-    PATH=$_PATH
+    #PATH=$_PATH
     unset -f "$MISSION_FN" 2>/dev/null      # zsh complains if we try to unset a non existing function
     return $exit_status
   fi
@@ -89,7 +89,7 @@ mission_source() {
   TEXTDOMAIN=$_TEXTDOMAIN
   MISSION_NAME=$_MISSION_NAME
   MISSION_DIR=$_MISSION_DIR
-  PATH=$_PATH
+  #PATH=$_PATH
   . print_current_environment.sh | grep -v "$MISSION_FN" > "$env_after"
 
   if ! cmp -s "$env_before" "$env_after"
