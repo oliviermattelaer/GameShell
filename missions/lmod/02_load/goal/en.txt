@@ -24,6 +24,12 @@ module load NAME
 which NAME
    print the full path of the executable "NAME"
 
+WARNING:
+=======
+
+For both the module and the which command NAME is case sensitive
+but they sometimes do not match for the case (Python for the module and python for the executable)
+
 
 Technical Information
 =====================

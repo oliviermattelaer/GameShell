@@ -5,6 +5,7 @@ defpython=`python3 --version | awk '{print $NF}'`
 #echo "target $goal bad: $defpython "
 read -p "What is the version number of the default python program that you can use? " anscommit
 
+
 if [ "$goal" = "$anscommit" ]
 then
     unset goal anscommit defpython
@@ -21,6 +22,10 @@ then
    echo "$(gettext "Incorrect, we expect an answer LIKE 2.7.12 (but this is NOT the correct answer)")"
     echo "$(gettext "Please Retry")"
     false
+elif [[ $anscommit == *"$goal"* ]]
+then
+    unset goal anscommit defpython
+    true
 else
     echo "$(gettext "Incorrect, we expect an answer like 2.7.12")"
     echo "$(gettext "Please Retry")"
