@@ -4,8 +4,7 @@ Goal of the  mission
 Now that you find the correct default version, you can ask the librarian to put that spell in your spell's book, such that you can launch it.
 
 For this mission, Your goal is to activate the default version of the "python" spell.
-To succeed the "gsh check" you will need to provide the place where such spell is store in the library 
-(path of the executable). You can use the command 'which python' for that.  
+To succeed the "gsh check" you will need to provide the place where such spell is store in the library (path of the executable). You can use the command 'which python' for that.  
 
 Useful commands
 ===============
@@ -27,8 +26,7 @@ which NAME
 WARNING:
 =======
 
-For both the module and the which command NAME is case sensitive
-but they sometimes do not match for the case (Python for the module and python for the executable)
+For both the module and the which command NAME is case sensitive but they sometimes do not match for the case (Python for the module and python for the executable)
 
 
 Technical Information
@@ -37,7 +35,6 @@ Technical Information
 In order to launch a program you need a couple of information including:
 - Where the executable is
 - where the dependencies are
-Those information are typically stored within environment variables ($PATH, $LD_LIBRARY_PATH,...).
-The module command will technically add/clean those environement variable, allowing you to have an easy way to handle such variables. 
+Those information are typically stored within environment variables ($PATH, $LD_LIBRARY_PATH,...). The module command will technically add/clean those environement variable, allowing you to have an easy way to handle such variables. 
 
 

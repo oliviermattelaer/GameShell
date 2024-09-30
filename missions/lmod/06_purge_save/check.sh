@@ -12,7 +12,7 @@ then
 	false
 elif ! module is-loaded Java/11.0.20;
 then	
-	echo "Java not loaded"
+    echo "Java/11.0.20 not loaded (note this is not the default Java for this release)"
 	false
 elif ! module -t --redirect savelist | grep VESUVE;
 then

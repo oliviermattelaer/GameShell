@@ -12,9 +12,8 @@ thx_1138.sh
 that you have installed in the following directory:
 ./Movies/gl_1971/
 and that requires:
- 
  1. python3.10 to run
- 2. an update on an environment variable PYTHONPATH to include ./Movies/lib/site-package/python3.10
+ 2. an update on an environment variable PYTHONPATH to include ~/Movies/lib/site-package/python3.10
 
 
 Useful Information
@@ -38,8 +37,9 @@ CONTENT OF THE FILE
     Update the environment variable NAME to add an additional path 
     Here you need to update PATH and PYTHONPATH
       Note: 
-       - Path should be absolute
-       - "~" can be used
+       - Path should be absolute ("~" can be used)
+       - PATH should contains the path to where your script is (~/Movies/gl_1971/)
+       - PYTHONPATH shoud contains the path to where your library is (~/Movies/lib/site-package/python3.10)
 
   - load("NAME")
     Indicate that you need first to load the module "NAME"
