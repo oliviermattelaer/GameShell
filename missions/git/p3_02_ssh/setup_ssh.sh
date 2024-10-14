@@ -77,5 +77,12 @@ else
     echo "    IdentityFile ${identityfile_path}" >> ~/.ssh/config
 fi
 
-
-
+echo ""
+echo "Step 1 completed. Now you can do Step 2:"
+echo ""
+echo "go to  https://github.com/settings/keys"
+echo "click on "New ssh key" put as title the name of the cluster"
+echo "and paste the following content:"
+echo ""
+echo ""
+cat ~/.ssh/id_rsa.git.pub

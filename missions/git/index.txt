@@ -2,7 +2,8 @@
 03_git_config
 04_git_start_tracking
 05_git_edit_file
-06_git_status
+06a_git_status
+06b_git_status
 07_git_patch
 08_git_bisect
 p2_01_newbranch

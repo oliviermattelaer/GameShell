@@ -5,10 +5,10 @@ cd "${GSH_ROOT}/World/Factory/gitlectures"
 if git status SOLDOUT_waiting_for_stock.list | grep "nothing to commit" >& /dev/null 
 then
     # check that the file was edited has expected
-    price_line= cat SOLDOUT_waiting_for_stock.list | grep stone
-    echo "price_line is at $price_line"
-    read -ra ADDR <<< "$price_line"
-    price=${ADDR[1]}
+    price_line=`cat SOLDOUT_waiting_for_stock.list | grep stone`
+    echo " SOLDOUT line is at $price_line"
+    #read -ra ADDR <<< "$price_line"
+    #price=${ADDR[1]}
     echo "price is set at $price"
     if [[ $price_line == "" ]]
     then

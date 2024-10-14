@@ -24,6 +24,13 @@ fi
 #echo "testing if ssh is correctly configured for github"
 # testing if ssh setup is already done
 ssh -oStrictHostKeyChecking=no -T git@github.com 1> $GSH_HOME/log 2>&1
+if cat $GSH_HOME/log | grep "oliviermattelaer"
+then
+     echo "ssh configured correctly but for/with admin user access ..."
+     echo "do not set level in autowin mode"
+     rm $GSH_HOME/log
+     touch  $GSH_HOME/log     
+fi
 
 if cat $GSH_HOME/log | grep "successfully"
 then
@@ -45,11 +52,10 @@ else
     rm -rf $GSH_HOME/log &> /dev/null
     cp "$MISSION_DIR//setup_ssh.sh" "$GSH_HOME/Factory/gitlectures/setup_ssh"
     chmod +x $GSH_HOME/Factory/gitlectures/setup_ssh 
-    
+    cd $GSH_HOME/Factory/gitlectures
     true
 fi
 
-cd $GSH_HOME/Factory/gitlectures
 
 
 

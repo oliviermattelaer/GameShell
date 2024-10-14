@@ -1,4 +1,4 @@
-echo "clean setup with $GSH_LAST_ACTION"
+#echo "clean setup with $GSH_LAST_ACTION"
 #if [[ "$GSH_LAST_ACTION" == "reset" ]]; then
 #rm -rf "$GSH_HOME/Factory"
 #mkdir  "$GSH_HOME/Factory"

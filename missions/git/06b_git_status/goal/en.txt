@@ -1,0 +1,24 @@
+Mission goal
+============
+
+Someone put (again) some  mess in this Factory.
+Can you clean it?
+
+From the name of the file, you should be able to guess what to do.
+Use git status to see the status of the files and act accordingly.
+
+Note that this time some change have already been put in the index !!
+
+Useful commands
+===============
+
+git status
+~~ check the status of the current git repository
+
+git restore FILENAME
+~~  restore file to status present in the index
+
+git restore --staged FILENAME
+~~  restore the file in the index to the status of the last committed version of the file
+
+

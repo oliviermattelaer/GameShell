@@ -28,7 +28,7 @@ gitfork=`git remote get-url origin`
 prefix="https://"
 if [[ "$gitfork" =~ ^"$prefix" ]]; then
     echo "Congratulations for adding your ssh key"
-    echo "Your repo is still setup to use htpps protocol"
+    echo "Your repo is still setup to use https protocol"
     echo "to simplify our setup, the game has change your fork to use ssh protocol for the remote repository"
     IFS='/' read -ra ADDR <<< "$gitfork"
     OWNER=${ADDR[3]}
