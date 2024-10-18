@@ -46,6 +46,7 @@ then
 else
     gitfork=$(git remote get-url origin)
     #echo "GITFORK IS $gitfork"
+    # gitfork should have such format https://github.com/oliviermattelaer/gitlectures.git
     prefix="https://"
     if [[ "$gitfork" =~ ^"$prefix" ]]; then
 	echo "NOW that we have set an ssh key, we will change for you the protocal used for git clone to ssh (instead of  https)"
@@ -54,9 +55,10 @@ else
 	OWNER=${ADDR[3]}
 	#echo $OWNER
 	#echo "OWNER IS $OWNER"
-	git remote set-url origin git@github.com:$OWNER/gitlectures.git
-	echo "git@github.com:$OWNER/gitlectures.git" > $GSH_HOME/.fork
-	echo "new remote adress is set to git@github.com:$OWNER/gitlectures.git"
+	REPO=${ADDR[4]}
+	git remote set-url origin git@github.com:$OWNER/$REPO
+	echo "git@github.com:$OWNER/$REPO" > $GSH_HOME/.fork
+	echo "new remote adress is set to git@github.com:$OWNER/$REPO"
 	git remote
     fi
 fi
