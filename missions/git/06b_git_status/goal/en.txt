@@ -4,10 +4,9 @@ Mission goal
 Someone put (again) some  mess in this Factory.
 Can you clean it?
 
-From the name of the file, you should be able to guess what to do.
-Use git status to see the status of the files and act accordingly.
-
 Note that this time some change have already been put in the index !!
+So you did "git add" on a file and finally do not want to keep those changes.
+
 
 Useful commands
 ===============

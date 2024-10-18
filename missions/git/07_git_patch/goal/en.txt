@@ -6,6 +6,8 @@ You did change useful line in the code but also poluted it with many spurious pr
 
 Your goal is to clean the situation (i.e. remove the print statement) and to commit the change to the file.
 
+DO NOT DO that manually by opening a text editor, use the "git add -p" command." 
+
 Useful commands
 ===============
 

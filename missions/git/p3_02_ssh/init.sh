@@ -10,14 +10,15 @@ fi
 if [ ! -d "$GSH_HOME/Factory/gitlectures" ]
 then
     cd $GSH_HOME/Factory
+    rm -rf . &> /dev/null
     if [ ! -e "$GSH_HOME/.fork" ]
     then 
        read -p "Please specify the github address of your fork:" fork
-       git clone $fork
+       git clone $fork gitlectures
        echo $yn > $GSH_HOME/.fork
     else
 	fork=$(cat $GSH_HOME/.fork)
-	git clone $fork
+	git clone $fork gitlectures
     fi
 fi
 
