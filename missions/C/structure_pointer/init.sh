@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 cd "$GSH_HOME"
-if [ ! -e "array.c" ] 
+if [ ! -e "structure.c" ] 
 then
    cp "$MISSION_DIR/structure.c" "structure.c"
 fi

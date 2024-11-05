@@ -7,5 +7,5 @@ int main()
   int i = 5;
   printf("Multiplication table of %d:\n", i);
   // NEXT LINE IS INCOMPLETE !!
-  printf("i is store in ram at adress  \n",);
+  printf("i is stored in ram at the address  \n",);
 }

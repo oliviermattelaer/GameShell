@@ -2,7 +2,7 @@ Information
 ============
 
 The interesting part of a pointer is that you can also
-changed the value stored at a given address.
+change the value stored at a given address.
 If you have a pointer p_i you can do
 *p_i = new_value
 

@@ -29,6 +29,7 @@ int main() {
     printf("%d ", vector[j]);
         
   }
+  printf("\n");
 
   //make the memory available to another program
   free(vector);
