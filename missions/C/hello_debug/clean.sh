@@ -1,5 +1,5 @@
 if [[ "$GSH_LAST_ACTION" != "check_false" ]];
 then
-  rm hello
-  rm hello.c
+  rm -f hello
+  rm -f hello.c
 fi

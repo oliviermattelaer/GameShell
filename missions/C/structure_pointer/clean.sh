@@ -1,5 +1,5 @@
 if [[ "$GSH_LAST_ACTION" != "check_false" ]];
 then
-   rm array
-   rm array.c
+   rm -f array
+   rm -f array.c
 fi
