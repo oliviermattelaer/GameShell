@@ -1,0 +1,22 @@
+Mission goal
+============
+
+Your goal is to be able to modify a variable within a function.
+A starting point function is avaible as multiplication.c
+
+The function print_table should automatically update the variable containing the table to print such that two successive call to the function will print two different table.
+
+
+
+Useful commands/concept:
+========================
+
+int* p_a; : create a pointer (for an integer)
+int a = *p_a  : initialise an integer with the value stored at a given address
+%a : adress of the variable a 
+*p_a =   : change the value stored at a given address
+
+
+Remember that argument of a function can not be changed.
+
+

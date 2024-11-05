@@ -1,0 +1,13 @@
+Mission goal
+============
+
+This is too hard? Let's do an easy level...
+just type "gsh check"
+
+
+Useful commands:
+===============
+
+
+gsh check
+  will check that you have successfully done ... nothing

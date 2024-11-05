@@ -1,0 +1,20 @@
+# default Gameshell missions order
+
+  hello_compile
+  hello_int
+  hello_debug
+  mult_printf
+  mult_forloop
+  mult_ifstatement
+  mult_fct
+  mult_scope
+  pointer_print
+  pointer_first_use
+  pointer_change_variable
+  pointer_fct
+  mult_fct_address
+  array
+  array_fct
+  structure
+  structure_accessor
+  heap

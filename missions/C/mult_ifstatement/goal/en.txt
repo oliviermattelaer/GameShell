@@ -1,0 +1,40 @@
+Mission goal
+============
+
+Your goal is to print all the multiplication table where either the sum of the multiplier is 11 or one multiplier is the double of the other.
+
+
+Useful commands:
+===============
+
+IF Statement
+------------
+
+if (condition) {
+  // block of code to be executed if the condition is true
+} else {
+
+}
+
+BASIC CONDITION
+---------------
+    Less than: a < b
+    Less than or equal to: a <= b
+    Greater than: a > b
+    Greater than or equal to: a >= b
+    Equal to a == b
+    Not Equal to: a != b
+
+LOGICAL OPERATION
+-----------------
+    AND: &&
+    OR: ||
+    Not: !
+
+    example: for a smaller than b and b smaller than 2*a
+       if (a<b && b < 2*a){}
+
+
+
+
+

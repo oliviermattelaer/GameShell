@@ -1,0 +1,23 @@
+Mission goal
+============
+
+In top of printing the content of a variable you can also print where it is store in memory.
+
+Edit the code address.c to print where the variable is stored.
+
+
+Useful commands
+===============
+
+&a: return the address of the variable "a"
+
+printf(STRING, VAR1, VAR2)
+  STRING should be like "Hello ... ..."
+         place holder for the value of variable can be done by putting in the string:
+         %d : for integer
+         %f : for float (single or double precision)
+         %c : for character
+         %p : for address/pointer 
+
+  
+

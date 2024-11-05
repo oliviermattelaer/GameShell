@@ -1,0 +1,30 @@
+Mission goal
+============
+
+Your goal is to make the code print the following multiplication table:
+ 5 * 1 = 5
+ 5 * 2 = 10
+ 5 * 3 = 15
+ 5 * 4 = 20
+ 5 * 5 = 25
+ 5 * 6 = 30
+ 5 * 7 = 35
+ 5 * 8 = 40
+ 5 * 9 = 45
+ 5 * 10 = 50
+
+complete the file multiplication.c to get such result.
+
+Useful commands
+===============
+
+printf(STRING, VAR1, VAR2)
+  STRING should be like "Hello ... ..."
+         place holder for the value of variable can be done by putting in the string:
+         %d : for integer
+         %f : for float (single or double precision)
+         %c : for character
+
+  example:
+     char var1 = "c";
+     printf("The winner letter is %c", var1);

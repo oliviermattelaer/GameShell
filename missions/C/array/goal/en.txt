@@ -1,0 +1,26 @@
+New Concept: Array
+==================
+
+As a first (basic) data structure, we have an ordered list of integer/float/character/....
+This is called an array
+
+To define an array, you need to know its size, 
+here is a series of valid syntax:
+int array_i[5]; 
+int array_i[5] = {1,2,3,4,5};
+int array_i[] = {1,2,3,4,5}; 
+
+This also allow to handle string (has an array of character) which have a nice way to initialise them:
+char greeting[] = "hello";
+
+You can access/change each element independently via their index (this is an example for fibonacci sequence)
+array_i[2] = array_i[1]+array_i[0];
+
+Note that first element has index 0!
+
+Mission goal
+============
+
+just type "gsh check"
+
+

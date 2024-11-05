@@ -1,0 +1,30 @@
+Mission goal
+============
+
+You have a file array.c that computes the average of an array, your mission is to change the main function to
+compute only the average of the last fifth element.
+
+You should neither change the array nor the function computing the average. 
+
+
+Useful commands/concept:
+========================
+
+You can pass array to function with the following two (fully equivalent) syntaxes:
+float average(int myarray[]){
+float average(int* myarray){
+
+The second syntax is actually the same as the one of pointer. This is because what is passed to the function is actually the adress of the first element of the array.    
+
+This fact will be usefull for the mission.
+
+
+Basic of pointer:
+=================
+
+int* p_a; : create a pointer (for an integer)
+%a : adress of the variable a 
+*p_a =   : change the value stored at a given address
+
+
+

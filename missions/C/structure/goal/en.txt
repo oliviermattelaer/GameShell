@@ -1,0 +1,32 @@
+Useful commands/concept:
+========================
+
+You can create your own data-structure with syntax.
+struct Formation {
+   char  title[50];
+   char  speaker[50];
+   int   nb_student;
+ };
+
+which allow to define one object of type Formation
+struct Formation myformation;
+which can either be initialised like
+struct Formation myformation = {"C", "Olivier", 28}
+or element by element (note the special handling for string)
+myformation.nb_student = 20;
+strcopy(myformation.title, "C");
+
+Mission goal
+============
+
+Update the file structure.tex to have a correct initialization and printing of one structure.
+
+Basic of pointer:
+=================
+
+int* p_a; : create a pointer (for an integer)
+%a : adress of the variable a 
+*p_a =   : change the value stored at a given address
+
+
+

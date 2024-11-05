@@ -1,0 +1,18 @@
+Useful commands/concept:
+========================
+
+You can also pass structure to a function:
+to do that in the function definition
+void print_stats(struct Formation myformation){
+
+
+Mission goal
+============
+
+Refactor your previous code to define a function to do the printout.
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+Useful commands/concept:
+========================
+
+You can also use pointer to structure.
+As for other type you just need to add a *
+
+Note if you have a pointer to a structure you can access to a value via the -> operator:
+
+example:
+struct Formation* Myformation;
+... (initialization /...)
+nb_student = Myformation->nb_student;
+
+
+Mission goal
+============
+
+Refactor your previous code to define a function to do the printout. But this time pass a pointer to the structure.
+
+
+
+
+
+

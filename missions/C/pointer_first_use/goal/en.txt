@@ -1,0 +1,30 @@
+Information
+============
+
+An address can be stored in a variable.
+Since C is strongly typed, you have a differemt syntax for pointer pointing to different type of variable. For example:
+int i  //this is a variable named i which is an integer
+int* p_i //this is a variable named p_i which contains an adress to an integer
+
+while for float you will have
+float var
+float* pvar
+
+So you only have to add a * after the type.
+
+
+Goal of the mission
+===================
+
+edit the file address.c
+define a pointer to a given variable
+and  print the value stored at the address stored in that pointer
+
+Useful commands
+===============
+
+&a: return the address of the variable "a"
+
+*p: return the value store at the address of the  pointer "p"
+  
+

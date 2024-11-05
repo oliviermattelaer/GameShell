@@ -1,0 +1,15 @@
+Mission goal
+============
+
+Compile the code hello.c
+
+Optional: read the content of the file and predict the result.
+
+Useful commands
+===============
+
+make hello
+  Create an executable for the program hello
+
+cc -o EXECNAME INPUT.c
+  Compile the file INPUT.c and create executable EXECNAME

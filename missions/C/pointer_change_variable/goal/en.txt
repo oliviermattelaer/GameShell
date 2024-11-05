@@ -1,0 +1,23 @@
+Information
+============
+
+The interesting part of a pointer is that you can also
+changed the value stored at a given address.
+If you have a pointer p_i you can do
+*p_i = new_value
+
+
+Goal of the mission
+===================
+
+edit the file address.c
+use a pointer to change the content of variable and check that it indeed changed the value via various print statement
+
+Useful commands
+===============
+
+&a: return the address of the variable "a"
+
+*p: return the value store at the address of the  pointer "p"
+  
+*p = new_value: change the variable with address p to the new_value

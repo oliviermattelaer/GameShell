@@ -1,0 +1,6 @@
+Goal of the mission
+===================
+
+This is another reflexion level.
+Just type gsh check and answer the associated question 
+

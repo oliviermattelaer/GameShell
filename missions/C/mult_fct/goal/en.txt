@@ -1,0 +1,21 @@
+Mission goal
+============
+
+
+Your goal is to refactor the code such that you are using one function to print one multiplication table.
+
+For this level your main script you should not touch the main function but just define the required function.
+
+
+
+
+Useful commands:
+===============
+
+FUNCTION
+--------
+returnType functionName(type1 parameter1, type2 parameter2, type3 parameter3) {
+  // code to be executed
+}
+
+

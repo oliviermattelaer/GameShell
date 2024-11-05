@@ -1,0 +1,22 @@
+Mission goal
+============
+
+Part of the hello_world example is missing in hello.c
+you need to fill the part which is missing and compile/run the code
+
+Useful instruction
+==================
+
+Function in C
+ The format of a function is 
+ TYPE NAME(ARGUMENTS){
+     YOUR CODE HERE;
+     RETURN VALUE;
+     }
+
+main:
+  The function that is going to be executed when you run the code will have the name "main" and should return an integer
+  - 0 means the code succeed
+  - any other integer means the code did fail
+
+

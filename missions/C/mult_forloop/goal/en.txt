@@ -1,0 +1,21 @@
+Mission goal
+============
+
+Your goal is to keep the same output. But instead of using a while loop, use the much cleaner "for" loop construct of C.
+
+
+Useful commands:
+===============
+
+for(INIT; CONDITION; UPDATE) {...}
+   When you know exactly how many times you want to loop through a block of code, use the for loop instead of a while loop:
+
+   INIT: 
+      is executed (one time) before the execution of the code block.
+      example: int i=0
+   CONDITION:
+      defines the condition for executing the code block.
+      example: i<100
+   UPDATE:
+      is executed (every time) after the code block has been executed.
+      example: i++;

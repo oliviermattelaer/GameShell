@@ -1,0 +1,20 @@
+Useful commands/concept:
+========================
+
+Having fix sized array can put quite constraint on your memory consuption, forcing you to create too long array 'just in case'...
+
+Dynamical memory allows you to fix that:
+Here is the syntax:
+int* vector = malloc(size * sizeof(int));
+ 
+malloc is the function that give you the memory
+as argument you need to provide the amount of memory needed
+as output, it returns a pointer/array.
+
+
+Mission goal
+============
+
+read the code dynamical_libray.c
+and compile it 
+

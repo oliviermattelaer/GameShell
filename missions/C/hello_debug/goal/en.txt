@@ -1,0 +1,14 @@
+Mission goal
+============
+
+Compile the code hello.c
+The current code does not compile. Please fix it.
+
+Useful commands
+===============
+
+make hello
+  Create an executable for the program hello
+
+cc -o EXECNAME INPUT.c
+  Compile the file INPUT.c and create executable EXECNAME
