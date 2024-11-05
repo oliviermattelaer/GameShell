@@ -24,7 +24,12 @@ printf(STRING, VAR1, VAR2)
          %d : for integer
          %f : for float (single or double precision)
          %c : for character
+Remark:
+  \n is to go to the next line
+  You need to use double quote not single quote
+
+
 
   example:
      char var1 = "c";
-     printf("The winner letter is %c", var1);
+     printf("The winner letter is %c\n", var1);

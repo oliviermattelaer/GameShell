@@ -12,6 +12,7 @@ int print_table(  ARGUMENTS){
   }
 
   //Change the value of i for the next call
+  //add one to the table to print
 
 }
 

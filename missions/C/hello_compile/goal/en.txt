@@ -3,10 +3,14 @@ Mission goal
 
 Compile the code hello.c
 
+Optional: To avoid warning, first load the proper GCC module 
 Optional: read the content of the file and predict the result.
 
 Useful commands
 ===============
+
+module load GCC
+  Update your environment variable to use the version of GCC default for this release.
 
 make hello
   Create an executable for the program hello

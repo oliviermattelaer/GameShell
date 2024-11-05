@@ -15,10 +15,13 @@ int main () {
     n[ i ] = i + 100; 
   }
   
+  //change the nb_element to 5
   int nb_element = 10;
   // This compute the (full) average)
   // You need to change this line to compute the average of the last five elements.
-  float output = average(n,nb_element);    
+  float output = average(n, nb_element);    
+  
+
   printf( "average of #%d element is %f\n", nb_element, output);
  
   return 0;

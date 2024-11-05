@@ -16,7 +16,7 @@ float average(int* myarray){
 
 The second syntax is actually the same as the one of pointer. This is because what is passed to the function is actually the adress of the first element of the array.    
 
-This fact will be usefull for the mission.
+This fact will be usefull for the mission, since to skip some element of an array you can pass the address of the first element that you want to pass.
 
 
 Basic of pointer:
