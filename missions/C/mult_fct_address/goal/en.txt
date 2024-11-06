@@ -13,7 +13,7 @@ Useful commands/concept:
 
 int* p_a; : create a pointer (for an integer)
 int a = *p_a  : initialise an integer with the value stored at a given address
-%a : adress of the variable a 
+&a : adress of the variable a 
 *p_a =   : change the value stored at a given address
 
 

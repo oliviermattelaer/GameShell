@@ -2,7 +2,7 @@
 
 
 echo "Not so fast... This would be too easy..."
-echo "let check that you have understand the concept so far. here is a code:"
+echo "let's check that you have understood the concept so far. Here is a code:"
 echo ""
 cat test_1.c
 echo ""

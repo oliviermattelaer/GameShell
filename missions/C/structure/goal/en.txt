@@ -8,7 +8,7 @@ struct Formation {
    int   nb_student;
  };
 
-which allow to define one object of type Formation
+which allows to define one object of type Formation
 struct Formation myformation;
 which can either be initialised like
 struct Formation myformation = {"C", "Olivier", 28}

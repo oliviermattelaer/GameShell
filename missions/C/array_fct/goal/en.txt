@@ -2,7 +2,7 @@ Mission goal
 ============
 
 You have a file array.c that computes the average of an array, your mission is to change the main function to
-compute only the average of the last fifth element.
+compute only the average of the last fifth elements.
 
 You should neither change the array nor the function computing the average. 
 

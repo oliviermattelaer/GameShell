@@ -4,7 +4,7 @@
 if [ -e multiplication ]
 then
     ./multiplication > output
-    if ! cmp -s output $MISSION_DIR/solution
+    if ! diff -w output $MISSION_DIR/solution > /dev/null
     then
         echo "the output of the code is not the same: see below:"
         diff output $MISSION_DIR/solution

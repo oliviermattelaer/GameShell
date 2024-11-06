@@ -1,7 +1,7 @@
 Useful commands/concept:
 ========================
 
-Having fix sized array can put quite constraint on your memory consuption, forcing you to create too long array 'just in case'...
+Having fix sized array can put quite constraint on your memory consumption, forcing you to create too long array 'just in case'...
 
 Dynamical memory allows you to fix that:
 Here is the syntax:
