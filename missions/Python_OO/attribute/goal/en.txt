@@ -1,0 +1,8 @@
+Mission goal
+============
+
+edit the file color.py
+You have now a valid class Color.
+
+edit the code using that class to get access to the red/green/blue content of some color object.
+(follow instrcution in the color.py file)

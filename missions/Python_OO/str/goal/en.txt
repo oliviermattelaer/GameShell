@@ -1,0 +1,27 @@
+Mission goal
+============
+
+edit the file color.py
+to continue to edit the class color
+Add his first special function for converting to a string.
+
+As many special function the name of the function starts (and ends) with __
+so in this case the function should be __str__
+
+
+Usefull information
+===================
+
+typical structure:
+
+class Hello:
+    def __init__(self):
+        print('hello')
+    
+    def __str__(self):
+        return 'hello'
+
+
+This hello to do for an object defined as h = Hello()
+print(h)
+str(h)

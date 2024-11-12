@@ -1,0 +1,12 @@
+Mission goal
+============
+
+edit the file color.py
+to continue to edit the class color
+
+Add now a function that performs operation on the color.
+More exactly that flip the content of the red color with the green one.
+
+
+
+

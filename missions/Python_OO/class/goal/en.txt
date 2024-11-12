@@ -1,0 +1,22 @@
+Mission goal
+============
+
+edit the file color.py
+and define a class Color
+where the object of the class will have three value (red, blue and green)
+
+
+
+Usefull Information
+===================
+
+Here is a typical format for defining a class
+
+class CLASSNAME:
+    """DESCRIPTION OF THE CLASS """
+
+    def __init__(self, ARGUMENTS, OPTIONAL_ARGUMENT=DEFAULT_VALUE):
+        """ SOME DESCRIPTION """
+
+        self.arg = arguments
+

@@ -1,0 +1,22 @@
+Mission goal
+============
+
+edit the file color.py
+
+create a new class ColorwithTransparency.
+
+Which in top of RGB level defines a level of transparency
+
+Format:
+
+class A: 
+    ....
+
+class B(A):
+   """ This is a class B that can do everything which is part of class A
+       Any definition of function below will overwrite the previous 
+       behavior (or add a new one)
+   """
+
+
+

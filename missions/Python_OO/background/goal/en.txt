@@ -1,0 +1,16 @@
+Mission goal
+============
+
+edit the file color.py
+add a function display(background)
+where the background is a Color
+
+
+Usefull information:
+===================
+
+isinstance(object, class):
+The isinstance function in Python checks if an object is an instance or subclass of a specified class, returning True if it is and False otherwise.
+
+
+

@@ -1,0 +1,20 @@
+Mission goal
+============
+
+edit the file color.py
+to continue to edit the class color
+
+Add now a function that performs and addition between two color
+which return a new color which is the average of the two content for the RGB value
+
+Typical stucture:
+
+class MyNumber:
+
+    def __init__(self, value)
+        self.value = value
+    def __add__(self, other):
+        return MyNumber(self.value+other.value)
+
+
+

@@ -1,0 +1,35 @@
+Mission goal
+============
+
+Do you have the feeling that such class have a quite identical structure?
+You are right!!
+
+The goal of this mission is to restructure the code by using the dataclass constructor:
+
+here is an example of code
+ import dataclasses
+ from dataclasses import dataclass
+
+ @dataclass
+ class Question:
+     question: str
+     answers: list[str]
+     solution: int =1
+
+=======
+This is equivalent to:
+
+class Question:
+    def __init__(self, question: str, answers: list[str], solution=1:int):
+        self.question = question
+        self.answers = answers
+        self.solution = solution
+    
+    def __repr__(self):
+        return f"Question(question={self.question}, answers={self.answers}, solution={self.solution}
+
+    __str__ = __repr__
+
+    def __eq__(self, other):
+        return self.question == other.question and self.answers == other.answers and self.solution == other.solution
+
