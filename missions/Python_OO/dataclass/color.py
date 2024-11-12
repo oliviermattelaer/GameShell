@@ -1,29 +1,35 @@
 #!/usr/bin/env python3
 
+import sys
+if  sys.version_info[1] < 7:
+    print('This level needs python3.7 or newer')
+    sys.exit(1)
+
 import dataclasses
 from dataclasses import dataclass
-#
-#
+
+
 # Here you need a decorator !!! 
 class Color:
     """A class describe a color"""
 
-    # This you can remove
+    # This you can remove (and replace by type annotation trick)
     def __init__(self, red, green, blue):
         self.red = red
-        self.blue = blue
         self.green = green
+        self.blue = blue
 
-    # This you can keep
+    # This you can keep untouched
     def __str__(self):
         """ return a string for this object"""
         return f"RGB=({self.red},{self.green},{self.blue})"
 
+    # this you can keep untouched
     def flip(self):
         """flip the content of red and blue of the current object"""
         self.blue, self.red = self.red, self.blue
 
-
+    # this you can keep untouched
     def __add__(self, other):
         """ return the average for each of the RGB value """
         r = (self.red + other.red)/2 
@@ -36,11 +42,10 @@ class Color:
 
         return self.red == other.red and self.green == other.green and self.blue == other.blue 
 
-# Define here a new class ColorTransparent
 # here you also need a decorator
 class ColorTransparent(Color):
 
-    # this you can remove
+    # This you can remove (and replace by type annotation trick)
     def __init__(self, red, green, blue, alpha=0):
         #Do not write the following line
         # self.red = red
@@ -48,11 +53,13 @@ class ColorTransparent(Color):
         Color.__init__(self, red, green, blue)    
         self.alpha = alpha
 
+    #This you do not need to change
     def __str__(self):
         "should return something like RGB=(1,2,3) alpha=0.5"
         # again the first part is the one from color, just reuse it
         return super().__str__() + f" alpha={self.alpha}"
 
+    # This you do not need to change
     def display(self, background):
         """ return a Color that should be effectively displayed given the backgroun """
 
@@ -68,7 +75,7 @@ class ColorTransparent(Color):
 
         return Color(r,g,b)
 
-
+#do not change anything below this point
 if "__main__" == __name__:
     color1 = Color(2,4,6)
     print(color1)

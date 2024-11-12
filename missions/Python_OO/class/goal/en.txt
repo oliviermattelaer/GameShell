@@ -5,6 +5,11 @@ edit the file color.py
 and define a class Color
 where the object of the class will have three value (red, blue and green)
 
+NOTE:
+=====
+
+When running this game on HPC cluster do not forget to load Python module
+module load Python
 
 
 Usefull Information

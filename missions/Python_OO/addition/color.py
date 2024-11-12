@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
 
-#
-#
-# Here define a class Color 
-# which has three attribute red green blue 
-#
 class Color:
     """A class describe a color"""
 
+    # keep this the same
     def __init__(self, red, green, blue):
         self.red = red
         self.blue = blue
         self.green = green
 
+    # keep this the same
     def __str__(self):
         """ return a string for this object"""
         return f"RGB=({self.red},{self.green},{self.blue})"
 
+    # keep this the same
     def flip():
         """flip the content of red and blue of the current object"""
         self.blue, self.red = self.red, self.blue
 
-
+    # Need to define the content of this function
     def __add__(self, other):
         """ return the average for each of the RGB value """
 
+#do not touch anything below this line
 if "__main__" == __name__:
     color1 = Color(2,4,6)
     color2 = Color(0,0,0)

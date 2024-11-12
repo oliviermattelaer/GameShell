@@ -12,7 +12,7 @@ here is an example of code
 
  @dataclass
  class Question:
-     question: str
+     question: str # Annotation are mandatory here (but you can put a str instead)
      answers: list[str]
      solution: int =1
 

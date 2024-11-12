@@ -11,7 +11,7 @@ class Color:
     def __init__(self, ....):
         .....
 
-
+# Do not touch anything below this line
 if "__main__" == __name__:
     color1 = Color(1,0,0)
     color2 = Color(0,0,0)

@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-#
-#
-# Here define a class Color 
-# which has three attribute red green blue 
-#
+# You do not have to change anything in this class
 class Color:
     """A class describe a color"""
 
@@ -47,6 +43,7 @@ class ColorTransparent
 
     # note that flip is not defined in ColorTransparent but is used below!!
 
+# Do not edit the code below
 if "__main__" == __name__:
     color1 = Color(2,4,6)
     print(color1)

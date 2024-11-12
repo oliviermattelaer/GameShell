@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-#
-#
-# Here define a class Color 
-# which has three attribute red green blue 
-#
+# Do not touch anything in this class
 class Color:
     """A class describe a color"""
 
@@ -33,10 +29,9 @@ class Color:
 
         return self.red == other.red and self.green == other.green and self.blue == other.blue 
 
-# Define here a new class ColorTransparent
-# which is a normal "Color" but also has a new attribute transparency
 class ColorTransparent(Color):
 
+    # do not touch this function
     def __init__(self, red, green, blue, alpha=0):
         #Do not write the following line
         # self.red = red
@@ -44,11 +39,13 @@ class ColorTransparent(Color):
         Color.__init__(self, red, green, blue)    
         self.alpha = alpha
 
+    # Do not touch this function
     def __str__(self):
         "should return something like RGB=(1,2,3) alpha=0.5"
         # again the first part is the one from color, just reuse it
         return super().__str__() + f" alpha={self.alpha}"
 
+    # edit the content of this function
     def display(self, background):
         """ return a Color that should be effectively displayed given the backgroun """
 
@@ -60,7 +57,10 @@ class ColorTransparent(Color):
         # red = (1-alpha) * self.red + alpha * background.red
         # ...
 
+        # Do not forget to return something
 
+
+# Do not edit anything after this line
 if "__main__" == __name__:
     color1 = Color(2,4,6)
     print(color1)

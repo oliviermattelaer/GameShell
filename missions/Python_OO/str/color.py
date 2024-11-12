@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-#
-#
-# Here define a class Color 
-# which has three attribute red green blue 
-#
 class Color:
     """A class describe a color"""
 
@@ -15,9 +10,10 @@ class Color:
 
     # Need to define a string that represent the object (for print/...)
     # Please use the format RGB=(x,y,z)
+    def ...
 
 
-
+# Do not change anything below this line
 if "__main__" == __name__:
     color1 = Color(1,2,3)
     print(color1)
