@@ -119,16 +119,18 @@ int main()
     }
 
     // Initialize semaphores.
-    //
      char login[20];
-     get_login(login, 20);
+     getlogin_r(login, 20);
      char sem_path[30];
-     strcopy(sem_path, "/writing_sem_");
+     strcpy(sem_path, "/printing_sem_");
      strcat(sem_path,login);
 
     printing_sem = sem_open(sem_path, O_CREAT, 0644, 1);
     if (printing_sem == SEM_FAILED)
         return 1;
+
+     strcpy(sem_path, "/writing_sem_");
+     strcat(sem_path,login);
 
     writing_sem = sem_open(sem_path, O_CREAT, 0644, 1);
     if (writing_sem == SEM_FAILED)

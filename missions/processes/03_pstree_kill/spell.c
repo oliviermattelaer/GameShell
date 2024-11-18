@@ -125,9 +125,9 @@ int main()
     wordfree(&result);
 
     char login[20];
-    get_login(login, 20);
+    getlogin_r(login, 20);
     char sem_path[30];
-    strcopy(sem_path, "/writing_sem_");
+    strcpy(sem_path, "/writing_sem_");
     strcat(sem_path,login);
 
 
