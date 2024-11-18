@@ -19,7 +19,7 @@ else
     then
        echo "correct version of python detected. Good Job"
     else
-       echo "We were expecting another pyton version, but ok let check for the current one. "
+       echo "We were expecting another Python version, but ok let check for the current one. "
     fi	    
     nb=`module  -t --redirect list | wc -l`
     read -p "How many modules are currently loaded? " anscommit
