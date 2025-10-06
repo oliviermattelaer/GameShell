@@ -1,7 +1,7 @@
 
 # default Gameshell missions order
 
-  basic/index.txt
+  basic/default.idx
   #misc/01_cal_nostradamus
   intermediate/01_alias_la
   misc/02_nano_journal
