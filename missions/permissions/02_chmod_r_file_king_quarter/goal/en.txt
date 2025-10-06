@@ -24,3 +24,21 @@ chmod [OPTIONS] FILE
 
   Refer to the manual to discover which options are available.
 
+chmod for DIRECTORY
+===================
+  chmod +x DIRECTORY
+     Allows entering the directory (cd into it).
+  chmod +w DIRECTORY
+     Allows creating, deleting, or renaming files inside.
+  chmod +r DIRECTORY
+     Allows listing files inside (ls).
+
+chmod for FILE
+==============
+  chmod +x FILE
+     Makes the file runnable as a program or script.
+  chmod +w FILE
+     Allows editing or modifying the file.
+  chmod +r FILE
+     Allows viewing the contents.
+

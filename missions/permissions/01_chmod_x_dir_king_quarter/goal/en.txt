@@ -21,4 +21,16 @@ ls -l
 chmod [OPTIONS] FILE
   Modify the permissions for the file (or directory).
 
-  Refer to the manual to discover which options are available.
+chmod for DIRECTORY
+===================
+  chmod +x DIRECTORY
+     Allows entering the directory (cd into it).
+  chmod +w DIRECTORY
+     Allows creating, deleting, or renaming files inside.
+  chmod +r DIRECTORY
+     Allows listing files inside (ls).
+
+  
+
+
+
