@@ -15,7 +15,7 @@ msgstr  ""
 msgid   "$MISSION_DIR/treasure-msg/en.txt"
 msgstr  ""
 
-msgid   "Charmiglio"
+msgid   "charmiglio"
 msgstr  ""
 
 #, sh-format
@@ -39,6 +39,9 @@ msgid   "Too soon! You must leave enough time for the magical reaction to start!
 msgstr  ""
 
 msgid   "What's a valid 4 letters sequence?"
+msgstr  ""
+
+msgid   "You can stop the incantation with Control-c."
 msgstr  ""
 
 #, sh-format

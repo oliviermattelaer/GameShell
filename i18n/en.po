@@ -20,6 +20,10 @@ msgid   "$GSH_ROOT/i18n/gameshell-welcome/en.txt"
 msgstr  "$GSH_ROOT/i18n/gameshell-welcome/en.txt"
 
 #, sh-format
+msgid   "$GSH_ROOT/i18n/start-full-help/en.txt"
+msgstr  "$GSH_ROOT/i18n/start-full-help/en.txt"
+
+#, sh-format
 msgid   "$GSH_ROOT/i18n/start-help/en.txt"
 msgstr  "$GSH_ROOT/i18n/start-help/en.txt"
 
@@ -76,6 +80,9 @@ msgstr[1]       "%d missions skipped:"
 msgid   "AUTOMATICALLY GENERATED ON STARTUP -- DO NOT MODIFY"
 msgstr  "AUTOMATICALLY GENERATED ON STARTUP -- DO NOT MODIFY"
 
+msgid   "Available index files: "
+msgstr  "Available index files: "
+
 #, sh-format
 msgid   "Congratulations, mission $MISSION_NB has been successfully completed!"
 msgstr  "Congratulations, mission $MISSION_NB has been successfully completed!"
@@ -94,8 +101,16 @@ msgid   "Error: couldn't get mission number $MISSION_NB (from $fn_name)"
 msgstr  "Error: couldn't get mission number $MISSION_NB (from $fn_name)"
 
 #, sh-format
+msgid   "Error: invalid mode (option -M): '-$OPTARG'"
+msgstr  "Error: invalid mode (option -M): '-$OPTARG'"
+
+#, sh-format
 msgid   "Error: invalid option: '-$OPTARG'"
 msgstr  "Error: invalid option: '-$OPTARG'"
+
+#, sh-format
+msgid   "Error: missing parameter for option: '-$OPTARG'"
+msgstr  "Error: missing parameter for option: '-$OPTARG'"
 
 #, sh-format
 msgid   "Error: mission $MISSION_NB doesn't exist!"
@@ -200,6 +215,14 @@ msgstr  "There are stopped jobs in your session.\n"
         "    $ jobs\n"
         "Do you still want to quit? [y/n]"
 
+#, sh-format
+msgid   "Warning: command line arguments are ignored when continuing a game ($args)"
+msgstr  "Warning: command line arguments are ignored when continuing a game ($args)"
+
+#, sh-format
+msgid   "Warning: language is ignored when continuing a game ($args)"
+msgstr  "Warning: language is ignored when continuing a game ($args)"
+
 msgid   "Warning: the file 'treasure.sh' was sourced from a subshell.\n"
         "You should use the command\n"
         "  $ gsh reset"
@@ -288,6 +311,10 @@ msgstr  "optional"
 
 msgid   "password:"
 msgstr  "password:"
+
+#, sh-format
+msgid   "progress was saved in $SAVEFILE"
+msgstr  "progress was saved in $SAVEFILE"
 
 msgid   "skipped"
 msgstr  "skipped"

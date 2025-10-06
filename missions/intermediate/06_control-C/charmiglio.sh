@@ -48,7 +48,17 @@ magical_reaction() {
       i=1
     fi
     alpha=$(echo "#%*():_-............." | awk "{print substr(\$0, $i<10?$i:10, 10)}" )
-    printf "%*s%s\n" "$indent" '' "$(random_string "$width" "$alpha")" >&2
+    printf "%*s%s" "$indent" '' "$(random_string "$width" "$alpha")" >&2
+    if [ "$delay" -gt 2 ] && [ "$((delay % 10))" -eq 0 ] && [ "$show_msg" != 0 ]
+    then
+      printf "\t\t$(gettext "You can stop the incantation with Control-c.")" >&2
+      show_msg=0
+    fi
+    if [ "$((delay % 10))" -eq 1 ]
+    then
+      show_msg=1
+    fi
+    echo >&2
     sleep 0.1
   done
 }
@@ -88,7 +98,7 @@ check() {
 init() {
   case "$CODE" in
     "")
-      command=$(gettext "Charmiglio")
+      command=$(gettext "charmiglio")
       echo "$(eval_gettext 'usage: $command CCCC
       where CCCC is a sequence of 4 ASCII letters (a-zA-Z)')"
       exit 1

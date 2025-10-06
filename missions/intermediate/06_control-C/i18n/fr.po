@@ -15,8 +15,8 @@ msgstr  ""
 msgid   "$MISSION_DIR/treasure-msg/en.txt"
 msgstr  ""
 
-msgid   "Charmiglio"
-msgstr  "Charmiglio"
+msgid   "charmiglio"
+msgstr  "charmiglio"
 
 #, sh-format
 msgid   "It works! The special incantation is $CODE"
@@ -40,6 +40,9 @@ msgstr  "Trop tôt ! Vous devez laisser assez de temps pour que la réaction mag
 
 msgid   "What's a valid 4 letters sequence?"
 msgstr  "Qu'est-ce qu'une combinaison valide ?"
+
+msgid   "You can stop the incantation with Control-c."
+msgstr  "Vous pouvez arêter l'incantation avec Contrôle-c"
 
 #, sh-format
 msgid   "usage: $command CCCC\n"

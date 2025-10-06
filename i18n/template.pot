@@ -19,6 +19,10 @@ msgid   "$GSH_ROOT/i18n/gameshell-welcome/en.txt"
 msgstr  ""
 
 #, sh-format
+msgid   "$GSH_ROOT/i18n/start-full-help/en.txt"
+msgstr  ""
+
+#, sh-format
 msgid   "$GSH_ROOT/i18n/start-help/en.txt"
 msgstr  ""
 
@@ -75,6 +79,9 @@ msgstr[1]       ""
 msgid   "AUTOMATICALLY GENERATED ON STARTUP -- DO NOT MODIFY"
 msgstr  ""
 
+msgid   "Available index files: "
+msgstr  ""
+
 #, sh-format
 msgid   "Congratulations, mission $MISSION_NB has been successfully completed!"
 msgstr  ""
@@ -92,7 +99,15 @@ msgid   "Error: couldn't get mission number $MISSION_NB (from $fn_name)"
 msgstr  ""
 
 #, sh-format
+msgid   "Error: invalid mode (option -M): '-$OPTARG'"
+msgstr  ""
+
+#, sh-format
 msgid   "Error: invalid option: '-$OPTARG'"
+msgstr  ""
+
+#, sh-format
+msgid   "Error: missing parameter for option: '-$OPTARG'"
 msgstr  ""
 
 #, sh-format
@@ -190,6 +205,14 @@ msgid   "There are stopped jobs in your session.\n"
         "Do you still want to quit? [y/n]"
 msgstr  ""
 
+#, sh-format
+msgid   "Warning: command line arguments are ignored when continuing a game ($args)"
+msgstr  ""
+
+#, sh-format
+msgid   "Warning: language is ignored when continuing a game ($args)"
+msgstr  ""
+
 msgid   "Warning: the file 'treasure.sh' was sourced from a subshell.\n"
         "You should use the command\n"
         "  $ gsh reset"
@@ -270,6 +293,10 @@ msgid   "optional"
 msgstr  ""
 
 msgid   "password:"
+msgstr  ""
+
+#, sh-format
+msgid   "progress was saved in $SAVEFILE"
 msgstr  ""
 
 msgid   "skipped"

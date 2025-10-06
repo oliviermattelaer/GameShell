@@ -24,6 +24,10 @@ msgid   "$GSH_ROOT/i18n/gameshell-welcome/en.txt"
 msgstr  "$GSH_ROOT/i18n/gameshell-welcome/fr.txt"
 
 #, sh-format
+msgid   "$GSH_ROOT/i18n/start-full-help/en.txt"
+msgstr  "$GSH_ROOT/i18n/start-full-help/fr.txt"
+
+#, sh-format
 msgid   "$GSH_ROOT/i18n/start-help/en.txt"
 msgstr  "$GSH_ROOT/i18n/start-help/fr.txt"
 
@@ -80,6 +84,9 @@ msgstr[1]       "%d missions sautées :"
 msgid   "AUTOMATICALLY GENERATED ON STARTUP -- DO NOT MODIFY"
 msgstr  "AUTOMATIQUEMENT GÉNÉRÉ AU DÉMARRAGE -- NE PAS MODIFIER"
 
+msgid   "Available index files: "
+msgstr  "Fichiers index disponibles: "
+
 #, sh-format
 msgid   "Congratulations, mission $MISSION_NB has been successfully completed!"
 msgstr  "Bravo, vous avez réussi la mission $MISSION_NB !"
@@ -98,8 +105,16 @@ msgid   "Error: couldn't get mission number $MISSION_NB (from $fn_name)"
 msgstr  "Error : mission '$MISSION_NB' introuvable (dans $fn_name)"
 
 #, sh-format
+msgid   "Error: invalid mode (option -M): '-$OPTARG'"
+msgstr  "Erreur : mode invalide (option -M) : '-$OPTARG'"
+
+#, sh-format
 msgid   "Error: invalid option: '-$OPTARG'"
 msgstr  "Erreur : option invalide: '-$OPTARG'"
+
+#, sh-format
+msgid   "Error: missing parameter for option: '-$OPTARG'"
+msgstr  "Erreur : paramètre manquant pour l'option : '-$OPTARG'"
 
 #, sh-format
 msgid   "Error: mission $MISSION_NB doesn't exist!"
@@ -205,6 +220,14 @@ msgstr  "Il y a des processus stoppés dans votre session.\n"
         "    $ jobs\n"
         "Êtes vous sûr de vouloir quitter ? [o/N]"
 
+#, sh-format
+msgid   "Warning: command line arguments are ignored when continuing a game ($args)"
+msgstr  "Warning: les arguments sur la ligne de commande sont ignorés lorsqu'on reprend une partie ($args)"
+
+#, sh-format
+msgid   "Warning: language is ignored when continuing a game ($args)"
+msgstr  "Warning: la langue est ignorée lorsqu'on reprend une partie ($args)"
+
 msgid   "Warning: the file 'treasure.sh' was sourced from a subshell.\n"
         "You should use the command\n"
         "  $ gsh reset"
@@ -295,6 +318,10 @@ msgstr  "facultatif"
 
 msgid   "password:"
 msgstr  "mot de passe :"
+
+#, sh-format
+msgid   "progress was saved in $SAVEFILE"
+msgstr  "la progression a été sauvée dans $SAVEFILE"
 
 msgid   "skipped"
 msgstr  "sautée"

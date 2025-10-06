@@ -12,20 +12,21 @@ options:
   -h              this message
 
   -p ...          choose password for admin commands
-  -P              use the "passport mode" by default when running GameShell
-  -A              use the "anonymous mode" by default when running GameShell
+  -M passport     use the "passport mode" by default when running GameShell
+  -M anonymous    use the "anonymous mode" by default when running GameShell
   -L LANGS        only keep the given languages (ex: -L 'en*,fr')
-  -E              only keep english as a language, not generating any ".mo" file
-                  and not using gettext
+                  if LANGS is empty (-L ""), only keep english as a language,
+                  not generating any ".mo" file and not using gettext
 
   -N ...          name of the archive / top directory (default: "gameshell")
-  -I FILE         additional existing index file to include
+  -I FILE         additional index file to include in the archive
                   (can be given several times)
 
   -S simple
   -S index
   -S overwrite
                   choose default savefile mode
+                  (check the output of 'gameshell.sh -h' for their description)
 
   -a              keep 'auto.sh' scripts for missions that have one
   -t              keep 'test.sh' scripts for missions that have one
@@ -66,7 +67,7 @@ VERBOSE=""
 
 INDEX_FILES=""
 
-while getopts "hp:N:atPzL:EvS:p:I:" opt
+while getopts "hp:N:atM:zL:vS:p:I:" opt
 do
   case $opt in
     h)
@@ -91,11 +92,11 @@ do
       esac
       ;;
     I)
-      if [ "$OPTARG" = "index.txt" ]
+      if [ "$OPTARG" = "default.idx" ]
       then
-        echo "Warning: ignoring additional index file with name 'index.txt'"
+        echo "Warning: ignoring additional index file with name '$OPTARG'" >&2
       else
-        INDEX_FILES="INDEX_FILES:$OPTARG"
+        INDEX_FILES="$INDEX_FILES:$OPTARG"
       fi
       ;;
     a)
@@ -104,30 +105,36 @@ do
     t)
       KEEP_TEST=1
       ;;
-    P)
-      DEFAULT_MODE="PASSPORT"
+    M)
+      case "$OPTARG" in
+        passport)
+          DEFAULT_MODE="PASSPORT"
+          ;;
+        anonymous)
+          DEFAULT_MODE="ANONYMOUS"
+          ;;
+        *)
+          echo "Error: default mode (option -M) can only be 'anonymous' or 'passport' (got '$OPTARG')" >&2
+          exit 1
+          ;;
+      esac
       ;;
     z)
       KEEP_TGZ=1
       ;;
     L)
       LANGUAGES=$OPTARG
-      ;;
-    E)
-      LANGUAGES=
-      KEEP_PO=0
-      GENERATE_MO=0
-      GSH_NO_GETTEXT=1
+      if [ -z "$OPTARG" ]
+      then
+        KEEP_PO=0
+        GENERATE_MO=0
+        GSH_NO_GETTEXT=1
+      fi
       ;;
     v)
       VERBOSE=1
       ;;
-    *)
-      if [ "$_long_option" = "1" ]
-      then
-        OPTARG="-$opt"
-      fi
-      echo "invalid option: '-$OPTARG'" >&2
+    '?' | :)
       exit 1
       ;;
   esac
@@ -158,17 +165,38 @@ mkdir "$TMP_DIR/$NAME"
 # use POSIX options to make sure it is portable
 cp -RPp "$GSH_ROOT/start.sh" "$GSH_ROOT/scripts" "$GSH_ROOT/utils" "$GSH_ROOT/lib" "$GSH_ROOT/i18n" "$TMP_DIR/$NAME"
 
+
+# generate default index file
+ALL_INDEX_FILES=default.idx
 mkdir "$TMP_DIR/$NAME/missions"
-if ! make_index "$@" > "$TMP_DIR/$NAME/missions/index.txt"
+if ! make_index "$@" > "$TMP_DIR/$NAME/missions/default.idx"
 then
-  echo "Error: archive.sh, couldn't make index.txt"
+  echo "Error: archive.sh, couldn't make default.idx"
   # --system makes GameShell use the standard rm utility instead of the "safe"
   # rm implemented in scripts/rm
   rm --system -rf "$TMP_DIR"
   exit 1
 fi
 
+# generate additional index files
+IFS=:
+for FILE in $INDEX_FILES
+do
+  [ -z "$FILE" ] && continue  # ignore initial empty file due to leading ':'
+  ALL_INDEX_FILES="$ALL_INDEX_FILES:$(basename "$FILE")"
+  if ! make_index "$FILE" > "$TMP_DIR/$NAME/missions/$(basename "$FILE")"
+  then
+    echo "Error: archive.sh, couldn't make $(basename "$FILE")"
+    # --system makes GameShell use the standard rm utility instead of the "safe"
+    # rm implemented in scripts/rm
+    rm --system -rf "$TMP_DIR"
+    exit 1
+  fi
+done
+
 # copy missions
+# NB_MISSIONS=0
+# NB_DUMMY=0
 if [ -z "$VERBOSE" ]
 then
   printf "copying missions: "
@@ -176,18 +204,9 @@ else
   echo "copying missions"
 fi
 
-# NB_MISSIONS=0
-# NB_DUMMY=0
-ALL_INDEX_FILES="$TMP_DIR/$NAME/missions/index.txt"
-IFS=:
-for FILE in $INDEX_FILES
-do
-  cp "$FILE" "$TMP_DIR/$NAME/missions/$(basename "$FILE")"
-  ALL_INDEX_FILES="$ALL_INDEX_FILES:$TMP_DIR/$NAME/missions/$(basename "$FILE")"
-done
-
 for FILE in $ALL_INDEX_FILES
 do
+  FILE="$TMP_DIR/$NAME/missions/$FILE"
   cat "$FILE" | while read MISSION_DIR
   do
     DUMMY=
@@ -237,6 +256,9 @@ export GSH_ROOT="$TMP_DIR/$NAME"
 export GSH_MISSIONS="$GSH_ROOT/missions"
 
 
+sed-i "s/^export GSH_INDEX_FILES=.*/export GSH_INDEX_FILES=$ALL_INDEX_FILES/" "$GSH_ROOT/start.sh"
+
+
 # default GSH_NO_GETTEXT to 1 if -E was used
 if [ -n "$GSH_NO_GETTEXT" ]
 then
@@ -246,7 +268,8 @@ fi
 # remove unwanted languages
 if [ -n "$LANGUAGES" ]
 then
-  echo "removing unwanted languages"
+  printf "removing unwanted languages: "
+  # remove po files
   find "$GSH_ROOT" -path "*/i18n/*.po" | while read -r po_file
   do
     if ! keep_language "${po_file%.po}" "$LANGUAGES"
@@ -256,6 +279,25 @@ then
       rm --system -f "$po_file"
     fi
   done
+
+  # remove translation text files for GameShell and standard translation text
+  # files for individual missions
+  for dir in "$GSH_ROOT/i18n"/* goal skip treasure-msg
+  do
+    dir=$(basename "$dir")
+    find "$GSH_ROOT" -path "*/$dir/*.txt" | while read -r txt_file
+    do
+      [ "$(basename "$txt_file")" = "en.txt" ] && continue
+      if ! keep_language "${txt_file%.txt}" "$LANGUAGES"
+      then
+        # --system makes GameShell use the standard rm utility instead of the "safe"
+        # rm implemented in scripts/rm
+        printf "."
+        rm --system -f "$txt_file"
+      fi
+    done
+  done
+  echo
 fi
 
 # generate .mo files
@@ -302,7 +344,7 @@ then
           printf "."
         fi
       fi
-    done < "$GSH_ROOT/missions/index.txt"
+    done < "$GSH_ROOT/missions/default.idx"
     echo
   }
 fi
@@ -320,10 +362,10 @@ echo "removing unnecessary files"
   find . -name "Makefile" | xargs rm --system -f
   find . -name "template.pot" | xargs rm --system -f
   [ "$KEEP_PO" -eq 0 ] && find . -name "*.po" | xargs rm --system -f
+  find . -name "i18n" | xargs rmdir 2> /dev/null
   [ "$KEEP_TEST" -ne 1 ] && find ./missions -name "test.sh" | xargs rm --system -f
   [ "$KEEP_AUTO" -ne 1 ] && find ./missions -name auto.sh | xargs rm --system -f
-
-  # rm --system -f "$GSH_ROOT/scripts/boxes-data.awk" "$GSH_ROOT/utils/archive.sh"
+  rm --system -rf "$GSH_ROOT/utils/"
 )
 
 # change admin password

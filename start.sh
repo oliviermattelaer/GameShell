@@ -24,20 +24,32 @@ export GSH_ROOT="$(dirname "$0")"
 # shellcheck source=lib/mission_source.sh
 . "$GSH_ROOT/lib/mission_source.sh"
 
-display_help() {
-  cat "$(eval_gettext "\$GSH_ROOT/i18n/start-help/en.txt")"
+display_full_help() {
+  sed -e "s/\$GSH_EXEC_FILE/$GSH_EXEC_FILE/" \
+    -e "s/\$GSH_INDEX_FILES/$(echo "$GSH_INDEX_FILES" | sed "s/:/, /g")/" \
+    "$(eval_gettext "\$GSH_ROOT/i18n/start-full-help/en.txt")"
 }
 
+display_help() {
+  sed -e "s/\$GSH_EXEC_FILE/$GSH_EXEC_FILE/" \
+    -e "s/\$GSH_INDEX_FILES/$(echo "$GSH_INDEX_FILES" | sed "s/:/, /g")/" \
+    "$(eval_gettext "\$GSH_ROOT/i18n/start-help/en.txt")"
+}
+
+
+# list of index files (default: only default.idx)
+export GSH_INDEX_FILES=default.idx
 
 # possible values: index, simple (default), overwrite
 export GSH_SAVEFILE_MODE="simple"
 export GSH_AUTOSAVE=1
 export GSH_COLOR="OK"
 GSH_MODE="ANONYMOUS"
+GSH_EXPLICIT_LANGUAGE="false"
 # if GSH_NO_GETTEXT is non-empty, gettext won't be used anywhere, the only language will thus be English
 # export GSH_NO_GETTEXT=1  # DO NOT CHANGE OR REMOVE THIS LINE, it is used by utils/archive.sh
 RESET=""
-while getopts ":hnPdDACRXUVqGL:KBZc:FS:" opt
+while getopts ":hHIndDM:CRXUVqL:KBZc:FS:" opt
 do
   case $opt in
     S)
@@ -55,11 +67,33 @@ do
       display_help
       exit 0
       ;;
+    H)
+      display_full_help
+      exit 0
+      ;;
+    I)
+      gettext "Available index files: " >&2
+      echo "$GSH_INDEX_FILES" | sed "s/:/, /g" >&2
+      exit 0
+      ;;
     n)
       GSH_COLOR=""
       ;;
-    P)
-      GSH_MODE="PASSPORT"
+    M)
+      case "$OPTARG" in
+        passport)
+          GSH_MODE="PASSPORT"
+          ;;
+        anonymous)
+          GSH_MODE="ANONYMOUS"
+          ;;
+        debug)
+          GSH_MODE="debug"
+          ;;
+        *)
+          echo "$(eval_gettext "Error: invalid mode (option -M): '-\$OPTARG'")" >&2
+          exit 1
+      esac
       ;;
     d)
       GSH_MODE="DEBUG"
@@ -71,9 +105,6 @@ do
     q)
       export GSH_QUIET_INTRO="true"
       ;;
-    A)
-      GSH_MODE="ANONYMOUS"
-      ;;
     C)
       RESET="FALSE"
       ;;
@@ -81,10 +112,14 @@ do
       RESET="TRUE"
       ;;
     L)
-      export LANGUAGE="$OPTARG"     # only works on GNU systems
-      ;;
-    G)
-      export GSH_NO_GETTEXT=1
+      if [ -z "$OPTARG" ]
+      then
+        export GSH_NO_GETTEXT=1
+      else
+        export LANGUAGE="$OPTARG"     # only works on GNU systems
+        unset GSH_NO_GETTEXT
+      fi
+      GSH_EXPLICIT_LANGUAGE="true"
       ;;
     V)
       # when lib/header.sh sees the -V flag, it displays the version and exits,
@@ -107,12 +142,16 @@ do
     c)
       GSH_COMMAND=$OPTARG
       ;;
+    X | U)
+      echo "$(gettext "Error: this option is only available from an executable archive!")" >&2
+      exit 1
+      ;;
     '?')
       echo "$(eval_gettext "Error: invalid option: '-\$OPTARG'")" >&2
       exit 1
       ;;
-    X | U)
-      echo "$(gettext "Error: this option is only available from an executable archive!")" >&2
+    :)
+      echo "$(eval_gettext "Error: missing parameter for option: '-\$OPTARG'")" >&2
       exit 1
       ;;
     *)
@@ -198,7 +237,7 @@ progress() {
   if [ -z "$progress_I" ]
   then
     progress_filename=$GSH_ROOT/lib/ascii-art/titlescreen
-    local N=$(wc -l "$GSH_CONFIG/index.txt" | awk '{print $1}')
+    local N=$(wc -l "$GSH_CONFIG/index.idx" | awk '{print $1}')
     local size=$(wc -c "$progress_filename" | awk '{print $1}')
     progress_delta=$((size/N + 1))
     # head -c$((progress_delta - 1)) $progress_filename => not POSIX compliant
@@ -229,18 +268,42 @@ init_gsh() {
   #    - continue the previous game
   if [ -e "$GSH_CONFIG" ]
   then
-    if [ -z "$RESET" ]
-    then
+
+    while [ -z "$RESET" ]
+    do
       local r
       printf "$(eval_gettext 'The directory $GSH_CONFIG contains meta-data from a previous game.
 Do you want to remove it and start a new game? [y/N]') "
       read -r r
-      [ "$r" = "$(gettext "y")" ] || [ "$r" = "$(gettext "Y")" ] || return 1
+      if [ "$r" = "$(gettext "y")" ] || [ "$r" = "$(gettext "Y")" ]
+      then
+        RESET=TRUE
+        echo
+      fi
+      if [ -z "$r" ] || [ "$r" = "$(gettext "n")" ] || [ "$r" = "$(gettext "N")" ]
+      then
+        RESET=FALSE
+        echo
+      fi
+    done
 
-    elif [ "$RESET" = "FALSE" ]
+  else
+    # if no data is found, we need to initialize a new game
+    RESET=TRUE
+  fi
+
+  if [ "$RESET" = FALSE ]
+  then
+    if [ "$#" -gt 0 ] || [ "$GSH_EXPLICIT_LANGUAGE" = true ]
     then
-      return 1
+      args=$*
+      [ "$#" -gt 0 ] && echo "$(eval_gettext 'Warning: command line arguments are ignored when continuing a game ($args)')" >&2
+      args=$LANGUAGE
+      [ "$GSH_EXPLICIT_LANGUAGE" = true ] &&  echo "$(eval_gettext 'Warning: language is ignored when continuing a game ($args)')" >&2
+      echo "$(gettext 'Press Enter to continue.')" >&2
+      read -r _
     fi
+    return 1
   fi
 
   ### if we're here, we need to reset a new game
@@ -339,7 +402,7 @@ Do you want to remove it and start a new game? [y/N]') "
     clear
   fi
 
-  make_index "$@" | sed -e "s;$GSH_MISSIONS;.;" > "$GSH_CONFIG/index.txt"
+  make_index "$@" | sed -e "s;$GSH_MISSIONS;.;" > "$GSH_CONFIG/index.idx"
 
   if [ "$GSH_MODE" != "DEBUG" ]
   then
@@ -449,7 +512,7 @@ Do you want to remove it and start a new game? [y/N]') "
 
     [ -z "$MISSION_SUB_NB" ] && MISSION_NB=$((MISSION_NB+1))
 
-  done < "$GSH_CONFIG/index.txt"
+  done < "$GSH_CONFIG/index.idx"
   if [ "$MISSION_NB" -eq 1 ]
   then
     echo "$(gettext "Error: no mission was found!
