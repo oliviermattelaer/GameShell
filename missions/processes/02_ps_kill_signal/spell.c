@@ -73,13 +73,6 @@ void spawn(int sig)
         gettext("You'll need to do better than that to kill my spell!"));
     // reset the signal handler
     signal(SIGTERM, spawn);
-
-    pid_t pid = fork();
-    if (pid) {
-        write_pid(pid);
-        // Update the seed to desynchronize.
-        srand(pid + time(NULL));
-    }
 }
 
 int main()
