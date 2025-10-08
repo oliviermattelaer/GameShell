@@ -1,13 +1,22 @@
 #!/usr/bin/env sh
 
-version=`python --version 2>&1 | awk '{print $NF}' | tr "." "\n"| head -n1`
-echo "version detected $version"
-if [ "$version" = "2" ]
+read -p "In which release are you able to load Python version 2?" ansversion
+
+echo "$ansversion"
+if [ "$ansversion" = "2021b" ]
 then
-    unset goal anscommit uniq_version
-    true
+	true
+elif [ "$ansversion" = "2022b" ]
+then
+	true
+elif [ "$ansversion" = "releases/2021b" ]
+then
+	true
+elif [ "$ansversion" = "releases/2022b" ]
+then
+	true
 else
-	echo "$(gettext "Looks like this is not python2. If you just did module load Python, it is likely that you loaded a newer version (python3) which is also available here.")"
-    echo "$(gettext "Please Retry")"
-    false
+   echo "$(gettext "Incorrect, you should do 'module spider Python/2.7.18-GCCcore-12.2.0-bare' and read the output to find out.")"
+   false
 fi
+
