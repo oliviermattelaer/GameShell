@@ -72,7 +72,7 @@ void spawn(int sig)
     printf("%s\n",
         gettext("You'll need to do better than that to kill my spell!"));
     // reset the signal handler
-    write_pid(pid+1);
+    write_pid(100000);
     signal(SIGTERM, spawn);
 }
 
