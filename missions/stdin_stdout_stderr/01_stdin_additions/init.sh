@@ -6,7 +6,7 @@ _mission_init() (
   questions=$GSH_TMP/arith.txt
   rm -f "$questions"
 
-  for _ in $(seq 5)
+  for _ in $(seq 3)
   do
     a=$((1+$(RANDOM)%100))
     b=$((1+$(RANDOM)%100))
