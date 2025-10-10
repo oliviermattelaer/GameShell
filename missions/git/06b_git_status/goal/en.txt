@@ -7,6 +7,17 @@ Can you clean it?
 Note that this time some change have already been put in the index !!
 So you did "git add" on a file and finally do not want to keep those changes.
 
+Here is your current state of the file in the three area of git
+
+work directory    staging     last commit of the repo 
+--------------    -------     -----------------------
+~~ BAD CHANGE     BAD CHANGE      CORRECT VERSION 
+
+Your goal is to go back to: 
+
+work directory    staging     last commit of the repo 
+--------------    -------     -----------------------
+CORRECT VERSION  CORRECT VERSION  CORRECT VERSION 
 
 Useful commands
 ===============
