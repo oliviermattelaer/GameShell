@@ -15,8 +15,3 @@ git status
 
 git restore FILENAME
 ~~  restore file to status present in the index
-
-git restore --staged FILENAME
-~~  restore the file in the index to the status of the last committed version of the file
-
-
