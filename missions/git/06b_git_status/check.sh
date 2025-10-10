@@ -33,7 +33,8 @@ then
     echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Did you restore the file?")"
 elif git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes not staged for commit" >& /dev/null
 then
-     echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Your modified file is not in the staging anymore but you ALSO need to restored the one in your working directory.")"
+     echo "$(gettext "You are on the right track ...
+     echo "$(gettext "But your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Your modified file is not in the staging anymore (good) but you ALSO need to restored the one in your working directory.")"
 elif cat should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "number of customer is 0" >& /dev/null;
 then
 	
