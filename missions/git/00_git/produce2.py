@@ -1679,11 +1679,6 @@ class CommonRunCmd(HelpToCmd, CheckValidForCmd, cmd.Cmd):
             if lhapdf_version.startswith('5'):
                 logger.info('can not run systematics with lhapdf 5')
                 return              
-        print("Here I need to remove the print but keep the change the change to the code.")
-        print("The 's' option is usefull to separate the two actions")
-        print("When you have split it in two actions type 'n' if this is print statement (you do not want to add it) and 'y' for the code")
-
-
         
         lhapdf = misc.import_lhapdf(self.options['lhapdf'])
         if not lhapdf:
