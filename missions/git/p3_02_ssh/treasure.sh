@@ -34,7 +34,7 @@ if [[ "$gitfork" =~ ^"$prefix" ]]; then
     OWNER=${ADDR[3]}
     echo $OWNER
     REPONAME=$(basename ${gitfork})
-    #echo "OWNER IS $OWNER"
+    echo "OWNER/REPO IS $OWNER/$REPONAME"
     git remote set-url origin git@github.com:$OWNER/$REPONAME
     echo "git@github.com:$OWNER/$REPONAME" > $GSH_HOME/.fork
     echo "new adress is now git@github.com:$OWNER/$REPONAME"
