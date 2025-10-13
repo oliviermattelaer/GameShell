@@ -33,10 +33,11 @@ if [[ "$gitfork" =~ ^"$prefix" ]]; then
     IFS='/' read -ra ADDR <<< "$gitfork"
     OWNER=${ADDR[3]}
     echo $OWNER
+    REPONAME=$(basename ${gitfork})
     #echo "OWNER IS $OWNER"
-    git remote set-url origin git@github.com:$OWNER/gitlectures.git
-    echo "git@github.com:$OWNER/gitlectures.git" > $GSH_HOME/.fork
-    echo "new adress is now git@github.com:$OWNER/gitlectures.git"
+    git remote set-url origin git@github.com:$OWNER/$REPONAME
+    echo "git@github.com:$OWNER/$REPONAME" > $GSH_HOME/.fork
+    echo "new adress is now git@github.com:$OWNER/$REPONAME"
     echo "in future you can copy/paste directly the \"ssh\" adress of your fork"
     #git remote
 fi
