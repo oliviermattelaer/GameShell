@@ -37,7 +37,7 @@ fork=$(cat $GSH_HOME/.fork)
 
 ### create a secondary repo for creating an out-of-sync situation
 cd $GSH_HOME
-git clone $fork
+git clone $fork gitlectures
 cd gitlectures
 echo "I have succeed level 14 on `date`" >> status
 git add status &> /dev/null
