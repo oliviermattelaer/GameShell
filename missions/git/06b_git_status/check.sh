@@ -73,8 +73,7 @@ fi
     
 if [[ $sub_mission = 1 ]];
 then
-    echo "$(gettext " ")"
-    echo "Good Job"
+    echo "$(gettext "Good Job")"
     true
 else
 #    echo "$(gettext " ")"
