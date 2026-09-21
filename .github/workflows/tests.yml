@@ -42,6 +42,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: debian:${{ matrix.release }}
+      # Run a real init as PID 1 so that orphaned processes get reaped.  The
+      # default PID 1 of a job container is "tail -f /dev/null", which never
+      # calls wait(), so killed children of a killed process stay around as
+      # zombies -- and the "processes" missions, which look for their
+      # background process in the output of ps, then see it as still running.
+      options: --init
     steps:
       - name: Install Debian deps
         run: |
