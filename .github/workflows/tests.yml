@@ -25,24 +25,38 @@ jobs:
             make tests-bash && make tests-zsh
 
   test-debian:
-    # older Debian releases (11 "bullseye" and 12 "bookworm"), run in
-    # containers since GitHub only provides Ubuntu / macOS / Windows runners.
-    # Debian 10 "buster" is not tested: it is EOL and its apt repositories have
-    # moved to archive.debian.org.
+    # older Debian releases, run in containers since GitHub only provides
+    # Ubuntu / macOS / Windows runners
     strategy:
       fail-fast: false
       matrix:
-        release: [bullseye, bookworm]
+        include:
+          # Debian 11: past end of LTS, packages are only on archive.debian.org
+          - release: bullseye
+            archived: true
+          # Debian 12: still supported, uses the regular mirrors
+          - release: bookworm
+            archived: false
     runs-on: ubuntu-latest
     container:
       image: debian:${{ matrix.release }}
     steps:
       - name: Install Debian deps
         run: |
+          if [ "${{ matrix.archived }}" = "true" ]
+          then
+            # this release has been removed from deb.debian.org
+            echo "deb http://archive.debian.org/debian ${{ matrix.release }} main" \
+              > /etc/apt/sources.list
+            # archived Release files are expired by definition
+            echo 'Acquire::Check-Valid-Until "false";' \
+              > /etc/apt/apt.conf.d/99no-check-valid-until
+          fi
           apt-get update
           apt-get install --no-install-recommends --assume-yes \
             ca-certificates git make locales \
-            gettext man-db psmisc procps nano tree bsdmainutils bsdextrautils zsh
+            gettext man-db psmisc procps nano tree bsdmainutils bsdextrautils zsh \
+            gcc libc6-dev  # the "processes" missions compile a small C program
           sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
           locale-gen
           update-locale LANG=en_US.UTF-8
