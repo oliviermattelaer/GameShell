@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout the GameShell repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - if: ${{ matrix.platform == 'ubuntu-latest' }}
         name: Install Linux deps
         run: |
@@ -33,7 +33,7 @@ jobs:
           apt-get install --no-install-recommends --assume-yes \
             ca-certificates git make gettext man-db psmisc procps nano tree bsdmainutils zsh parallel
       - name: Checkout the GameShell repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Run the tests
         # GameShell refuses to run as root
         run: |
