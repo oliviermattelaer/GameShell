@@ -31,12 +31,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Debian 11: past end of LTS, packages are only on archive.debian.org
+          # Debian 11: past end of LTS, removed from deb.debian.org
           - release: bullseye
             archived: true
+            snapshot: "20260801T000000Z"
           # Debian 12: still supported, uses the regular mirrors
           - release: bookworm
             archived: false
+            snapshot: ""
     runs-on: ubuntu-latest
     container:
       image: debian:${{ matrix.release }}
@@ -45,10 +47,20 @@ jobs:
         run: |
           if [ "${{ matrix.archived }}" = "true" ]
           then
-            # this release has been removed from deb.debian.org
-            echo "deb http://archive.debian.org/debian ${{ matrix.release }} main" \
-              > /etc/apt/sources.list
-            # archived Release files are expired by definition
+            # This release has been removed from deb.debian.org.  Its main
+            # archive is on archive.debian.org, but the security suite is not
+            # there yet, and the Docker image ships packages from it: without
+            # it, apt cannot install any -dev package matching the already
+            # installed runtime one.  So take the security suite from
+            # snapshot.debian.org, pinned to a date so the job is reproducible.
+            rel="${{ matrix.release }}"
+            snap="${{ matrix.snapshot }}"
+            {
+              echo "deb http://archive.debian.org/debian $rel main"
+              echo "deb http://archive.debian.org/debian $rel-updates main"
+              echo "deb http://snapshot.debian.org/archive/debian-security/$snap $rel-security main"
+            } > /etc/apt/sources.list
+            # archived and snapshot Release files are expired by definition
             echo 'Acquire::Check-Valid-Until "false";' \
               > /etc/apt/apt.conf.d/99no-check-valid-until
           fi
