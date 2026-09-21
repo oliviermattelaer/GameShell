@@ -2,7 +2,7 @@
 
 # use a temporary PARALLEL_HOME to leave the player's one untouched
 _PARALLEL_HOME=${PARALLEL_HOME-__unset__}
-export PARALLEL_HOME="$GSH_TMP/parallel_home"
+export PARALLEL_HOME="$TMPDIR/gsh_parallel_home"
 rm -rf "$PARALLEL_HOME"
 mkdir -p "$PARALLEL_HOME"
 
