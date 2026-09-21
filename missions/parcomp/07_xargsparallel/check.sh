@@ -1,12 +1,14 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env sh
 
+_mission_check() (
+  printf '%s ' "What is the 'real' duration, in seconds, of the command as reported by the time command?"
+  read -r D
 
-read -p "What is the 'user' duration, in seconds, of the command as reported by the time command? " D
+  case "$D" in
+    4*) return 0 ;;
+  esac
+  echo "Are you sure? Make sure the syntax for running both at the same time is correct."
+  return 1
+)
 
-if [[ $D == 4* ]]
-then
-    true
-else
-        echo "Are you sure? Make sure the syntax for running both at the same time is correct."
-        false
-fi
+_mission_check

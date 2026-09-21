@@ -1,15 +1,16 @@
 Mission goal
 ============
 
-Copy the sample script in your working directory.
+Copy the directory containing the sample scripts and data files into your
+home directory.
 
 
 Useful commands
 ===============
 
-The sample scripts are in the directory `/CECI/proj/training/parcomp`
+The sample scripts are in the directory `~/training/parcomp`.
 You can copy the whole directory with the `cp` command, with the `-r`
-parameter to recusively copy its contents. Remember that the destination
+parameter to recursively copy its contents. Remember that the destination
 being the current directory, a dot `.` can be used as second argument.
 
 Remarks
@@ -18,3 +19,9 @@ Remarks
 You can see the contents of the directory you copied with `ls parcomp`,
 enter that directory with `cd parcomp` and list the contents of a script
 with `cat lower.sh`.
+
+Some missions rely on tools that are not always installed on a laptop:
+- GNU parallel (from mission 13 on): `brew install parallel` on macOS,
+  `sudo apt install parallel` on Debian / Ubuntu,
+- GNU split (mission 11, macOS only): `brew install coreutils`.
+Installing them now avoids interrupting the game later.

@@ -12,14 +12,12 @@ and measure the time it needs to run.
 Useful commands
 ===============
 
-time { COMMAND1 ; COMMAND2 ; }
+time ( COMMAND1 ; COMMAND2 )
   this will measure the time needed to run both commands.
 
 Remarks
 -------
 
-Beware that the space before the closing curly brace is necessary.
-
-Also, if you run the same command multiple times, the output file will
+If you run the same command multiple times, the output file will
 increase in size so you should remove the tmp.txt and res.txt files
 before the final run.

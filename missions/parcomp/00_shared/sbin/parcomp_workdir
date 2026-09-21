@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# make sure the player's working copy "$GSH_HOME/parcomp" exists and contains
+# all the files of the sample (missing files are restored, existing files are
+# left untouched)
+parcomp_workdir() {
+  src=$(parcomp_src) || return 1
+  dst=$GSH_HOME/parcomp
+
+  mkdir -p "$dst" || return 1
+  for file in "$src"/* "$src"/.[!.]*
+  do
+    [ -e "$file" ] || continue
+    [ -e "$dst/${file##*/}" ] || cp -Rp "$file" "$dst/" || return 1
+  done
+}
+
+parcomp_workdir "$@"

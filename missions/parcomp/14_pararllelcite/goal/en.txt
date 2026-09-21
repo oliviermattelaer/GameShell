@@ -31,4 +31,4 @@ As long as you did not accept to cite the above-mentioned paper
 the command will remind you of it and explain how to do to
 agree, and refer you to further documentation. As soon as
 you agree, the warning will disapear. This has to be done
-on each cluster individually.
+on each computer (or cluster) individually.

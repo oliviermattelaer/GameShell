@@ -1,0 +1,6 @@
+# zsh's "time" prints everything on one line; use the same
+# "real / user / sys" layout as bash, which is what the goals describe
+if [ -n "$ZSH_VERSION" ]
+then
+  TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
+fi

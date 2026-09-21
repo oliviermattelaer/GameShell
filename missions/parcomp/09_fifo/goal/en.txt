@@ -5,7 +5,7 @@ In the previous mission, you wrote an intermediate file, and the second
 command actually had to wait for this file to be written before it can 
 start.
 
-Linux actualy allows creating "fake" files that can be written to and
+Linux and macOS actually allow creating "fake" files that can be written to and
 read from at the same time. The command that reads is blocked until the
 command that writes has written a line. This way, both commands can 
 operate at the same time.
@@ -21,7 +21,7 @@ Time the whole process and take note of the elapsed (real) time.
 Useful commands
 ===============
 
-time { COMMAND1 & COMMAND2 ; }
+time ( COMMAND1 & COMMAND2 )
   this will measure the time needed to run both commands in cases
   the second command is waiting on the first one, for instance
   through a fifo file

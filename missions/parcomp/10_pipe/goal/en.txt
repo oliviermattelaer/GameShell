@@ -17,7 +17,7 @@ Time the whole process and take note of the elapsed (real) time.
 Useful commands
 ===============
 
-time { COMMAND1 | COMMAND2 ; }
+time ( COMMAND1 | COMMAND2 )
   this will measure the time needed to run both commands in cases
   the second command is consuming output from the first one.
 

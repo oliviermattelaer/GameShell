@@ -1,15 +1,16 @@
 #!/usr/bin/env sh
 
+rm -f res.txt
 gsh assert_check false
 
-cd ..
-gsh assert_check false
-
-cd
-gsh assert_check false
-
-cd "$(eval_gettext "\$GSH_HOME/Castle/Main_tower/First_floor/Second_floor/Top_of_the_tower")"
+parallel -k ./lower.sh {} ::: d?.txt > res.txt
 gsh assert_check true
 
-cd "$(eval_gettext "\$GSH_HOME/Castle/Main_tower/First_floor/Second_floor/Top_of_the_tower")/.."
+# same size, wrong order
+parallel -k ./lower.sh {} ::: d4.txt d3.txt d2.txt d1.txt > res.txt
 gsh assert_check false
+
+parallel -k ./lower.sh {} ::: d?.txt >> res.txt
+gsh assert_check false
+
+rm -f res.txt

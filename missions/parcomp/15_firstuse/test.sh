@@ -1,15 +1,14 @@
 #!/usr/bin/env sh
 
+rm -f d?.bak
 gsh assert_check false
 
-cd ..
+cp d1.txt d1.bak
+cp d2.txt d2.bak
+cp d3.txt d3.bak
 gsh assert_check false
 
-cd
-gsh assert_check false
-
-cd "$(eval_gettext "\$GSH_HOME/Castle/Main_tower/First_floor/Second_floor/Top_of_the_tower")"
+cp d4.txt d4.bak
 gsh assert_check true
 
-cd "$(eval_gettext "\$GSH_HOME/Castle/Main_tower/First_floor/Second_floor/Top_of_the_tower")/.."
-gsh assert_check false
+rm -f d?.bak

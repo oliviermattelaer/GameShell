@@ -3,6 +3,7 @@ on: [push]
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         platform: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.platform }}
@@ -12,11 +13,30 @@ jobs:
       - if: ${{ matrix.platform == 'ubuntu-latest' }}
         name: Install Linux deps
         run: |
-          sudo apt install gettext man-db psmisc nano tree bsdmainutils zsh
-      # - if: ${{ matrix.platform == 'macos-latest' }}
-      #   name: Install macOS deps
-      #   run: |
-      #     brew install coreutils pstree tree man-db
+          sudo apt-get update
+          sudo apt-get install gettext man-db psmisc nano tree bsdmainutils zsh parallel
+      - if: ${{ matrix.platform == 'macos-latest' }}
+        name: Install macOS deps
+        run: |
+          brew install parallel coreutils
       - name: Run the tests
         run: |
             make tests-bash && make tests-zsh
+
+  test-debian:
+    runs-on: ubuntu-latest
+    container: debian:stable
+    steps:
+      - name: Install Debian deps
+        run: |
+          apt-get update
+          apt-get install --no-install-recommends --assume-yes \
+            ca-certificates git make gettext man-db psmisc procps nano tree bsdmainutils zsh parallel
+      - name: Checkout the GameShell repo
+        uses: actions/checkout@v4
+      - name: Run the tests
+        # GameShell refuses to run as root
+        run: |
+          useradd -m gsh-user
+          chown -R gsh-user "$GITHUB_WORKSPACE"
+          su gsh-user -c 'make tests-bash && make tests-zsh'

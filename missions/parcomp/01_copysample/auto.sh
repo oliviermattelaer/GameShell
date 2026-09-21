@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 
-cp -rp /CECI/proj/training/parcomp .
+cd "$GSH_HOME"
+cp -Rp "$(parcomp_src)" .
 gsh check

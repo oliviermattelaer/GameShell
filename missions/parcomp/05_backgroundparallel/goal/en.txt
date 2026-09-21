@@ -27,7 +27,7 @@ You can also try to measure the time it takes with the `time` command.
 Useful commands
 ===============
 
-time { COMMAND1 & COMMAND1 & wait ; }
+time ( COMMAND1 & COMMAND2 & wait )
   measures the time needed to complete both COMMAND1 and COMMAND2 in the background
   See the remark about `wait` below. If you forget to use it, the `time`
   command will report only the time needed to start the commands, not complete them.
@@ -37,5 +37,3 @@ Remarks
 
 Sometimes, you will want to wait until all background processes have completed.
 You can do so with the `wait` command.
-
-Please note that the spaces around the curly braces are required.

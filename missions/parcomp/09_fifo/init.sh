@@ -1,3 +1,8 @@
 #!/usr/bin/env sh
 
-pwd | grep -q parcomp || { cp -rp /CECI/proj/training/parcomp . && cd parcomp ; }
+# restore the working copy of the sample if needed, and go there
+parcomp_workdir || return 1
+case "$PWD/" in
+  */parcomp/*) ;;
+  *) cd "$GSH_HOME/parcomp" ;;
+esac
