@@ -47,13 +47,25 @@ jobs:
         run: |
           git fetch --tags --force && ./utils/archive.sh
 
-      - name: "Let passt use an unprivileged user namespace"
-        # passt sandboxes itself in a user namespace, and Ubuntu confines any
-        # unprivileged user namespace with a restrictive AppArmor profile.
-        # passt then cannot create the PID file libguestfs asks it for ("PID
-        # file open: Permission denied") and the whole build aborts.
+      - name: "Let passt create the files libguestfs asks it for"
+        # Ubuntu confines passt twice over: with its own AppArmor profile,
+        # which only lets it create files at a handful of fixed paths, and --
+        # once passt sandboxes itself in a user namespace -- with the
+        # restrictive "unprivileged_userns" profile.  Either one is enough to
+        # stop it creating its socket and PID file inside the temporary
+        # directory libguestfs makes for it, and the build then dies with
+        # "PID file open: Permission denied".
         run: |
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          for profile in /etc/apparmor.d/*passt*
+          do
+            [ -e "$profile" ] || continue
+            echo "disabling $profile"
+            sudo apparmor_parser -R "$profile" || true
+            sudo mkdir -p /etc/apparmor.d/disable
+            sudo ln -sf "$profile" "/etc/apparmor.d/disable/$(basename "$profile")"
+          done
+          sudo aa-status 2>/dev/null | grep -i passt || echo "passt is no longer confined"
 
       - name: "Building the VM image"
         env:
