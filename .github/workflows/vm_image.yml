@@ -1,0 +1,67 @@
+name: "VM image"
+
+on:
+  push:
+    tags:
+      - "v*"
+  # allows rebuilding the VM without making a new release
+  workflow_dispatch:
+
+jobs:
+  vm:
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: "write"
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+
+      - name: "Install Linux deps"
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --assume-yes \
+            gettext git curl qemu-utils qemu-system-x86 cloud-guest-utils e2fsprogs
+          # VBoxManage is only used to write the OVF descriptor: its kernel
+          # module is never needed, so a failure to build it is not fatal
+          sudo apt-get install --assume-yes virtualbox || true
+          command -v VBoxManage
+
+      - name: "Creating the archive"
+        run: |
+          git fetch --tags --force && ./utils/archive.sh
+
+      - name: "Building the VM image"
+        run: |
+          ./utils/build-vm.sh -a gameshell.sh -o gameshell.ova
+          ls -lh gameshell.ova
+
+      - name: "Upload the VM image as a build artifact"
+        uses: "actions/upload-artifact@v4"
+        with:
+          name: "gameshell-ova"
+          path: "gameshell.ova"
+          retention-days: 14
+          compression-level: 0
+
+      - name: "Attach the VM image to the release"
+        if: "startsWith(github.ref, 'refs/tags/')"
+        env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          tag="${GITHUB_REF#refs/tags/}"
+          # the release itself is created by the "Tagged release" workflow,
+          # which runs in parallel with this one
+          for _ in $(seq 30)
+          do
+            if gh release view "$tag" >/dev/null 2>&1
+            then
+              gh release upload "$tag" gameshell.ova --clobber
+              exit 0
+            fi
+            echo "waiting for the release of $tag to be created..."
+            sleep 20
+          done
+          echo "Error: no release found for $tag" >&2
+          exit 1
