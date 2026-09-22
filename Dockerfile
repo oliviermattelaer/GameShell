@@ -12,7 +12,12 @@ RUN apt install --no-install-recommends --assume-yes \
     nano \
     tree \
     bsdmainutils \
-    x11-apps
+    bsdextrautils \
+    util-linux-extra \
+    x11-apps \
+    wget \
+    gcc \
+    libc6-dev
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -39,13 +44,13 @@ USER ${uid}:${gid}
 WORKDIR /home/${user}
 
 
-### use the latest github version
-ADD --chown=gsh-user:gsh-user https://github.com/phyver/GameShell/releases/download/latest/gameshell.sh gameshell.sh
-
-### if you prefer to use a local customized version, comment the preceeding
-### ADD ...
-### line and uncomment the next one
-### (NOTE that you need to have generated a "gameshell.sh" file with GSH_ROOT/utils/archive.sh
-# COPY gameshell.sh .
+### by default, use the latest version published on github
+###
+### to build the image from a local, customized version instead, generate a
+### "gameshell.sh" file with GSH_ROOT/utils/archive.sh and give its path,
+### relative to the build context:
+###   ./utils/archive.sh && docker build --build-arg GSH_ARCHIVE=gameshell.sh -t gsh .
+ARG GSH_ARCHIVE=https://github.com/phyver/GameShell/releases/download/latest/gameshell.sh
+ADD --chown=gsh-user:gsh-user ${GSH_ARCHIVE} gameshell.sh
 
 ENTRYPOINT ["bash", "./gameshell.sh"]
