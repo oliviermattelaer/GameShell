@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends --assume-yes \
-            gettext git curl qemu-utils cloud-guest-utils e2fsprogs
+            gettext git curl qemu-utils qemu-system-x86 cloud-guest-utils e2fsprogs
           # VBoxManage is only used to write the OVF descriptor: its kernel
           # module is never needed, so a failure to build it is not fatal
           sudo apt-get install --assume-yes virtualbox || true

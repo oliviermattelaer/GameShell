@@ -164,18 +164,19 @@ sudo chroot "$MOUNT" /bin/bash -c "
 "
 echo "gameshell" | sudo tee "$MOUNT/etc/hostname" >/dev/null
 
-# the cloud image only talks to the serial console, which stays invisible in
-# VirtualBox: send the boot menu, the kernel messages and the login prompt to
-# the screen instead
+# The cloud image only talks to the serial console, which stays invisible in
+# VirtualBox.  Show the boot menu and the kernel messages on the screen, but
+# keep the serial console as well: it costs nothing in a hypervisor, and it is
+# what the smoke test below reads.
 sudo sed -i \
-  -e 's/console=ttyS0[^ "]*//g' \
+  -e 's/console=ttyS0[^ "]*/console=tty0 console=ttyS0,115200n8/g' \
   -e '/^serial /d' \
-  -e 's/^terminal_input .*/terminal_input console/' \
-  -e 's/^terminal_output .*/terminal_output console/' \
+  -e 's/^terminal_input .*/terminal_input console serial/' \
+  -e 's/^terminal_output .*/terminal_output console serial/' \
   "$MOUNT/boot/grub/grub.cfg"
 sudo sed -i \
   -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=""/' \
-  -e 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/' \
+  -e 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet console=tty0 console=ttyS0,115200n8"/' \
   -e '/^GRUB_TERMINAL/d' \
   -e '/^GRUB_SERIAL_COMMAND/d' \
   "$MOUNT/etc/default/grub"
@@ -220,7 +221,47 @@ sudo losetup --detach "$LOOP"
 LOOP=""
 
 ###
-# 4/ package the disk as an OVA
+# 4/ check that what we built actually boots
+# Without this, a broken bootloader or a mistake in the console settings would
+# only be found by whoever imports the OVA.
+if [ -z "${GSH_VM_SKIP_BOOT_TEST:-}" ] && command -v qemu-system-x86_64 >/dev/null
+then
+  echo "### checking that the image boots"
+  : > "$WORKDIR/console.log"
+  qemu-system-x86_64 \
+    -machine "accel=kvm:tcg" -m 1024 -smp 2 -no-reboot \
+    -drive "file=$WORKDIR/disk.raw,format=raw" \
+    -display none -serial "file:$WORKDIR/console.log" &
+  qemu_pid=$!
+
+  booted=""
+  for _ in $(seq 60)
+  do
+    if grep -q "gameshell login:" "$WORKDIR/console.log" 2>/dev/null
+    then
+      booted=yes
+      break
+    fi
+    if ! kill -0 "$qemu_pid" 2>/dev/null
+    then
+      break
+    fi
+    sleep 5
+  done
+  kill "$qemu_pid" 2>/dev/null || true
+  wait "$qemu_pid" 2>/dev/null || true
+
+  if [ -z "$booted" ]
+  then
+    echo "Error: the image did not reach a login prompt, console was:" >&2
+    tail -n 60 "$WORKDIR/console.log" >&2
+    exit 1
+  fi
+  echo "### the image boots and reaches a login prompt"
+fi
+
+###
+# 5/ package the disk as an OVA
 # VBoxManage is only used to write the OVF descriptor and tar it up: the VM is
 # created, exported and thrown away without ever being started, so this works
 # on a machine that cannot run VirtualBox at all.
