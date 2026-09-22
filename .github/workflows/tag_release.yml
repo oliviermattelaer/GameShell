@@ -3,7 +3,7 @@ name: "Tagged release"
 on:
   push:
     tags:
-      - "v*"
+      - "parcomp_v*"
 
 jobs:
   pre-release:

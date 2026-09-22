@@ -3,7 +3,7 @@ name: "Docker image"
 on:
   push:
     tags:
-      - "v*"
+      - "parcomp_v*"
   # allows rebuilding an image without making a new release
   workflow_dispatch:
 
@@ -48,13 +48,12 @@ jobs:
         uses: "docker/metadata-action@v5"
         with:
           images: "ghcr.io/${{ github.repository }}"
-          # "latest=auto" only moves the "latest" tag for real releases, not
-          # for pre-releases such as v1.2.0-rc1
-          flavor: |
-            latest=auto
+          # the tags are not semver, so the version cannot be parsed out of
+          # them: match the "parcomp_v" prefix and keep whatever follows
           tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=match,pattern=parcomp_v(.*),group=1
+            type=ref,event=tag
+            type=raw,value=latest
 
       - name: "Build and push the image"
         uses: "docker/build-push-action@v6"
