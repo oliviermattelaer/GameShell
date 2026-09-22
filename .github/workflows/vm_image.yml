@@ -3,7 +3,7 @@ name: "VM image"
 on:
   push:
     tags:
-      - "v*"
+      - "git_v*"
   # allows rebuilding the VM without making a new release
   workflow_dispatch:
 

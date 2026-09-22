@@ -3,7 +3,7 @@ name: "Docker image"
 on:
   push:
     tags:
-      - "v*"
+      - "git_v*"
   # allows rebuilding an image without making a new release
   workflow_dispatch:
 
@@ -43,18 +43,26 @@ jobs:
           username: "${{ github.actor }}"
           password: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: "Strip the branch prefix from the tag"
+        id: "version"
+        # the tags of this branch are named "git_v1.2.0", which is not a
+        # semantic version: give docker/metadata-action the "v1.2.0" part
+        run: |
+          tag="${GITHUB_REF#refs/tags/}"
+          echo "value=${tag#git_}" >> "$GITHUB_OUTPUT"
+
       - name: "Compute image name and tags"
         id: "meta"
         uses: "docker/metadata-action@v5"
         with:
           images: "ghcr.io/${{ github.repository }}"
           # "latest=auto" only moves the "latest" tag for real releases, not
-          # for pre-releases such as v1.2.0-rc1
+          # for pre-releases such as git_v1.2.0-rc1
           flavor: |
             latest=auto
           tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{version}},value=${{ steps.version.outputs.value }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ steps.version.outputs.value }}
 
       - name: "Build and push the image"
         uses: "docker/build-push-action@v6"
