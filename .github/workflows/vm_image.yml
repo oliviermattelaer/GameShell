@@ -21,8 +21,10 @@ jobs:
       - name: "Install Linux deps"
         run: |
           sudo apt-get update
+          # "passt" provides the user-mode networking libguestfs needs to
+          # install packages inside the image; it is only a Recommends
           sudo apt-get install --no-install-recommends --assume-yes \
-            gettext git curl qemu-utils libguestfs-tools
+            gettext git curl qemu-utils libguestfs-tools passt
           # VBoxManage is only used to write the OVF descriptor: its kernel
           # module is never needed, so a failure to build it is not fatal
           sudo apt-get install --assume-yes virtualbox || true
