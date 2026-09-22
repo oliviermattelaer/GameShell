@@ -4,12 +4,13 @@
 # OVA file that VirtualBox and VMware can import.
 #
 # The VM is not installed from scratch: we start from the official Debian
-# "nocloud" cloud image and customize it offline with libguestfs, which is
-# considerably faster and does not require booting anything.
+# cloud image, grow its disk, and install what we need in a chroot.  That is
+# much faster than running an installer, and it uses the build machine's own
+# network, so nothing has to be booted.
 #
-# Required tools: curl, qemu-img, virt-resize / virt-customize
-# (libguestfs-tools) and VBoxManage (virtualbox), which is only used to
-# package the disk -- no virtual machine is ever started.
+# Required tools: curl, qemu-img, growpart (cloud-guest-utils), resize2fs,
+# sudo, and VBoxManage (virtualbox), which is only used to package the disk --
+# no virtual machine is ever started.
 
 set -euo pipefail
 
@@ -58,7 +59,12 @@ case "$RELEASE" in
   *) echo "Error: unknown Debian release '$RELEASE'" >&2; exit 1 ;;
 esac
 
-for cmd in curl qemu-img virt-resize virt-customize VBoxManage
+# the dependencies listed in doc/deps.md, plus a C compiler, which the
+# "processes" missions use to build the process the player has to kill
+DEPS="locales gettext man-db procps psmisc nano tree bsdmainutils x11-apps"
+DEPS="$DEPS wget gcc libc6-dev zsh"
+
+for cmd in curl qemu-img growpart sudo VBoxManage
 do
   if ! command -v "$cmd" >/dev/null
   then
@@ -74,9 +80,25 @@ then
 fi
 ARCHIVE="$(cd "$(dirname "$ARCHIVE")" && pwd)/$(basename "$ARCHIVE")"
 OUTPUT="$(cd "$(dirname "$OUTPUT")" && pwd)/$(basename "$OUTPUT")"
+ARCHIVE_NAME="$(basename "$ARCHIVE")"
 
 WORKDIR="$(mktemp -d)"
-trap 'rm -rf "$WORKDIR"' EXIT
+MOUNT="$WORKDIR/mnt"
+LOOP=""
+
+cleanup() {
+  set +e
+  if [ -n "$MOUNT" ] && mountpoint -q "$MOUNT"
+  then
+    sudo umount --recursive "$MOUNT"
+  fi
+  if [ -n "$LOOP" ]
+  then
+    sudo losetup --detach "$LOOP"
+  fi
+  rm -rf "$WORKDIR"
+}
+trap cleanup EXIT
 
 ###
 # 1/ fetch the official Debian cloud image, and check it
@@ -90,70 +112,120 @@ curl -fL --retry 3 -o "$WORKDIR/SHA512SUMS" "$BASE_URL/SHA512SUMS"
 
 ###
 # 2/ give the VM a disk students can actually work in
-echo "### resizing the disk to $DISK_SIZE"
-qemu-img create -f qcow2 "$WORKDIR/disk.qcow2" "$DISK_SIZE" >/dev/null
-virt-resize --expand /dev/sda1 "$WORKDIR/$IMAGE" "$WORKDIR/disk.qcow2"
+echo "### growing the disk to $DISK_SIZE"
+qemu-img convert -f qcow2 -O raw "$WORKDIR/$IMAGE" "$WORKDIR/disk.raw"
+qemu-img resize -f raw "$WORKDIR/disk.raw" "$DISK_SIZE"
+
+LOOP="$(sudo losetup --find --partscan --show "$WORKDIR/disk.raw")"
+echo "### $WORKDIR/disk.raw is $LOOP"
+# the root partition of a Debian cloud image is the last one on the disk,
+# whatever its number, so it can simply be grown in place
+sudo growpart "$LOOP" 1
+sudo partx --update "$LOOP"
+sudo e2fsck -fy "${LOOP}p1" || true
+sudo resize2fs "${LOOP}p1"
 
 ###
-# 3/ the files we need to add to the guest
-mkdir -p "$WORKDIR/files"
+# 3/ install GameShell and its dependencies in the image
+mkdir -p "$MOUNT"
+sudo mount "${LOOP}p1" "$MOUNT"
+sudo mount --bind /dev "$MOUNT/dev"
+sudo mount --bind /dev/pts "$MOUNT/dev/pts"
+sudo mount -t proc proc "$MOUNT/proc"
+sudo mount -t sysfs sys "$MOUNT/sys"
+
+# let the chroot resolve names, and keep whatever the image had
+sudo mv "$MOUNT/etc/resolv.conf" "$MOUNT/etc/resolv.conf.gsh" 2>/dev/null || true
+printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' |
+  sudo tee "$MOUNT/etc/resolv.conf" >/dev/null
+
+# no daemon should be started while we install packages in a chroot
+printf '#!/bin/sh\nexit 101\n' | sudo tee "$MOUNT/usr/sbin/policy-rc.d" >/dev/null
+sudo chmod 755 "$MOUNT/usr/sbin/policy-rc.d"
+
+echo "### installing the dependencies"
+sudo chroot "$MOUNT" /bin/bash -c "
+  set -e
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get update
+  apt-get install --no-install-recommends --assume-yes $DEPS
+  apt-get clean
+"
+
+echo "### configuring the system"
+sudo chroot "$MOUNT" /bin/bash -c "
+  set -e
+  sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
+  locale-gen
+  update-locale LANG=en_US.UTF-8
+  useradd --create-home --shell /bin/bash '$VM_USER'
+  echo '$VM_USER:$VM_PASSWORD' | chpasswd
+  echo 'root:$VM_PASSWORD' | chpasswd
+"
+echo "gameshell" | sudo tee "$MOUNT/etc/hostname" >/dev/null
 
 # the cloud image only talks to the serial console, which stays invisible in
-# VirtualBox: send the kernel messages and the login prompt to the screen
-cat > "$WORKDIR/files/autologin.conf" <<EOF
+# VirtualBox: send the boot menu, the kernel messages and the login prompt to
+# the screen instead
+sudo sed -i \
+  -e 's/console=ttyS0[^ "]*//g' \
+  -e '/^serial /d' \
+  -e 's/^terminal_input .*/terminal_input console/' \
+  -e 's/^terminal_output .*/terminal_output console/' \
+  "$MOUNT/boot/grub/grub.cfg"
+sudo sed -i \
+  -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=""/' \
+  -e 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/' \
+  -e '/^GRUB_TERMINAL/d' \
+  -e '/^GRUB_SERIAL_COMMAND/d' \
+  "$MOUNT/etc/default/grub"
+
+# log the player in automatically, this is a game
+sudo mkdir -p "$MOUNT/etc/systemd/system/getty@tty1.service.d"
+sudo tee "$MOUNT/etc/systemd/system/getty@tty1.service.d/autologin.conf" >/dev/null <<EOF
 [Service]
 ExecStart=
 ExecStart=-/sbin/agetty --autologin $VM_USER --noclear %I \$TERM
 EOF
 
-cat > "$WORKDIR/files/profile" <<EOF
+# the game itself
+sudo cp "$ARCHIVE" "$MOUNT/home/$VM_USER/$ARCHIVE_NAME"
+sudo chmod 755 "$MOUNT/home/$VM_USER/$ARCHIVE_NAME"
+sudo chroot "$MOUNT" chown -R "$VM_USER:$VM_USER" "/home/$VM_USER"
+
+sudo tee "$MOUNT/etc/profile.d/gameshell.sh" >/dev/null <<EOF
 # shown on login
-if [ -f "\$HOME/$(basename "$ARCHIVE")" ]
+if [ -f "\$HOME/$ARCHIVE_NAME" ]
 then
   echo
   echo "Welcome to GameShell!"
   echo
   echo "To start playing, run:"
   echo
-  echo "    ./$(basename "$ARCHIVE")"
+  echo "    ./$ARCHIVE_NAME"
   echo
 fi
 EOF
 
-###
-# 4/ install GameShell and its dependencies
-# (the dependencies are those listed in doc/deps.md, plus a C compiler, which
-# the "processes" missions use to build their background process)
-DEPS="locales,gettext,man-db,procps,psmisc,nano,tree,bsdmainutils,bsdextrautils"
-DEPS="$DEPS,x11-apps,wget,gcc,libc6-dev,zsh"
+# put the image back in a pristine state
+sudo rm -f "$MOUNT/usr/sbin/policy-rc.d"
+sudo rm -f "$MOUNT/etc/resolv.conf"
+sudo mv "$MOUNT/etc/resolv.conf.gsh" "$MOUNT/etc/resolv.conf" 2>/dev/null || true
+sudo truncate -s 0 "$MOUNT/etc/machine-id"
+sudo rm -f "$MOUNT/var/lib/systemd/random-seed"
+sudo rm -rf "$MOUNT/var/lib/apt/lists/"*
 
-echo "### installing GameShell and its dependencies"
-virt-customize -a "$WORKDIR/disk.qcow2" \
-  --hostname "gameshell" \
-  --install "$DEPS" \
-  --run-command "sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen" \
-  --run-command "locale-gen" \
-  --run-command "update-locale LANG=en_US.UTF-8" \
-  --run-command "useradd --create-home --shell /bin/bash '$VM_USER'" \
-  --password "$VM_USER:password:$VM_PASSWORD" \
-  --root-password "password:$VM_PASSWORD" \
-  --copy-in "$ARCHIVE:/home/$VM_USER" \
-  --run-command "chmod 755 '/home/$VM_USER/$(basename "$ARCHIVE")'" \
-  --upload "$WORKDIR/files/profile:/etc/profile.d/gameshell.sh" \
-  --run-command "chown -R '$VM_USER:$VM_USER' '/home/$VM_USER'" \
-  --mkdir /etc/systemd/system/getty@tty1.service.d \
-  --upload "$WORKDIR/files/autologin.conf:/etc/systemd/system/getty@tty1.service.d/autologin.conf" \
-  --run-command "sed -i -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=\"\"/' -e 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/' -e '/^GRUB_TERMINAL/d' -e '/^GRUB_SERIAL_COMMAND/d' /etc/default/grub" \
-  --run-command "update-grub" \
-  --truncate /etc/machine-id
+sudo umount --recursive "$MOUNT"
+sudo losetup --detach "$LOOP"
+LOOP=""
 
 ###
-# 5/ package the disk as an OVA
+# 4/ package the disk as an OVA
 # VBoxManage is only used to write the OVF descriptor and tar it up: the VM is
 # created, exported and thrown away without ever being started, so this works
 # on a machine that cannot run VirtualBox at all.
 echo "### packaging $OUTPUT"
-qemu-img convert -f qcow2 -O vdi "$WORKDIR/disk.qcow2" "$WORKDIR/$VM_NAME.vdi"
+qemu-img convert -f raw -O vdi "$WORKDIR/disk.raw" "$WORKDIR/$VM_NAME.vdi"
 
 export VBOX_USER_HOME="$WORKDIR/vbox"
 mkdir -p "$VBOX_USER_HOME"

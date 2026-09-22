@@ -21,65 +21,21 @@ jobs:
       - name: "Install Linux deps"
         run: |
           sudo apt-get update
-          # "passt" provides the user-mode networking libguestfs needs to
-          # install packages inside the image; it is only a Recommends
           sudo apt-get install --no-install-recommends --assume-yes \
-            gettext git curl qemu-utils libguestfs-tools passt
+            gettext git curl qemu-utils cloud-guest-utils e2fsprogs
           # VBoxManage is only used to write the OVF descriptor: its kernel
           # module is never needed, so a failure to build it is not fatal
           sudo apt-get install --assume-yes virtualbox || true
           command -v VBoxManage
 
-      - name: "Let an unprivileged build use the kernel and KVM"
-        # The image is built as the normal user, because passt -- which gives
-        # the guest its network -- refuses to run as root.  That user needs to
-        # read the kernel libguestfs builds its appliance from (0600 on
-        # Ubuntu), and to reach /dev/kvm, without which the build falls back
-        # to plain emulation and takes forever.
-        run: |
-          sudo chmod 0644 /boot/vmlinuz-*
-          if [ -e /dev/kvm ]
-          then
-            sudo chmod 0666 /dev/kvm
-          fi
-
       - name: "Creating the archive"
         run: |
           git fetch --tags --force && ./utils/archive.sh
 
-      - name: "Let passt create the files libguestfs asks it for"
-        # Ubuntu confines passt twice over: with its own AppArmor profile,
-        # which only lets it create files at a handful of fixed paths, and --
-        # once passt sandboxes itself in a user namespace -- with the
-        # restrictive "unprivileged_userns" profile.  Either one is enough to
-        # stop it creating its socket and PID file inside the temporary
-        # directory libguestfs makes for it, and the build then dies with
-        # "PID file open: Permission denied".
-        run: |
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
-          for profile in /etc/apparmor.d/*passt*
-          do
-            [ -e "$profile" ] || continue
-            echo "disabling $profile"
-            sudo apparmor_parser -R "$profile" || true
-            sudo mkdir -p /etc/apparmor.d/disable
-            sudo ln -sf "$profile" "/etc/apparmor.d/disable/$(basename "$profile")"
-          done
-          sudo aa-status 2>/dev/null | grep -i passt || echo "passt is no longer confined"
-
       - name: "Building the VM image"
-        env:
-          LIBGUESTFS_BACKEND: "direct"
-          LIBGUESTFS_DEBUG: "1"
-          LIBGUESTFS_TRACE: "1"
         run: |
           ./utils/build-vm.sh -a gameshell.sh -o gameshell.ova
           ls -lh gameshell.ova
-
-      - name: "DEBUG show AppArmor denials"
-        if: "failure()"
-        run: |
-          sudo dmesg | grep -i -E "apparmor|passt" | tail -30 || true
 
       - name: "Upload the VM image as a build artifact"
         uses: "actions/upload-artifact@v4"
