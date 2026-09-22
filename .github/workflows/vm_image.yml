@@ -30,11 +30,18 @@ jobs:
           sudo apt-get install --assume-yes virtualbox || true
           command -v VBoxManage
 
-      - name: "Make the kernel readable by libguestfs"
-        # on Ubuntu /boot/vmlinuz-* is 0600, and libguestfs needs it to build
-        # the appliance it runs the customization in
+      - name: "Let an unprivileged build use the kernel and KVM"
+        # The image is built as the normal user, because passt -- which gives
+        # the guest its network -- refuses to run as root.  That user needs to
+        # read the kernel libguestfs builds its appliance from (0600 on
+        # Ubuntu), and to reach /dev/kvm, without which the build falls back
+        # to plain emulation and takes forever.
         run: |
           sudo chmod 0644 /boot/vmlinuz-*
+          if [ -e /dev/kvm ]
+          then
+            sudo chmod 0666 /dev/kvm
+          fi
 
       - name: "Creating the archive"
         run: |
@@ -44,10 +51,7 @@ jobs:
         env:
           LIBGUESTFS_BACKEND: "direct"
         run: |
-          sudo -E env "PATH=$PATH" ./utils/build-vm.sh \
-            -a gameshell.sh \
-            -o gameshell.ova
-          sudo chown "$(id -u):$(id -g)" gameshell.ova
+          ./utils/build-vm.sh -a gameshell.sh -o gameshell.ova
           ls -lh gameshell.ova
 
       - name: "Upload the VM image as a build artifact"
