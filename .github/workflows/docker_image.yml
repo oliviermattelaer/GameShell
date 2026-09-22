@@ -48,10 +48,13 @@ jobs:
         uses: "docker/metadata-action@v5"
         with:
           images: "ghcr.io/${{ github.repository }}"
+          # "latest=auto" only moves the "latest" tag for real releases, not
+          # for pre-releases such as v1.2.0-rc1
+          flavor: |
+            latest=auto
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=raw,value=latest
 
       - name: "Build and push the image"
         uses: "docker/build-push-action@v6"

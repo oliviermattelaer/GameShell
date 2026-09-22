@@ -107,7 +107,7 @@ ExecStart=-/sbin/agetty --autologin $VM_USER --noclear %I \$TERM
 EOF
 
 cat > "$WORKDIR/files/profile" <<EOF
-# shown when $VM_USER logs in
+# shown on login
 if [ -f "\$HOME/$(basename "$ARCHIVE")" ]
 then
   echo
@@ -139,7 +139,7 @@ virt-customize -a "$WORKDIR/disk.qcow2" \
   --root-password "password:$VM_PASSWORD" \
   --copy-in "$ARCHIVE:/home/$VM_USER" \
   --run-command "chmod 755 '/home/$VM_USER/$(basename "$ARCHIVE")'" \
-  --upload "$WORKDIR/files/profile:/home/$VM_USER/.profile" \
+  --upload "$WORKDIR/files/profile:/etc/profile.d/gameshell.sh" \
   --run-command "chown -R '$VM_USER:$VM_USER' '/home/$VM_USER'" \
   --mkdir /etc/systemd/system/getty@tty1.service.d \
   --upload "$WORKDIR/files/autologin.conf:/etc/systemd/system/getty@tty1.service.d/autologin.conf" \
