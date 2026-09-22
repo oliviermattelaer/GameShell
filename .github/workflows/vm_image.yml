@@ -46,22 +46,11 @@ jobs:
           compression-level: 0
 
       - name: "Attach the VM image to the release"
+        # creates the release if the "Tagged release" workflow, which runs in
+        # parallel with this one, has not got there first
         if: "startsWith(github.ref, 'refs/tags/')"
-        env:
-          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        run: |
-          tag="${GITHUB_REF#refs/tags/}"
-          # the release itself is created by the "Tagged release" workflow,
-          # which runs in parallel with this one
-          for _ in $(seq 30)
-          do
-            if gh release view "$tag" >/dev/null 2>&1
-            then
-              gh release upload "$tag" gameshell.ova --clobber
-              exit 0
-            fi
-            echo "waiting for the release of $tag to be created..."
-            sleep 20
-          done
-          echo "Error: no release found for $tag" >&2
-          exit 1
+        uses: "softprops/action-gh-release@v2"
+        with:
+          prerelease: false
+          generate_release_notes: true
+          files: "gameshell.ova"
