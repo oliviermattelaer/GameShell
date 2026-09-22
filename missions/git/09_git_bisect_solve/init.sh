@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# The repository of this mission is built by a python script, so the mission
+# cannot be set up without python3.
+if ! command -v python3 > /dev/null 2>&1
+then
+    echo "$(gettext "python3 is not available: skipping this mission.")"
+    return 1
+fi
+
+
 
 ### SET/RESET file has expected at the end of previous mission 
 if [ ! -d "$GSH_HOME/Factory" ]
@@ -31,12 +40,4 @@ then
     rm change_bisect.py 
 fi
 
-
-   
-
-
-
-
-
-
-
+true

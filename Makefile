@@ -29,30 +29,35 @@ i18n/template.pot: $(SH_FILES) $(OTHER_FILES) FORCE
 	@xgettext -L awk -k_ -k_n:1,2 --from-code=UTF-8 --omit-header $(OPTIONS) $(SORT) --join-existing --output i18n/template.pot $(AWK_FILES)
 
 new: i18n/template.pot
-	@read -p "language code: " lang; \
+	@printf '%s' "language code: "; read -r lang; \
 		[ -e "./i18n/$$lang.po" ] && echo "file i18n/$$lang.po already exists" && exit; \
 		echo "file i18n/$$lang.po created"; \
 		msgcat $(OPTIONS) --output i18n/$$lang.po i18n/template.pot
 
+# The p3_* missions (github / ssh / push / pull / pull request) need a GitHub
+# account, an ssh key registered there and a personal fork to push to.  No
+# automated run can have those, so tell them to cancel themselves.
+GSH_TEST_ENV=GSH_SKIP_GITHUB=1
+
 ## check that the auto.sh scripts work as expected
 check: clean
 	./utils/archive.sh -at -N "game shell (1)"
-	./"game shell (1).sh" -q -c 'gsh systemconfig; for _ in $$(seq 42); do gsh auto --abort < <(echo gsh); done; gsh stat'
+	$(GSH_TEST_ENV) ./"game shell (1).sh" -q -c 'gsh systemconfig; for _ in $$(seq 42); do gsh auto --abort < <(echo gsh); done; gsh stat'
 
 ## check that the auto.sh scripts work as expected, in verbose mode
 check-verbose: clean
 	./utils/archive.sh -at -N "game shell (1)"
-	./"game shell (1).sh" -Dq -c 'gsh systemconfig; for _ in $$(seq 42); do gsh auto --abort; done; gsh stat'
+	$(GSH_TEST_ENV) ./"game shell (1).sh" -Dq -c 'gsh systemconfig; for _ in $$(seq 42); do gsh auto --abort; done; gsh stat'
 
 ## run all the test.sh and auto.sh scripts
 tests-bash: clean
 	./utils/archive.sh -at -N "game shell (1)"
-	./"game shell (1).sh" -Bdq -c 'gsh systemconfig; for _ in $$(seq 42); do gsh goal|cat; gsh test --abort; gsh auto --abort; done; gsh stat'
+	$(GSH_TEST_ENV) ./"game shell (1).sh" -Bdq -c 'gsh systemconfig; for _ in $$(seq 42); do gsh goal|cat; gsh test --abort; gsh auto --abort; done; gsh stat'
 
 ## run all the test.sh and auto.sh scripts
 tests-zsh: clean
 	./utils/archive.sh -at -N "game shell (1)"
-	./"game shell (1).sh" -Zdq -c 'gsh systemconfig; for _ in $$(seq 42); do gsh goal|cat; gsh test --abort; gsh auto --abort; done; gsh stat'
+	$(GSH_TEST_ENV) ./"game shell (1).sh" -Zdq -c 'gsh systemconfig; for _ in $$(seq 42); do gsh goal|cat; gsh test --abort; gsh auto --abort; done; gsh stat'
 
 clean:
 	rm -rf i18n/*~ locale gameshell gameshell.tar gameshell.tgz gameshell.sh gameshell-save*.sh scripts/boxes-data.awk

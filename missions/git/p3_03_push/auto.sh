@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd "$GSH_HOME/Factory/gitlectures"
+
         #reset file
         echo "reset file product.list to initial value"
         echo "# product price" > product.list

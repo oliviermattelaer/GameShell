@@ -1,0 +1,53 @@
+#!/usr/bin/env sh
+
+# Helper for the p3_* missions (github / ssh / push / pull / pull request).
+#
+# Unlike every other mission, those need things GameShell cannot provide:
+# network access to github.com, a GitHub account, an ssh key registered there
+# and a personal fork of the "gitlectures" repository.  They ask this script
+# whether they can be played at all and, when the answer is no, cancel
+# themselves -- an init.sh exiting with a non-zero status makes GameShell skip
+# the mission.
+#
+# Usage:
+#   gsh_github reachable   github.com answers on the ssh port
+#   gsh_github ssh         ... and accepts one of our ssh keys
+#   gsh_github fork        the address of the player's fork is known
+#
+# Set GSH_SKIP_GITHUB to a non-empty value to skip the GitHub missions without
+# even trying.  The test suite does this, since no automated run can have a
+# personal fork to push to.
+
+if [ -n "$GSH_SKIP_GITHUB" ]
+then
+    exit 1
+fi
+
+ssh_github() {
+    # GitHub always closes the connection, so ssh never exits with 0: what
+    # matters is what it printed.  BatchMode stops ssh from asking for a
+    # passphrase or a password when no usable key is available, which would
+    # otherwise hang the game.
+    ssh -T \
+        -o BatchMode=yes \
+        -o StrictHostKeyChecking=no \
+        -o ConnectTimeout=10 \
+        git@github.com 2>&1
+}
+
+case $1 in
+    reachable)
+        # "Permission denied" also proves we reached github.com
+        ssh_github | grep -q -e "successfully authenticated" -e "Permission denied"
+        ;;
+    ssh)
+        ssh_github | grep -q "successfully authenticated"
+        ;;
+    fork)
+        [ -s "$GSH_HOME/.fork" ]
+        ;;
+    *)
+        echo "Usage: $(basename "$0") reachable|ssh|fork" >&2
+        exit 2
+        ;;
+esac

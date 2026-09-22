@@ -2,8 +2,10 @@
 
 cd "${GSH_ROOT}/World/Factory"
 
-read -p "What is the number of bug fixes in the master branch (Since NEXTGEN diverged from it)?" ansmain
-read -p "What is the number of additional commit in the NEXTGEN branch?" ansnext
+printf '%s' "What is the number of bug fixes in the master branch (Since NEXTGEN diverged from it)?"
+read -r ansmain
+printf '%s' "What is the number of additional commit in the NEXTGEN branch?"
+read -r ansnext
 
 echo "you enter $ansmain and $ansnext"
 

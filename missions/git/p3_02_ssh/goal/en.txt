@@ -16,7 +16,7 @@ Step 1: Generate a (new and local) ssh key.
 We have create a script for you to setup the code correctly.
 Run
 $> ./setup_ssh
-We will first ask you if you want to keep this ssh key only for the game or if you want to setup that key for the cluster that you are currently using
+We will first ask you if you want to keep this ssh key only for the game or if you want to setup that key for the machine that you are currently using
 
  - Option 2: manual setup:
  =========================
@@ -42,7 +42,7 @@ run
 cat ~/.ssh/id_rsa.git.pub
 and copy the output in your clipboard, then go to 
 https://github.com/settings/keys
-click on "New ssh key" put as title the name of the cluster
+click on "New ssh key" put as title the name of this machine
 and paste the content of your clipboard.
 
 

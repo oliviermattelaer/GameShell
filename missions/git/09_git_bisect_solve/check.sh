@@ -2,9 +2,6 @@
 
 cd "${GSH_ROOT}/World/Factory"
 
-nb_commit=`git log --oneline  | wc -l`
-
-echo "nb_commit is $nb_commit (print to be removed)"
 if  ./produce.py | grep "FATAL ERROR" >& /dev/null
 then
     echo "$(gettext "You did not fix the production line, the comand ./produce.py still returns 'FATAL ERROR'.")"
@@ -39,7 +36,7 @@ elif [ `git log --oneline  | wc -l` -lt "67" ]; then
     false
 else
     unset goal current
-    echo "Code set as fail for check: Good Work"
+    echo "$(gettext "Good Work")"
     true
 fi
 

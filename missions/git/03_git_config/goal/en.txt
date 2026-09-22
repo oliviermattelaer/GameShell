@@ -10,11 +10,11 @@ This include
 Useful commands
 ===============
 
-git config [--global] user.name "YOURNAME"
-git config [--global] user.email "NAME.LASTNAME@uclouvain.be"
-~~ Those command have to be run ONCE per project/machine.
-~~ If run with the --global they need to be run only once per machine/cluster.
-~~ Note that if you use the --global this will have impact outside the game
-~~ and those configuration will be used for all your git repo on this cluster.
-
-
+git config --global user.name "YOURNAME"
+git config --global user.email "NAME.LASTNAME@example.com"
+~~ Without --global, the setting only applies to the repository you are
+~~ currently in, and you would have to repeat it for every new project.
+~~ With --global it applies to every repository on the machine, which is
+~~ what this mission expects.
+~~ Note that inside GameShell, --global only writes to the game's own
+~~ configuration file: your real ~/.gitconfig is never modified.

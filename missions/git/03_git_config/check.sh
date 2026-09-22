@@ -1,25 +1,27 @@
 #!/bin/sh
 
-cd "${GSH_ROOT}/World/Factory"
-if git config --get user.name
-then
-    unset goal current
-    true
-else
-    echo "$(gettext "You did not setup your name correctly")"
-    cd "$GSH_HOME"
-    unset goal current
-    false
-fi
+# Run the checks from the world's home rather than from inside the Factory
+# repository: the identity has to be set for the whole world, not only for one
+# repository.  Later missions recreate the Factory from scratch, and a
+# repository-local identity would be lost with it.
+cd "$GSH_HOME"
 
-cd "${GSH_ROOT}/World/Factory"
-if git config --get user.email
+if ! git config --get user.name > /dev/null 2>&1
 then
-    unset goal current
-    true
-else
-    echo "$(gettext "You did not setup your email correctly")"
-    cd "$GSH_HOME"
-    unset goal current
+    echo "$(gettext "You did not setup your name correctly")"
+    if git -C "$GSH_HOME/Factory" config --local --get user.name > /dev/null 2>&1
+    then
+        echo "$(gettext "You set it for the Factory repository only. Use the --global option so that it applies to every repository.")"
+    fi
     false
+elif ! git config --get user.email > /dev/null 2>&1
+then
+    echo "$(gettext "You did not setup your email correctly")"
+    if git -C "$GSH_HOME/Factory" config --local --get user.email > /dev/null 2>&1
+    then
+        echo "$(gettext "You set it for the Factory repository only. Use the --global option so that it applies to every repository.")"
+    fi
+    false
+else
+    true
 fi

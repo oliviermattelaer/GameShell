@@ -15,9 +15,9 @@ then
     echo "$(gettext "Please commit your changes via git commit")"
     unset goal current
     false
-elif ! diff -q produce.py $MISSION_DIR/../00_git/produce_target.py &>/dev/null; then
+elif ! diff -q produce.py "$MISSION_DIR/../00_git/produce_target.py" &>/dev/null; then
     echo "$(gettext "not reach expected target. See below for remaining difference.")"
-    diff produce.py $MISSION_DIR/../00_git/produce_target.py
+    diff produce.py "$MISSION_DIR/../00_git/produce_target.py"
     echo "$(gettext "*********************")"
     echo "$(gettext " Remember that you can reset (and retry) the level by running \"gsh reset\"")"
     unset goal current

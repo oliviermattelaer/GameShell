@@ -1,62 +1,36 @@
 #!/bin/sh
 
-
-if [ ! -d "$GSH_HOME/Factory" ]
+if ! gsh_github ssh
 then
-   mkdir "$GSH_HOME/Factory"
+    echo "$(gettext "github does not accept our ssh key: skipping the GitHub missions.")"
+    return 1
 fi
 
-if [ -e ~/.ssh/config ]
+### SET/RESET file as expected at the end of previous mission
+fork=$(gsh_fork_setup)
+if [ -z "$fork" ]
 then
-    export GIT_SSH_COMMAND="ssh -F ${GSH_HOME}/.ssh/config"
+    echo "$(gettext "your fork of gitlectures is not available: skipping the GitHub missions.")"
+    unset fork
+    return 1
 fi
 
-### SET/RESET file has expected at the end of previous mission 
-if [ ! -d "$GSH_HOME/Factory/gitlectures" ]
+### push a commit from a throw-away clone, so that the player's own clone is
+### out of sync and has something to pull
+cd "$GSH_HOME"
+rm -rf "$GSH_HOME/.gitlectures-sync"
+if git clone "$fork" "$GSH_HOME/.gitlectures-sync" &> /dev/null
 then
-    cd $GSH_HOME/Factory
-    rm -rf . &> /dev/null
-    if [ ! -e "$GSH_HOME/.fork" ]
-    then 
-       read -p "Please specify the github address of your fork:" fork
-       git clone $fork gitlectures
-       echo $fork > $GSH_HOME/.fork
-    else
-	fork=$(cat $GSH_HOME/.fork)
-	git clone $fork gitlectures
-    fi
-    cd $GSH_HOME/Factory/gitlectures
-    # check that the file is set at initial valuee
-elif [ ! -e "$GSH_HOME/.fork" ]
-then
-    cd $GSH_HOME/Factory/gitlectures
-    fork=$(git remote get-url origin)
-    echo $fork > $GSH_HOME/.fork
-fi 
-fork=$(cat $GSH_HOME/.fork)
+    cd "$GSH_HOME/.gitlectures-sync"
+    echo "I have succeed level 14 on $(date)" >> status
+    git add status &> /dev/null
+    git commit -m "automatic push of one more commit to create out of sync" &> /dev/null
+    git push &> /dev/null
+    cd "$GSH_HOME"
+fi
+rm -rf "$GSH_HOME/.gitlectures-sync"
+unset fork
 
-### create a secondary repo for creating an out-of-sync situation
-cd $GSH_HOME
-git clone $fork gitlectures
-cd gitlectures
-echo "I have succeed level 14 on `date`" >> status
-git add status &> /dev/null
-git commit -m "automatic push of one more commit to create out of sync" &> /dev/null
-git push &> /dev/null
-cd $GSH_HOME
-rm -rf gitlectures
-
-
-
-### go back to original directory:
-cd $GSH_HOME/Factory/gitlectures
-
-
-
-
-
-
-
-
-
-
+### go back to the original directory
+cd "$GSH_HOME/Factory/gitlectures"
+true

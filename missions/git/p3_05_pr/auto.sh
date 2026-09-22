@@ -1,4 +1,6 @@
 #!/bin/sh
+
+cd "$GSH_HOME/Factory/gitlectures"
 git pull
 #reset file
 echo "reset file product.list to initial value"

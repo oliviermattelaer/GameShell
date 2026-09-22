@@ -30,7 +30,7 @@ i18n/template.pot: $(SH_FILES) $(OTHER_FILES) FORCE
 	@echo "done"
 
 new: i18n/template.pot
-	@read -p "language code: " lang; \
+	@printf '%s' "language code: "; read -r lang; \
 		[ -e "./i18n/$$lang.po" ] && echo "file i18n/$$lang.po already exists" && exit; \
 		echo "file i18n/$$lang.po created"; \
 		msgcat $(OPTIONS) --output i18n/$$lang.po i18n/template.pot

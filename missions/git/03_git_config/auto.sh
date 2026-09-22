@@ -1,5 +1,6 @@
 #!/bin/sh
 
-git config "John Doe"
-git config "test@test.com"
+cd "$GSH_HOME"
+git config --global user.name "John Doe"
+git config --global user.email "test@test.com"
 gsh check

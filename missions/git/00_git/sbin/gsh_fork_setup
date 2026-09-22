@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+
+. gsh_gettext.sh
+
+# Used by the p3_* missions: make sure the player's fork of the "gitlectures"
+# repository is cloned in $GSH_HOME/Factory/gitlectures, and that it uses the
+# ssh remote rather than the https one -- the player registered an ssh key in
+# mission p3_02, and https would ask for a password on every push.
+#
+# The address of the fork is remembered in $GSH_HOME/.fork, and asked for the
+# first time it is needed.
+#
+# Exits with a non-zero status when the fork is not usable (no address given,
+# clone failed).  The calling mission then cancels itself.
+
+repo=$GSH_HOME/Factory/gitlectures
+
+[ -d "$GSH_HOME/Factory" ] || mkdir -p "$GSH_HOME/Factory"
+
+if [ ! -d "$repo/.git" ]
+then
+    if [ ! -s "$GSH_HOME/.fork" ]
+    then
+        printf '%s' "$(gettext "Please specify the github address of your fork: ")"
+        read -r fork || exit 1
+        printf '%s\n' "$fork" > "$GSH_HOME/.fork"
+    fi
+    fork=$(cat "$GSH_HOME/.fork")
+    if [ -z "$fork" ] || ! git clone "$fork" "$repo"
+    then
+        rm -f "$GSH_HOME/.fork"
+        exit 1
+    fi
+fi
+
+fork=$(git -C "$repo" remote get-url origin 2> /dev/null) || exit 1
+case $fork in
+    https://github.com/*)
+        path=${fork#https://github.com/}
+        path=${path%.git}
+        fork="git@github.com:$path.git"
+        git -C "$repo" remote set-url origin "$fork" || exit 1
+        ;;
+esac
+
+[ -n "$fork" ] || exit 1
+printf '%s\n' "$fork" > "$GSH_HOME/.fork"
+printf '%s\n' "$fork"

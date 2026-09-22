@@ -2,11 +2,11 @@
 
 cd "${GSH_ROOT}/World/Factory"
 
-curr_branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+curr_branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 ### CHECK BRANCH
-if [[ "$curr_branch" == "main" ]]
+if [[ "$curr_branch" == "master" ]]
 then
-    echo "$(gettext "You are still in the main branch.")"
+    echo "$(gettext "You are still in the master branch.")"
     echo "$(gettext "To create (and change branch) you can use git switch -c NAME.")"
     unset goal current curr_branch
     false

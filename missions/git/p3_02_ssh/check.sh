@@ -2,26 +2,12 @@
 
 cd "${GSH_ROOT}/World/Factory"
 
-if [ -e ~/.ssh/config ]
+if gsh_github ssh
 then
-    export SSH_CONFIG="-F ${GSH_HOME}/.ssh/config"
-    export GIT_SSH_COMMAND="ssh -F ${GSH_HOME}/.ssh/config"
-fi
-
-# testing if ssh setup is already done
-ssh -oStrictHostKeyChecking=no -T git@github.com ${SSH_CONFIG} &> $GSH_HOME/log
-
-if cat $GSH_HOME/log | grep "successfully"
-then
-    echo "well done"
-    rm -rf $GSH_HOME/log &> /dev/null
-  true
+    echo "$(gettext "well done")"
+    true
 else
-    echo "error is"
-    cat $GSH_HOME/log
-    rm -rf $GSH_HOME/log &> /dev/null
-  false
+    echo "$(gettext "github still refuses our ssh key, the error is:")"
+    ssh -T -o BatchMode=yes -o StrictHostKeyChecking=no -o ConnectTimeout=10 git@github.com 2>&1
+    false
 fi
-
-
-
