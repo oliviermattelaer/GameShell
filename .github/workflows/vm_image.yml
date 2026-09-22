@@ -47,16 +47,21 @@ jobs:
         run: |
           git fetch --tags --force && ./utils/archive.sh
 
-      - name: "DEBUG passt"
+      - name: "Disable the AppArmor profile of passt"
+        # Ubuntu confines passt, and the confinement forbids it to create the
+        # PID file libguestfs asks for, under the directory libguestfs made
+        # for it ("PID file open: Permission denied"), which aborts the build.
         run: |
-          set -x
-          passt --version || true
-          dpkg -l | grep -E "passt|libguestfs|qemu-system-x86" || true
-          # try to start passt the way libguestfs does
-          passt --foreground --socket /tmp/passt.sock --pid /tmp/passt.pid &
-          sleep 2
-          ls -l /tmp/passt.sock || true
-          kill %1 2>/dev/null || true
+          sudo aa-status 2>/dev/null | grep -i passt || true
+          for profile in /etc/apparmor.d/*passt*
+          do
+            [ -e "$profile" ] || continue
+            echo "disabling $profile"
+            sudo apparmor_parser -R "$profile" || true
+            sudo mkdir -p /etc/apparmor.d/disable
+            sudo ln -sf "$profile" "/etc/apparmor.d/disable/$(basename "$profile")"
+          done
+          sudo aa-status 2>/dev/null | grep -i passt || echo "passt is no longer confined"
 
       - name: "Building the VM image"
         env:
@@ -66,6 +71,11 @@ jobs:
         run: |
           ./utils/build-vm.sh -a gameshell.sh -o gameshell.ova
           ls -lh gameshell.ova
+
+      - name: "DEBUG show AppArmor denials"
+        if: "failure()"
+        run: |
+          sudo dmesg | grep -i -E "apparmor|passt" | tail -30 || true
 
       - name: "Upload the VM image as a build artifact"
         uses: "actions/upload-artifact@v4"
