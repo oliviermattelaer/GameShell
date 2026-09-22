@@ -3,16 +3,19 @@ on: [push]
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
-        platform: [ubuntu-latest, macos-latest]
+        platform: [ubuntu-26.04, ubuntu-24.04, ubuntu-22.04, macos-latest]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout the GameShell repo
-        uses: actions/checkout@v4
-      - if: ${{ matrix.platform == 'ubuntu-latest' }}
+        uses: actions/checkout@v5
+      - if: ${{ startsWith(matrix.platform, 'ubuntu') }}
         name: Install Linux deps
         run: |
-          sudo apt install gettext man-db psmisc nano tree bsdmainutils zsh
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --assume-yes \
+            gettext man-db psmisc procps nano tree bsdmainutils zsh
       # - if: ${{ matrix.platform == 'macos-latest' }}
       #   name: Install macOS deps
       #   run: |
@@ -20,3 +23,41 @@ jobs:
       - name: Run the tests
         run: |
             make tests-bash && make tests-zsh
+
+  test-debian:
+    # Debian, run in containers since GitHub only provides Ubuntu / macOS /
+    # Windows runners.  bookworm is oldstable and trixie is stable.
+    strategy:
+      fail-fast: false
+      matrix:
+        release: [bookworm, trixie]
+    runs-on: ubuntu-latest
+    container:
+      image: debian:${{ matrix.release }}
+      # Run a real init as PID 1 so that orphaned processes get reaped.  The
+      # default PID 1 of a job container is "tail -f /dev/null", which never
+      # calls wait(), so killed children of a killed process stay around as
+      # zombies.
+      options: --init
+    steps:
+      - name: Install Debian deps
+        run: |
+          apt-get update
+          apt-get install --no-install-recommends --assume-yes \
+            ca-certificates git make locales python3 \
+            gettext man-db psmisc procps nano tree bsdmainutils bsdextrautils zsh
+          sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
+          locale-gen
+          update-locale LANG=en_US.UTF-8
+      - name: Checkout the GameShell repo
+        uses: actions/checkout@v5
+      - name: Create an unprivileged user
+        # GameShell refuses to run as root, and containers run as root
+        run: |
+          useradd -m -s /bin/bash gsh-user
+          chown -R gsh-user:gsh-user "$GITHUB_WORKSPACE"
+      - name: Run the tests
+        env:
+          LANG: en_US.UTF-8
+        run: |
+          su gsh-user -c 'make tests-bash && make tests-zsh'
