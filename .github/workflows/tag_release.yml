@@ -28,6 +28,10 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          # without this the action derives the release from the tag, and
+          # refuses "git_v1.2.0" for not being a semantic version
+          automatic_release_tag: "${{ github.ref_name }}"
+          title: "${{ github.ref_name }}"
           prerelease: false
           files: |
             LICENSE
