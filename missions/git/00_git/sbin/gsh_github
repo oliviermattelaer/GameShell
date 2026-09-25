@@ -23,24 +23,63 @@ then
     exit 1
 fi
 
+# Talk to github and print what it answered.  GitHub always closes the
+# connection, so ssh never exits with 0: what matters is what it printed.
+# BatchMode stops ssh from asking for a passphrase on the terminal, which
+# would otherwise hang the game.
 ssh_github() {
-    # GitHub always closes the connection, so ssh never exits with 0: what
-    # matters is what it printed.  BatchMode stops ssh from asking for a
-    # passphrase or a password when no usable key is available, which would
-    # otherwise hang the game.
     ssh -T \
         -o BatchMode=yes \
         -o StrictHostKeyChecking=no \
         -o ConnectTimeout=10 \
+        "$@" \
         git@github.com 2>&1
 }
 
 case $1 in
     reachable)
-        # "Permission denied" also proves we reached github.com
-        ssh_github | grep -q -e "successfully authenticated" -e "Permission denied"
+        # Answering "can we reach github at all?" must not touch any of the
+        # player's keys.  Left to itself, ssh offers every key it can find,
+        # and on macOS unlocking a passphrase stored in the login keychain
+        # pops up a system dialog -- asking for a password at startup, before
+        # the player has done anything, is alarming and inexplicable.
+        #   -F /dev/null           ignore ~/.ssh/config (UseKeychain, ...)
+        #   IdentityFile           a file that does not exist replaces the
+        #                          default ~/.ssh/id_* identities
+        #   IdentitiesOnly         ... and keeps ssh from looking further
+        #   IdentityAgent=none     do not ask ssh-agent either
+        #   UserKnownHostsFile     do not touch the player's known_hosts
+        # github then answers "Permission denied (publickey)", which proves
+        # just as well that we reached it.
+        #
+        # A cancelled mission makes the next one ask again, so without the
+        # cache an offline laptop would wait for the timeout once per GitHub
+        # mission before the game even starts.
+        cache=""
+        if [ -n "$GSH_CONFIG" ] && [ -d "$GSH_CONFIG" ]
+        then
+            cache=$GSH_CONFIG/github_reachable
+            if [ -f "$cache" ] && [ -n "$(find "$cache" -mmin -1 2>/dev/null)" ]
+            then
+                exit "$(cat "$cache")"
+            fi
+        fi
+
+        ssh_github \
+            -F /dev/null \
+            -o IdentitiesOnly=yes \
+            -o IdentityAgent=none \
+            -o IdentityFile=/nonexistent \
+            -o UserKnownHostsFile=/dev/null |
+            grep -q -e "successfully authenticated" -e "Permission denied"
+        status=$?
+
+        [ -n "$cache" ] && echo "$status" > "$cache"
+        exit "$status"
         ;;
     ssh)
+        # This one has to use the player's own key: whether github accepts it
+        # is exactly what it checks.
         ssh_github | grep -q "successfully authenticated"
         ;;
     fork)
