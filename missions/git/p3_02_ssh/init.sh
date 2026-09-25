@@ -13,14 +13,6 @@ then
     return 1
 fi
 
-# When ssh already talks to github, there is nothing left to teach here.
-if gsh_github ssh
-then
-    echo "$(gettext "ssh is already configured for github.")"
-    gsh check
-    return 1
-fi
-
 cp "$MISSION_DIR/setup_ssh.sh" "$GSH_HOME/Factory/gitlectures/setup_ssh"
 chmod +x "$GSH_HOME/Factory/gitlectures/setup_ssh"
 cd "$GSH_HOME/Factory/gitlectures"

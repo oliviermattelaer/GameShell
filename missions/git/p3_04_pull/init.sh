@@ -1,8 +1,12 @@
 #!/bin/sh
 
-if ! gsh_github ssh
+# Only a keyless check here: see 00_git/sbin/gsh_github.  Whether github
+# accepts the player's key was settled in the "ssh" mission, and asking again
+# at every game start would offer the key -- and pop up the macOS keychain
+# dialog -- before the player has typed anything.
+if ! gsh_github reachable
 then
-    echo "$(gettext "github does not accept our ssh key: skipping the GitHub missions.")"
+    echo "$(gettext "github.com cannot be reached: skipping the GitHub missions.")"
     return 1
 fi
 
@@ -16,7 +20,12 @@ then
 fi
 
 ### push a commit from a throw-away clone, so that the player's own clone is
-### out of sync and has something to pull
+### out of sync and has something to pull.
+### This is the one place where setting a mission up has to talk to github
+### with the player's own key, so say what is happening: an ssh connection
+### nobody asked for is alarming (and on macOS it may ask for the passphrase
+### of the key, through the keychain).
+echo "$(gettext "setting the mission up: pushing a commit to your fork, so that there is something for you to pull...")"
 cd "$GSH_HOME"
 rm -rf "$GSH_HOME/.gitlectures-sync"
 if git clone "$fork" "$GSH_HOME/.gitlectures-sync" &> /dev/null

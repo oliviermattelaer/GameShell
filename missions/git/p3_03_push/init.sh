@@ -1,8 +1,12 @@
 #!/bin/sh
 
-if ! gsh_github ssh
+# Only a keyless check here: see 00_git/sbin/gsh_github.  Whether github
+# accepts the player's key was settled in the "ssh" mission, and asking again
+# at every game start would offer the key -- and pop up the macOS keychain
+# dialog -- before the player has typed anything.
+if ! gsh_github reachable
 then
-    echo "$(gettext "github does not accept our ssh key: skipping the GitHub missions.")"
+    echo "$(gettext "github.com cannot be reached: skipping the GitHub missions.")"
     return 1
 fi
 
