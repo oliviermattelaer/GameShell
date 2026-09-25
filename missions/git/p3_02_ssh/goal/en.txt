@@ -34,6 +34,10 @@ and enter (twice) the passphrase of your choice (just type enter twice to not ha
     Hostname github.com
     User git
     IdentityFile ~/.ssh/id_rsa.git
+    IdentitiesOnly yes
+~~ the last line tells ssh to use only that key: without it, a key already
+~~ loaded in your ssh agent would be offered first, and github would let you
+~~ in as whatever account that other key belongs to.
   
 
 Step 2: tell github about the key you want to use.

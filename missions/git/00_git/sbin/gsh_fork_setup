@@ -15,6 +15,14 @@
 
 repo=$GSH_HOME/Factory/gitlectures
 
+# ssh resolves ~/.ssh from the password database rather than from $HOME, so
+# point git at the configuration the "ssh" mission wrote inside the game.
+if [ -f "$GSH_HOME/.ssh/config" ] && [ -z "$GIT_SSH_COMMAND" ]
+then
+    GIT_SSH_COMMAND="ssh -F $GSH_HOME/.ssh/config"
+    export GIT_SSH_COMMAND
+fi
+
 [ -d "$GSH_HOME/Factory" ] || mkdir -p "$GSH_HOME/Factory"
 
 if [ ! -d "$repo/.git" ]

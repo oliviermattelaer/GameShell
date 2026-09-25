@@ -78,9 +78,20 @@ case $1 in
         exit "$status"
         ;;
     ssh)
-        # This one has to use the player's own key: whether github accepts it
-        # is exactly what it checks.
-        ssh_github | grep -q "successfully authenticated"
+        # This one has to use a key: whether github accepts the one the player
+        # registered is exactly what it checks.
+        #
+        # It must be the key the game set up, though.  GameShell points HOME at
+        # its World directory, but ssh does not follow: it resolves ~/.ssh from
+        # the password database, so without -F it reads the player's real
+        # configuration and offers their real keys -- and the mission would
+        # pass while connected as some other account entirely.
+        if [ -f "$GSH_HOME/.ssh/config" ]
+        then
+            ssh_github -F "$GSH_HOME/.ssh/config" | grep -q "successfully authenticated"
+        else
+            ssh_github | grep -q "successfully authenticated"
+        fi
         ;;
     fork)
         [ -s "$GSH_HOME/.fork" ]

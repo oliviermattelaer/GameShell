@@ -51,30 +51,32 @@ then
     chmod 600 ~/.ssh/id_rsa.git
 fi
 
-if [ ! -e ~/.ssh/config ]
-then
-    {
-        echo "Host github.com"
-        echo "    Hostname github.com"
-        echo "    User git"
-        echo "    IdentityFile ${identityfile_path}"
-    } >> ~/.ssh/config
-elif grep -q github.com ~/.ssh/config
-then
-    echo "file ~/.ssh/config already has instruction for github: The script did not try to edit it."
-    echo "We do expect the following lines: (please check)"
+# "IdentitiesOnly yes" matters: without it ssh still offers every key held by
+# ssh-agent, and github accepts one of those instead of the key we just made.
+# A player who already works with github on this machine would then silently
+# keep using their other account -- the mission would pass without the new key
+# ever being tried, and the pushes of the next missions would go elsewhere.
+github_config() {
     echo "Host github.com"
     echo "    Hostname github.com"
     echo "    User git"
     echo "    IdentityFile ${identityfile_path}"
+    echo "    IdentitiesOnly yes"
+}
+
+if [ ! -e ~/.ssh/config ]
+then
+    github_config >> ~/.ssh/config
+elif grep -q github.com ~/.ssh/config
+then
+    echo "file ~/.ssh/config already has instruction for github: The script did not try to edit it."
+    echo "We do expect the following lines: (please check)"
+    github_config
 else
     echo "adding configuration for github in ssh config file"
     {
         echo ""
-        echo "Host github.com"
-        echo "    Hostname github.com"
-        echo "    User git"
-        echo "    IdentityFile ${identityfile_path}"
+        github_config
     } >> ~/.ssh/config
 fi
 
