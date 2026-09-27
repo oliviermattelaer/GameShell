@@ -6,14 +6,11 @@ work, they still have to go through `./upper.sh` to become the
 `.res` files we are after.
 
 The goal of this mission is to add a second rule to your
-`Makefile`, building a `.res` file from the `.tmp` file of the
-same name. Add this to the file
+`Makefile`, written on the model of the first one: it builds a
+`.res` file from the `.tmp` file of the same name, by running
+`./upper.sh` on it.
 
-    # Build final result
-    %.res: %.tmp upper.sh
-      ./upper.sh $< $@
-
-and then build the result for the second data file with
+Once it is written, build the result of the second data file with
 
     make d2.res
 
@@ -26,6 +23,17 @@ make TARGET
 
 Remarks
 -------
+
+In the command of a rule, `make` replaces `$<` by the first file
+the target is built from, and `$@` by the target being built. For
+`d2.res`, `$<` is therefore `d2.tmp` and `$@` is `d2.res`, so the
+command `./upper.sh $< $@` runs
+
+    ./upper.sh d2.tmp d2.res
+
+Writing the command with `$<` and `$@` rather than with those two
+names is what makes the rule work for the four data files, and not
+only for the second one.
 
 Note that you never asked for `d2.tmp`, and that no rule mentions
 `d2.txt` or `d2.res` by name. `make` works out on its own that
