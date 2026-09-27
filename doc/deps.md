@@ -22,12 +22,20 @@ the following
   - `tree` (`tree` package in Debian/Ubuntu)
   - `cal` (`bsdmainutils` package in Debian/Ubuntu)
   - `xeyes` (`x11-apps` package in Debian/Ubuntu)
+  - `parallel`, **GNU** parallel (`parallel` package in Debian/Ubuntu),
+    for the parallel computing missions
+
+Beware that the `moreutils` package provides an unrelated command also named
+`parallel`. If `parallel --version` does not say "GNU parallel", uninstall
+`moreutils` (or remove its `parallel`) before installing GNU parallel.
+On clusters, GNU parallel is often not installed system-wide but available as
+an environment module: look for it with `module spider parallel`.
 
 On a Debian / Ubuntu system, the following ensures you have everything you
 need to run GameShell without problems.
 
 ```sh
-$ sudo apt install gettext-base man-db procps psmisc nano tree bsdmainutils x11-apps
+$ sudo apt install gettext-base man-db procps psmisc nano tree bsdmainutils x11-apps parallel
 ```
 
 
@@ -48,7 +56,7 @@ $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/
 and to install the dependencies with
 
 ```sh
-$ brew install nano pstree tree man-db wget
+$ brew install nano pstree tree man-db wget parallel
 ```
 
 
@@ -59,7 +67,7 @@ We haven't tested it much, but it should run on freeBSD once you install the
 dependencies:
 
 ```sh
-$ pkg install bash gettext pstree wget nano
+$ pkg install bash gettext pstree wget nano parallel
 ```
 
 
