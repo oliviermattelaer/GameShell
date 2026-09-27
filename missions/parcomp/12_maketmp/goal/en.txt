@@ -1,0 +1,46 @@
+Mission goal
+============
+
+Until now, you ran every command yourself. When the work is
+described by files -- some files being built from other files --
+the `make` command can run the commands for you, and it knows
+which ones may run at the same time.
+
+What has to be built, and how, is written in a file called
+`Makefile`. Each rule of that file names a file to build, the
+files it is built from, and the command that builds it:
+
+    target: prerequisites
+      command building target from prerequisites
+
+The goal of this mission is to write the first rule of your own
+`Makefile`, in the `parcomp` directory: one building a `.tmp`
+file from the `.txt` file of the same name, with `./lower.sh`.
+Write this in a file named `Makefile`
+
+    # Build intermediary files
+    %.tmp: %.txt lower.sh
+      ./lower.sh $< $@
+
+and then build the first one with
+
+    make d1.tmp
+
+Useful commands
+===============
+
+make TARGET
+  build TARGET, following the rules of the `Makefile` of the
+  current directory
+
+Remarks
+-------
+
+The line holding the command must start with a real tabulation.
+`make` refuses to read a file where it is indented with spaces,
+and complains about a "missing separator".
+
+`%` stands for any name: the rule `%.tmp: %.txt` describes how to
+build every `.tmp` file from the `.txt` file of the same name. In
+the command, `$<` is replaced by the first file it is built from
+(`d1.txt`) and `$@` by the file being built (`d1.tmp`).

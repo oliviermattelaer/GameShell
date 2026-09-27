@@ -21,7 +21,7 @@ enter that directory with `cd parcomp` and list the contents of a script
 with `cat lower.sh`.
 
 Some missions rely on tools that are not always installed on a laptop:
-- GNU parallel (from mission 13 on): `brew install parallel` on macOS,
+- GNU parallel (from mission 15 on): `brew install parallel` on macOS,
   `sudo apt install parallel` on Debian / Ubuntu,
 - GNU split (mission 11, macOS only): `brew install coreutils`.
 Installing them now avoids interrupting the game later.

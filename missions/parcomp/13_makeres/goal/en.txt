@@ -1,0 +1,37 @@
+Mission goal
+============
+
+One rule is not enough: the `.tmp` files are only half of the
+work, they still have to go through `./upper.sh` to become the
+`.res` files we are after.
+
+The goal of this mission is to add a second rule to your
+`Makefile`, building a `.res` file from the `.tmp` file of the
+same name. Add this to the file
+
+    # Build final result
+    %.res: %.tmp upper.sh
+      ./upper.sh $< $@
+
+and then build the result for the second data file with
+
+    make d2.res
+
+Useful commands
+===============
+
+make TARGET
+  build TARGET, following the rules of the `Makefile` of the
+  current directory
+
+Remarks
+-------
+
+Note that you never asked for `d2.tmp`, and that no rule mentions
+`d2.txt` or `d2.res` by name. `make` works out on its own that
+`d2.res` is built from `d2.tmp`, which is built from `d2.txt`, and
+runs the two commands in the right order. This chain is what will
+let it run several of them at the same time in the next mission.
+
+Here again, the line holding the command must start with a real
+tabulation, not with spaces.

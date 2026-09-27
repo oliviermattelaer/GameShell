@@ -4,5 +4,5 @@
 parcomp_workdir || return 1
 case "$PWD/" in
   */parcomp/*) ;;
-  *) cd "$GSH_HOME/parcomp" ;;
+  *) cd "$GSH_HOME/parcomp" || return 1 ;;
 esac

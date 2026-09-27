@@ -1,6 +1,17 @@
 #!/usr/bin/env sh
 
 _mission_check() (
+  case "$PWD/" in
+    */parcomp/*) ;;
+    *) cd "$GSH_HOME/parcomp" || return 1 ;;
+  esac
+
+  if ! grep -qE '^[[:space:]]*all[[:space:]]*:' Makefile 2>/dev/null
+  then
+    echo "The Makefile has no 'all' target yet."
+    return 1
+  fi
+
   printf '%s ' "What is the 'real' duration, in seconds, of the command as reported by the time command?"
   read -r D
 
