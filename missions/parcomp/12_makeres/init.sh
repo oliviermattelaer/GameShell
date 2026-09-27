@@ -10,5 +10,5 @@ esac
 # the rule written in the previous mission, in case the Makefile is gone
 if ! grep -qE '^[[:space:]]*%\.tmp[[:space:]]*:' Makefile 2>/dev/null
 then
-  printf '# Build intermediary files\n%%.tmp: %%.txt lower.sh\n\t./lower.sh $< $@\n' >> Makefile
+  printf '# Build intermediary files\n%%.tmp: %%.txt\n\t./lower.sh $< $@\n' >> Makefile
 fi

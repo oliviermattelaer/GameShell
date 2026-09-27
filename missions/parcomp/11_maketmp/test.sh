@@ -10,7 +10,7 @@ rm -f Makefile d1.tmp
 gsh assert_check false
 
 # the rule is there, but nothing has been built
-printf '# Build intermediary files\n%%.tmp: %%.txt lower.sh\n\t./lower.sh $< $@\n' >> Makefile
+printf '# Build intermediary files\n%%.tmp: %%.txt\n\t./lower.sh $< $@\n' >> Makefile
 gsh assert_check false
 
 make d1.tmp >/dev/null 2>&1

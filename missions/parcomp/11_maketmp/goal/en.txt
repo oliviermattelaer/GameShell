@@ -19,7 +19,7 @@ file from the `.txt` file of the same name, with `./lower.sh`.
 Write this in a file named `Makefile`
 
     # Build intermediary files
-    %.tmp: %.txt lower.sh
+    %.tmp: %.txt
       ./lower.sh $< $@
 
 and then build the first one with

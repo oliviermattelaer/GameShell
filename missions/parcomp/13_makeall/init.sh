@@ -15,6 +15,6 @@ rm -f ./*.tmp ./*.res
 # the rules written in the two previous missions, in case the Makefile is gone
 if ! [ -f Makefile ]
 then
-  printf '# Build intermediary files\n%%.tmp: %%.txt lower.sh\n\t./lower.sh $< $@\n' >> Makefile
-  printf '\n# Build final result\n%%.res: %%.tmp upper.sh\n\t./upper.sh $< $@\n' >> Makefile
+  printf '# Build intermediary files\n%%.tmp: %%.txt\n\t./lower.sh $< $@\n' >> Makefile
+  printf '\n# Build final result\n%%.res: %%.tmp\n\t./upper.sh $< $@\n' >> Makefile
 fi

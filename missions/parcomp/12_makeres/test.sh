@@ -9,7 +9,7 @@ esac
 gsh assert_check false
 
 # the second rule is there, but nothing has been built
-printf '\n# Build final result\n%%.res: %%.tmp upper.sh\n\t./upper.sh $< $@\n' >> Makefile
+printf '\n# Build final result\n%%.res: %%.tmp\n\t./upper.sh $< $@\n' >> Makefile
 gsh assert_check false
 
 rm -f d2.tmp d2.res
