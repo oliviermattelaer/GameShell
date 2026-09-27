@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
 # print the directory holding the pristine parcomp sample (scripts + data)
-# that the player copies in mission 01 and that is used to restore the
-# working copy "$GSH_HOME/parcomp" in the following missions.
+# used to create and repair the player's working copy "$GSH_HOME/parcomp".
 #
 # lookup order:
 #   1. $GSH_PARCOMP_SRC, if set (explicit override)

@@ -11,7 +11,7 @@ parcomp_workdir() {
   for file in "$src"/* "$src"/.[!.]*
   do
     [ -e "$file" ] || continue
-    # the Makefile is written by the player, from mission 12 on: never put
+    # the Makefile is written by the player, from mission 11 on: never put
     # one there, not even when the sample directory happens to hold one
     [ "${file##*/}" = "Makefile" ] && continue
     [ -e "$dst/${file##*/}" ] || cp -Rp "$file" "$dst/" || return 1
