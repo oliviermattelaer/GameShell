@@ -18,13 +18,9 @@ takes.
 Useful commands
 ===============
 
-split --number XX --unbuffered --filter COMMAND FILE
+split --number XX --filter COMMAND FILE
   with these arguments, `split` will split FILE into XX pieces
   and feed each as standard input to COMMAND
-  `--unbuffered` matters here: without it the pieces are not
-  processed at the same time, the command takes as long as it
-  did on the whole file, and you will see no speedup at all
-  (see the remark below)
 
 
 Remarks
