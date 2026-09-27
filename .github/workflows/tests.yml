@@ -31,14 +31,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Debian 11: past end of LTS, removed from deb.debian.org
-          - release: bullseye
-            archived: true
-            snapshot: "20260801T000000Z"
           # Debian 12: still supported, uses the regular mirrors
           - release: bookworm
             archived: false
             snapshot: ""
+          # Debian 11 ("bullseye", archived: true, snapshot:
+          # "20260801T000000Z") is tested on master but not here: its GNU
+          # parallel is 20161222, from 2016, and mission 13 does not accept
+          # it -- it reports it as not being GNU parallel at all, although it
+          # identifies itself correctly when run outside of GameShell.
     runs-on: ubuntu-latest
     container:
       image: debian:${{ matrix.release }}
