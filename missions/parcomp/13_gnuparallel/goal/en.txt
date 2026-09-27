@@ -29,9 +29,3 @@ Beware that the `moreutils` package provides an unrelated command
 also named `parallel`. If `parallel --version` does not say
 "GNU parallel", uninstall `moreutils` (or remove its `parallel`)
 before installing GNU parallel.
-
-On the CECI clusters, GNU parallel is not installed system-wide but
-available as an environment module: find it with
-`module spider parallel` and load it with `module load`. The module
-might not be in the default release, so make sure to load the correct
-release first.
