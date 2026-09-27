@@ -6,8 +6,7 @@ multiple data files and multiple commands, and we suppose we have
 to use intermediate files. 
 
 This is the typical usecase for the Make command, but how to write
-a Makefile is beyond the scope of this session. There is another
-session dedicated to it.
+a Makefile is beyond the scope of this session.
 
 So the goal of this mission is just to run the provided makefile
 in the directory, once purely sequentially, then once using multiple
