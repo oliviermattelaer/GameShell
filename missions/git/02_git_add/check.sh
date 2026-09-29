@@ -2,7 +2,7 @@
 
 
 cd "${GSH_ROOT}/World/Factory"
-if git status hello.txt | grep "new file" >& /dev/null
+if LC_ALL=C git status hello.txt | grep "new file" >& /dev/null
 then
     unset goal current
     true

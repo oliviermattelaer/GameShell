@@ -8,7 +8,7 @@ then
     echo "$(gettext "Please use gsh goal and follow the tutorial for help.")"
     unset goal current
     false
-elif git status produce.py | grep "You are currently bisecting" >& /dev/null
+elif LC_ALL=C git status produce.py | grep "You are currently bisecting" >& /dev/null
 then
      echo "$(gettext "git status report that you are still in bisect mode")"
      echo "$(gettext "please exit that mode with 'git bisect reset'")"
@@ -17,13 +17,13 @@ then
      echo "$(gettext "   2. quit bisect mode: 'git bisect reset'  (back to last commit)")"
      echo "$(gettext "   3. apply your modification: 'git stash pop'")"
      false
-elif git status produce.py | grep "Changes not staged for commit" >& /dev/null
+elif LC_ALL=C git status produce.py | grep "Changes not staged for commit" >& /dev/null
 then
     echo "$(gettext "Your file produce.py is still not in a clean state.")"
     echo "$(gettext "Please add/commit your change and rerun gsh check")"
     unset goal current
     false
-elif git status produce.py | grep "Changes to be committed" >& /dev/null
+elif LC_ALL=C git status produce.py | grep "Changes to be committed" >& /dev/null
 then
     echo "$(gettext "Your file produce.py is still not in a clean state.")"
     echo "$(gettext "Please commit your changes via git commit")"

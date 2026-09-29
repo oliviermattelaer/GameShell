@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd "${GSH_ROOT}/World/Factory"
-if git status welcome.txt | grep "nothing to commit" >& /dev/null 
+if LC_ALL=C git status welcome.txt | grep "nothing to commit" >& /dev/null 
 then
     if git log -1 --pretty=%B | grep "Update TODO LIST" >& /dev/null
     then

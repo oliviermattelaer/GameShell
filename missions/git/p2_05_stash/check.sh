@@ -9,7 +9,7 @@ then
     echo "$(gettext "This is why you need to use \"git stash\" to save your change and get back to a clean state")"    
     unset goal current
     false
-elif ! (git status | grep "working tree clean" &> /dev/null);
+elif ! (LC_ALL=C git status | grep "working tree clean" &> /dev/null);
 then
     echo "$(gettext "Looks like you have not commited your changes. Please do so.")"
     false

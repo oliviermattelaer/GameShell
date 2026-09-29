@@ -28,10 +28,10 @@ sub_mission=0
 #   echo "$(gettext " ")"
 #   echo "$(gettext "Checking SubMission 1: RESTORE wrong modification set in the index")"
 #   echo "$(gettext "=================================================================")"
-if git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes to be committed" >& /dev/null
+if LC_ALL=C git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes to be committed" >& /dev/null
 then
     echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Did you restore the file?")"
-elif git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes not staged for commit" >& /dev/null
+elif LC_ALL=C git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes not staged for commit" >& /dev/null
 then
 	echo "$(gettext "You are on the right track ...")"
      echo "$(gettext "But your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Your modified file is not in the staging anymore (good) but you ALSO need to restored the one in your working directory.")"

@@ -61,3 +61,35 @@ jobs:
           LANG: en_US.UTF-8
         run: |
           su gsh-user -c 'make tests-bash && make tests-zsh'
+
+  test-locale:
+    # The mission checks recognise git's output by matching English phrases
+    # ("nothing to commit", ...).  Debian and Ubuntu ship git's translations,
+    # so a player whose system is in another language used to fail every
+    # check.  Play the whole game in French so that cannot come back.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the GameShell repo
+        uses: actions/checkout@v5
+      - name: Install Linux deps and the French locale
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --assume-yes \
+            gettext man-db psmisc procps nano tree bsdmainutils zsh locales
+          sudo sed -i 's/^# *\(fr_FR.UTF-8\)/\1/' /etc/locale.gen
+          sudo locale-gen
+      - name: Check that git really is translated here
+        # without this the job could pass simply because git had nothing to
+        # translate, and would then be guarding nothing
+        run: |
+          git init -q /tmp/locale-probe
+          cd /tmp/locale-probe
+          git -c user.name=t -c user.email=t@t commit -q --allow-empty -m x
+          LANG=fr_FR.UTF-8 git status > /tmp/probe.out
+          cat /tmp/probe.out
+          grep -q "Sur la branche" /tmp/probe.out
+      - name: Run the tests in French
+        env:
+          LANG: fr_FR.UTF-8
+        run: |
+          make tests-bash && make tests-zsh

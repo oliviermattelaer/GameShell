@@ -3,13 +3,13 @@
 cd "${GSH_ROOT}/World/Factory"
 
 # can use git rev-parse HEAD^2 if not exist -> merge not done...
-if   git status welcome.txt | grep "You have unmerged paths." &> /dev/null;
+if   LC_ALL=C git status welcome.txt | grep "You have unmerged paths." &> /dev/null;
 then
      echo "$(gettext "Your merge command fail due to conflict (see gsh goal for information on what this is).")"
      echo "$(gettext "Your file welcome.txt is currently waiting for resolution (and maybe factory.sh too)")"
      echo "$(gettext "Please open that file, fix the issue, then do \"git add\" and when all conflicts are solved commit your change.")"
      false
-elif   git status factory.sh | grep "You have unmerged paths." &> /dev/null;
+elif   LC_ALL=C git status factory.sh | grep "You have unmerged paths." &> /dev/null;
 then
      echo "$(gettext "Your merge command fail due to conflict (see gsh goal for information on what this is).")"
      echo "$(gettext "Your file factory.sh is currently waiting for resolution")"
@@ -29,7 +29,7 @@ then
     echo "$(gettext "Please reset the level (with \"gsh reset\") and retry.")"
     echo "$(gettext "You need to edit the file welcome.txt and factory.sh to tell the code how to handle conflicting change to the same line")"
     false    
-elif   git status | grep "All conflicts fixed but you are still merging." &> /dev/null ;
+elif   LC_ALL=C git status | grep "All conflicts fixed but you are still merging." &> /dev/null ;
 then
     echo "$(gettext "Your merge command needs a \"git commit\" to be finalised.")"
     false

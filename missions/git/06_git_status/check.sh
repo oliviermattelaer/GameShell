@@ -28,10 +28,10 @@ sub_mission=0
    echo "$(gettext " ")"
    echo "$(gettext "Checking SubMission 1: RESTORE wrong modification set in the index")"
    echo "$(gettext "=================================================================")"
-if git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes to be committed" >& /dev/null
+if LC_ALL=C git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes to be committed" >& /dev/null
 then
     echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Did you restore the file?")"
-elif git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes not staged for commit" >& /dev/null
+elif LC_ALL=C git status should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "Changes not staged for commit" >& /dev/null
 then
      echo "$(gettext "Your file should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt is still not in a clean state. Your modified file is not in the staging anymore but you ALSO need to restored the one in your working directory.")"
 elif cat should_be_restored_to_last_commit_WARNING_change_already_pushed_in_index.txt | grep "number of customer is 0" >& /dev/null;
@@ -52,10 +52,10 @@ echo "$(gettext " ")"
 echo "$(gettext "Checking SubMission 2: restore file at last commit")"
 echo "$(gettext "==================================================")"
 
-if git status should_be_restored_to_last_commit.txt | grep "Changes not staged" >& /dev/null
+if LC_ALL=C git status should_be_restored_to_last_commit.txt | grep "Changes not staged" >& /dev/null
 then
    echo "$(gettext "The file should_be_restored_to_last_commit.txt contains modification compare to last commit. You should either commit them. Or, more likely, restore previous state)")"
-elif git status should_be_restored_to_last_commit.txt | grep "Changes to be committed" >& /dev/null
+elif LC_ALL=C git status should_be_restored_to_last_commit.txt | grep "Changes to be committed" >& /dev/null
 then
     echo "$(gettext "The file should_be_restored_to_last_commit.txt contains modification compare to last commit. You have put those modification in the index but not yet commited them.")"
     echo "$(gettext "You should either commit them. Or, more likely, restore previous state)")"

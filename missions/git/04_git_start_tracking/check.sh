@@ -2,7 +2,7 @@
 
 
 cd "${GSH_ROOT}/World/Factory"
-if git status welcome.txt | grep "new file" >& /dev/null
+if LC_ALL=C git status welcome.txt | grep "new file" >& /dev/null
 then
     echo "$(gettext "Looks like you did start to track the file but git does not have store a copy yet.")"
     echo "$(gettext "You need to commit your change.")"
@@ -10,7 +10,7 @@ then
     unset goal current
     false
 else
-    if git status welcome.txt | grep "nothing to commit" >& /dev/null
+    if LC_ALL=C git status welcome.txt | grep "nothing to commit" >& /dev/null
     then
 	if [ -e welcome.txt ]
 	then

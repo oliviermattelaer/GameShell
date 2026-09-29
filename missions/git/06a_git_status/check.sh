@@ -52,10 +52,10 @@ sub_mission=0
 #echo "$(gettext "Checking SubMission 2: restore file at last commit")"
 #echo "$(gettext "==================================================")"
 
-if git status should_be_restored_to_last_commit.txt | grep "Changes not staged" >& /dev/null
+if LC_ALL=C git status should_be_restored_to_last_commit.txt | grep "Changes not staged" >& /dev/null
 then
    echo "$(gettext "The file should_be_restored_to_last_commit.txt contains modification compare to last commit. You should either commit them. Or, more likely, restore previous state)")"
-elif git status should_be_restored_to_last_commit.txt | grep "Changes to be committed" >& /dev/null
+elif LC_ALL=C git status should_be_restored_to_last_commit.txt | grep "Changes to be committed" >& /dev/null
 then
     echo "$(gettext "The file should_be_restored_to_last_commit.txt contains modification compare to last commit. You have put those modification in the index but not yet commited them.")"
     echo "$(gettext "You should either commit them. Or, more likely, restore previous state)")"

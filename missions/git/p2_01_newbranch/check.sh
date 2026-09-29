@@ -20,12 +20,12 @@ then
     unset goal current curr_branch
     false
 ### CHECK THAT FILE IS IN CLEAN STATE
-elif git status welcome.txt | grep "Changes not staged for commit" >& /dev/null
+elif LC_ALL=C git status welcome.txt | grep "Changes not staged for commit" >& /dev/null
 then
     echo "$(gettext "Your file welcome.txt has not been staged/commited.")"
     unset goal current curr_branch
     false
-elif git status welcome.txt | grep "Changes to be committed" >& /dev/null
+elif LC_ALL=C git status welcome.txt | grep "Changes to be committed" >& /dev/null
 then
     echo "$(gettext "Your file welcome.txt is still not in a clean state (it is not committed).")"
     echo "$(gettext "Please commit your changes via git commit")"

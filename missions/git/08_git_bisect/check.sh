@@ -3,7 +3,7 @@
 cd "${GSH_ROOT}/World/Factory"
 
 
-if git status produce.py | grep "You are currently bisecting" >& /dev/null
+if LC_ALL=C git status produce.py | grep "You are currently bisecting" >& /dev/null
 then
      echo "$(gettext "git status report that you are still in bisect mode")"
      echo "$(gettext "please exit that mode with 'git bisect reset'")"
@@ -14,7 +14,7 @@ else
     git bisect start &> /dev/null
     git bisect bad HEAD~1 &> /dev/null
     git bisect good HEAD~64 &> /dev/null
-    bad_commit=`git bisect run ./produce.py | grep "is the first bad commit" | awk '{print $1}'`
+    bad_commit=`LC_ALL=C git bisect run ./produce.py | grep "is the first bad commit" | awk '{print $1}'`
     git bisect reset &> /dev/null
     if [ "$bad_commit" != "$anscommit" ] ;
     then
