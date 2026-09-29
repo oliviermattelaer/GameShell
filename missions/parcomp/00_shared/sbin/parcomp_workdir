@@ -12,13 +12,9 @@ parcomp_workdir() {
   for file in "$src"/* "$src"/.[!.]*
   do
     [ -e "$file" ] || continue
-    # the Makefile is written by the player, from mission 11 on: never put
-    # one there, not even when the sample directory happens to hold one
-    [ "${file##*/}" = "Makefile" ] && continue
-    # overwrite: the input files are the mission's data, not the player's
-    # work.  Everything the player produces -- the Makefile, res.txt, the
-    # .tmp, .res and backup files -- has no counterpart in the sample and is
-    # therefore left alone.
+    # overwrite: these are the mission's data, not the player's work.  What
+    # the player produces -- res.txt, the .tmp, .res and backup files -- has
+    # no counterpart in the sample and is therefore left alone.
     cp -Rp "$file" "$dst/" || return 1
   done
 }

@@ -26,6 +26,8 @@ parcomp_src() {
   then
     mkdir -p "$local_src" || return 1
     cp -Rp "$MISSION_DIR/sample/." "$local_src/" || return 1
+    # the archive build (utils/archive.sh) removes all files named "Makefile"
+    mv "$local_src/Makefile.sample" "$local_src/Makefile" || return 1
   fi
   echo "$local_src"
 }

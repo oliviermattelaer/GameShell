@@ -5,17 +5,12 @@ For this mission, we will look at the case where we have both
 multiple data files and multiple commands, and we suppose we have
 to use intermediate files. 
 
-This is the typical usecase for the Make command. The two rules you
-wrote tell `make` how to build one file; what the `Makefile` still
-misses is a target saying what has to be built in the end:
+This is the typical usecase for the Make command, but how to write
+a Makefile is beyond the scope of this session. There is another
+session dedicated to it.
 
-    # Build everything
-    all: d1.res d2.res d3.res d4.res
-
-Add it above the two rules: the first target of a `Makefile` is the
-one `make` builds when it is called without argument.
-
-Then run it, once purely sequentially, then once using multiple
+So the goal of this mission is just to run the provided makefile
+in the directory, once purely sequentially, then once using multiple
 programs in parallel, and measure the time it takes to complete.
 
 Useful commands

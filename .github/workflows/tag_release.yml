@@ -3,14 +3,11 @@ name: "Tagged release"
 on:
   push:
     tags:
-      - "parcomp_v*"
+      - "v*"
 
 jobs:
   pre-release:
     runs-on: "ubuntu-latest"
-    permissions:
-      # needed to create the release and upload its assets
-      contents: "write"
     steps:
       - name: "Checkout source code"
         uses: "actions/checkout@v4"
@@ -25,12 +22,10 @@ jobs:
         run: |
           git fetch --tags --force && ./utils/archive.sh
 
-      # NOTE: marvinpinto/action-automatic-releases only accepts tags that
-      # parse as semantic versions, which "parcomp_v..." does not
-      - uses: "softprops/action-gh-release@v2"
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          generate_release_notes: true
           files: |
             LICENSE
             gameshell.sh
