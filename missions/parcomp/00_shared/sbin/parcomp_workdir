@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 
-# make sure the player's working copy "$GSH_HOME/parcomp" exists and contains
-# all the files of the sample (missing files are restored, existing files are
-# left untouched)
+# make sure the player's working copy "$GSH_HOME/parcomp" exists and holds a
+# pristine copy of every file of the sample.  This runs at the start of every
+# mission, so nobody has to copy anything by hand, and a mission always starts
+# from the same data whatever the previous one -- or the player -- did to it.
 parcomp_workdir() {
   src=$(parcomp_src) || return 1
   dst=$GSH_HOME/parcomp
@@ -14,7 +15,11 @@ parcomp_workdir() {
     # the Makefile is written by the player, from mission 11 on: never put
     # one there, not even when the sample directory happens to hold one
     [ "${file##*/}" = "Makefile" ] && continue
-    [ -e "$dst/${file##*/}" ] || cp -Rp "$file" "$dst/" || return 1
+    # overwrite: the input files are the mission's data, not the player's
+    # work.  Everything the player produces -- the Makefile, res.txt, the
+    # .tmp, .res and backup files -- has no counterpart in the sample and is
+    # therefore left alone.
+    cp -Rp "$file" "$dst/" || return 1
   done
 }
 
