@@ -9,6 +9,9 @@ jobs:
   pre-release:
     name: "latest release"
     runs-on: "ubuntu-latest"
+    permissions:
+      # needed to create the release and upload its assets
+      contents: "write"
 
     steps:
       - name: "Checkout source code"
