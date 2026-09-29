@@ -3,16 +3,19 @@ on: [push]
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
-        platform: [ubuntu-latest, macos-latest]
+        platform: [ubuntu-26.04, ubuntu-24.04, ubuntu-22.04, macos-latest]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout the GameShell repo
         uses: actions/checkout@v4
-      - if: ${{ matrix.platform == 'ubuntu-latest' }}
+      - if: ${{ startsWith(matrix.platform, 'ubuntu') }}
         name: Install Linux deps
         run: |
-          sudo apt install gettext man-db psmisc nano tree bsdmainutils zsh
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --assume-yes \
+            gettext man-db psmisc procps nano tree ncal zsh
       # - if: ${{ matrix.platform == 'macos-latest' }}
       #   name: Install macOS deps
       #   run: |
