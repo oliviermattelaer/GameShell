@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-The old hermit is thirsty and he would like you lookup the recipe 
+The old hermit is thirsty and he would like you to look up the recipe 
 for distilled water.
 
 In order to validate the mission, you need to be in the cave with 
@@ -31,5 +31,5 @@ COMMAND1  |  COMMAND2
 Remark
 ------
 
-Parts in [square brackets] in command descriptions are stand for 
+Parts in [square brackets] in command descriptions stand for 
 optional parts. The brackets are not part of the command.

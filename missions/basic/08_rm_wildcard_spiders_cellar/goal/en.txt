@@ -2,7 +2,7 @@ Mission goal
 ============
 
 Get rid of all the spiders that are crawling in the cellar. Again, 
-do not do not disturb the bats.
+do not disturb the bats.
 
 
 Shell patterns

@@ -32,7 +32,7 @@ msgstr  ""
 msgid   "That's not the magic word."
 msgstr  ""
 
-msgid   "What's the key that will make Merlin's chest to appear?"
+msgid   "What's the key that will make Merlin's chest appear?"
 msgstr  ""
 
 msgid   "bottle"

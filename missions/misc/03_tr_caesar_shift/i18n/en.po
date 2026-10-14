@@ -33,8 +33,8 @@ msgstr  "Merlin_s_chest"
 msgid   "That's not the magic word."
 msgstr  "That's not the magic word."
 
-msgid   "What's the key that will make Merlin's chest to appear?"
-msgstr  "What's the key that will make Merlin's chest to appear?"
+msgid   "What's the key that will make Merlin's chest appear?"
+msgstr  "What's the key that will make Merlin's chest appear?"
 
 msgid   "bottle"
 msgstr  "bottle"

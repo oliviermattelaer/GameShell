@@ -43,7 +43,7 @@ msgstr "Cassa_di_Merlino"
 msgid "That's not the magic word."
 msgstr "Non é la parola magica."
 
-msgid "What's the key that will make Merlin's chest to appear?"
+msgid "What's the key that will make Merlin's chest appear?"
 msgstr "Quale é la chiave che fará apparire la cassa di Merlino?"
 
 msgid "bottle"

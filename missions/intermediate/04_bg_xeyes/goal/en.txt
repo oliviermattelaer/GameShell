@@ -19,5 +19,5 @@ COMMAND &
   Run the command in the background.
 
 Control-c       (also written ^c)
-  Pressing Control and c at the same times interrupts the current command 
+  Pressing Control and c at the same time interrupts the current command 
   by sending the INT ("INTerrupt") signal to the process.

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-echo "$(gettext "What's the key that will make Merlin's chest to appear?")"
+echo "$(gettext "What's the key that will make Merlin's chest appear?")"
 read -r dcode
 
 if [ "$dcode" = "$(cat "$GSH_TMP/magic_word")" ]

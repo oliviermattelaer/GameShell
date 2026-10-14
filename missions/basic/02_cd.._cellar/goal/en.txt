@@ -1,7 +1,7 @@
 Mission goal
 ============
 
-Go the castle's cellar.
+Go to the castle's cellar.
 
 
 Secondary objective

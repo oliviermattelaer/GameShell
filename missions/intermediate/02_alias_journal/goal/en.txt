@@ -15,7 +15,7 @@ file: "~/Forest/.../journal.txt".
 To avoid typing this long command each time, you can create an alias 
 just like
 
-  alias la='ls -a'
+  alias la='ls -A'
 
 
 Useful commands

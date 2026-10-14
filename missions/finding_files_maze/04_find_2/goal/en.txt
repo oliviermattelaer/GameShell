@@ -9,7 +9,7 @@ Hint
 
 The filename does not contain the string "ruby". Since there aren't 
 many files in the maze, a possible strategy is to look for all 
-**file** (as opposed to directories), and check by hand which one 
+**files** (as opposed to directories), and check by hand which one 
 contains the string "ruby".
 
 

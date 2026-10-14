@@ -15,7 +15,7 @@ del file: "~/Foresta/.../storico.txt".
 Per evitare di scrivere ogni volta questo lungo comando, puoi creare 
 un alias come
 
-  alias la='ls -a'
+  alias la='ls -A'
 
 
 Comandi utili
