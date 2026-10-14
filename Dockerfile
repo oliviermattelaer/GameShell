@@ -20,6 +20,7 @@ RUN rm -rf /var/lib/apt/lists/*
 # install locales and set default
 RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen
 RUN sed -i 's/^# *\(fr_FR.UTF-8\)/\1/' /etc/locale.gen
+RUN sed -i 's/^# *\(it_IT.UTF-8\)/\1/' /etc/locale.gen
 RUN locale-gen
 RUN update-locale LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -45,7 +46,7 @@ ADD --chown=gsh-user:gsh-user https://github.com/phyver/GameShell/releases/downl
 ### if you prefer to use a local customized version, comment the preceeding
 ### ADD ...
 ### line and uncomment the next one
-### (NOTE that you need to have generated a "gameshell.sh" file with GSH_ROOT/utils/archive.sh
+### (NOTE that you need to have generated a "gameshell.sh" file with GSH_ROOT/utils/gameshell_archive.sh
 # COPY gameshell.sh .
 
 ENTRYPOINT ["bash", "./gameshell.sh"]

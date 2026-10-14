@@ -4,12 +4,12 @@ msgstr  "Content-Type: text/plain; charset=UTF-8\n"
         "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #, sh-format
-msgid   "$GSH_ROOT/i18n/gameshell-full-help/en.txt"
-msgstr  "$GSH_ROOT/i18n/gameshell-full-help/fr.txt"
+msgid   "$GSH_ROOT/i18n/gsh-full-help/en.txt"
+msgstr  "$GSH_ROOT/i18n/gsh-full-help/fr.txt"
 
 #, sh-format
-msgid   "$GSH_ROOT/i18n/gameshell-help/en.txt"
-msgstr  "$GSH_ROOT/i18n/gameshell-help/fr.txt"
+msgid   "$GSH_ROOT/i18n/gsh-help/en.txt"
+msgstr  "$GSH_ROOT/i18n/gsh-help/fr.txt"
 
 #, sh-format
 msgid   "$GSH_ROOT/i18n/gameshell-init-msg-short/en.txt"
@@ -132,6 +132,10 @@ msgstr  "Erreur : la mission $MISSION_NB n'a pas de script automatique."
 msgid   "Error: mission $MISSION_NB is cancelled because some dependencies are not met."
 msgstr  "Erreur : la mission $MISSION_NB est annulée car des dépendances ne sont pas satisfaites."
 
+#, sh-format
+msgid   "Error: no gsh command given."
+msgstr  "Erreur: aucune command gsh donnée."
+
 msgid   "Error: no mission was found!\n"
         "Aborting."
 msgstr  "Erreur : aucune mission trouvée !\n"
@@ -153,10 +157,8 @@ msgid   "Error: this option is only available from an executable archive!"
 msgstr  "Erreur : cette option n'est disponible que depuis une archive exécutable !"
 
 #, sh-format
-msgid   "Error: unknown gsh command '$cmd'.\n"
-        "Use one of the following commands:"
-msgstr  "Erreur : command gsh inconnue '$cmd'.\n"
-        "Utilisez une des commandes suivantes :"
+msgid   "Error: unknown gsh command '$cmd'."
+msgstr  "Erreur : command gsh inconnue '$cmd'."
 
 #, sh-format
 msgid   "Error: unknown shell '$SHELL'.\n"
@@ -170,8 +172,8 @@ msgstr  "Erreur : mauvais mot de passe."
 msgid   "Error: you are not allowed to run this command."
 msgstr  "Erreur : vous n'avez pas le droit d'exécuter cette commande."
 
-msgid   "Error: you shouldn't run Gameshell as root!"
-msgstr  "Erreur: il ne faut pas lancer Gameshell avec l'utilisateur root !"
+msgid   "Error: you shouldn't run GameShell as root!"
+msgstr  "Erreur: il ne faut pas lancer GameShell avec l'utilisateur root !"
 
 msgid   "Is this information correct? [Y/n]"
 msgstr  "Est-ce que ces informations sont correctes ? [O/n]"
@@ -206,8 +208,8 @@ msgid   "The directory $GSH_CONFIG contains meta-data from a previous game.\n"
 msgstr  "Le répertoire $GSH_CONFIG contient des méta-données provenant d'une partie précédente.\n"
         "Voulez vous les supprimer et commencer une nouvelle partie ? [o/N]"
 
-msgid   "The latest version of Gameshell is available at"
-msgstr  "La dernière version de Gameshell est disponible sur"
+msgid   "The latest version of GameShell is available at"
+msgstr  "La dernière version de GameShell est disponible sur"
 
 msgid   "There are stopped jobs in your session.\n"
         "Those processes will be terminated.\n"
@@ -219,6 +221,10 @@ msgstr  "Il y a des processus stoppés dans votre session.\n"
         "Vous pouvez obtenir la liste de ces processus avec\n"
         "    $ jobs\n"
         "Êtes vous sûr de vouloir quitter ? [o/N]"
+
+#, sh-format
+msgid   "Use one of the following commands:"
+msgstr  "Utilisez une des commandes suivantes :"
 
 #, sh-format
 msgid   "Warning: command line arguments are ignored when continuing a game ($args)"
@@ -284,7 +290,7 @@ msgstr  "O"
 msgid   "You left GameShell's directory structure. Use\n"
         "    $ cd\n"
         "to go back to the GameShell's starting directory."
-msgstr  "Vous avez quitté l'arborescence de Gameshell. Utilisez\n"
+msgstr  "Vous avez quitté l'arborescence de GameShell. Utilisez\n"
         "    $ cd\n"
         "pour revenir au répertoire initial de GameShell."
 
@@ -320,8 +326,8 @@ msgid   "password:"
 msgstr  "mot de passe :"
 
 #, sh-format
-msgid   "progress was saved in $SAVEFILE"
-msgstr  "la progression a été sauvée dans $SAVEFILE"
+msgid   "progress was saved in $GSH_SAVEFILE"
+msgstr  "la progression a été sauvée dans $GSH_SAVEFILE"
 
 msgid   "skipped"
 msgstr  "sautée"

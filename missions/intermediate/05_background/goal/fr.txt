@@ -2,11 +2,15 @@ Objectif
 =========
 
 L'artificier royal apparait à vos cotés. Il vous demande de tirer **au moins 3 
-jeux d'artifices consécutifs** pour qu'il puisse les voir de loin.
+jeux d'artifices simultanés** pour qu'il puisse les voir de loin.
 
 Une fusée simple peut être lancée avec le mot magique
 
   $command
+
+NOTE : l'artificier commence à regarder le ciel lorsque vous lancez la 
+commande ``gsh check``. Vérifier la mission après l'explosion des feux 
+d'artifices ne marchera pas.
 
 
 Commandes utiles

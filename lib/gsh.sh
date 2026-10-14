@@ -373,7 +373,7 @@ _gsh_check() {
 
   local MISSION_DIR="$(missiondir "$MISSION_NB")"
 
-  mission_source "$MISSION_DIR/check.sh"
+  mission_source "$MISSION_DIR/check.sh" "$@"
   local exit_status=$?
 
   if [ "$exit_status" -eq 0 ]
@@ -536,16 +536,16 @@ _gsh_assert_check() {
   local MISSION_NB="$(_gsh_pcm)"
 
   local expected=$1
+  shift
   if [ "$expected" != "true" ] && [ "$expected" != "false" ]
   then
     echo "$(eval_gettext "Error: _gsh_assert_check only accept 'true' and 'false' as argument.")" >&2
     return 1
   fi
-  local msg=$3
 
   local MISSION_DIR="$(missiondir "$MISSION_NB")"
 
-  mission_source "$MISSION_DIR/check.sh"
+  mission_source "$MISSION_DIR/check.sh" "$@"
   local exit_status=$?
 
   local nb_tests=$(cat "$GSH_TMP/nb_tests")
@@ -558,13 +558,11 @@ _gsh_assert_check() {
     nb_failed_tests=$((nb_failed_tests+1))
     echo "$nb_failed_tests" > "$GSH_TMP/nb_failed_tests"
     color_echo red "$(eval_gettext 'test $nb_tests failed') (expected check 'true')"
-    [ -n "$msg" ] && echo "$msg"
   elif [ "$expected" = "false" ] && [ "$exit_status" -eq 0 ]
   then
     nb_failed_tests=$((nb_failed_tests+1))
     echo "$nb_failed_tests" > "$GSH_TMP/nb_failed_tests"
     color_echo red "$(eval_gettext 'test $nb_tests failed') (expected check 'false')"
-    [ -n "$msg" ] && echo "$msg"
   fi
 
   export GSH_LAST_ACTION="assert"
@@ -575,13 +573,12 @@ _gsh_assert_check() {
 
 _gsh_assert() {
   local condition=$1
+  shift
   if [ "$condition" = "check" ]
   then
-    shift
     _gsh_assert_check "$@"
     return
   fi
-  local msg=$2
 
   local nb_tests=$(cat "$GSH_TMP/nb_tests")
   echo "$(( nb_tests + 1))" > "$GSH_TMP/nb_tests"
@@ -590,7 +587,6 @@ _gsh_assert() {
   then
     echo "$(( nb_failed_tests + 1))" > "$GSH_TMP/nb_failed_tests"
     color_echo red "$(eval_gettext 'test $nb_tests failed') (expected condition 'true')"
-    [ -n "$msg" ] && echo "$msg"
   fi
 }
 
@@ -642,17 +638,26 @@ _gsh_test() {
 # don't put the next 2 functions in $GSH_ROOT/scripts/_gsh_help / _gsh_HELP
 # because it doesn't work on case insensitive filesystems
 _gsh_help() {
-  parchment "$(eval_gettext '$GSH_ROOT/i18n/gameshell-help/en.txt')" Parchment2 | pager
+  parchment "$(eval_gettext '$GSH_ROOT/i18n/gsh-help/en.txt')" Parchment2 | pager
 }
 
 _gsh_HELP() {
-  parchment "$(eval_gettext '$GSH_ROOT/i18n/gameshell-full-help/en.txt')" Parchment2 | pager
+  parchment "$(eval_gettext '$GSH_ROOT/i18n/gsh-full-help/en.txt')" Parchment2 | pager
 }
 
 gsh() {
   local _TEXTDOMAIN=$TEXTDOMAIN
   export TEXTDOMAIN="gsh"
   local cmd=$1
+
+  if [ -z "$cmd" ]
+  then
+        echo "$(eval_gettext "Error: no gsh command given.")" >&2
+        echo "$(eval_gettext "Use one of the following commands:")  check, goal, help, reset" >&2
+        export TEXTDOMAIN=$_TEXTDOMAIN
+        unset _TEXTDOMAIN
+        return 1
+  fi
   shift
 
   # should the command abort GameShell on failure (gsh test / gsh auto)
@@ -665,7 +670,7 @@ gsh() {
   local ret=0
   case $cmd in
     "check")
-      _gsh_check
+      _gsh_check "$@"
       ret=$?
       ;;
     "reset")
@@ -742,8 +747,8 @@ gsh() {
         MISSION_NB=$MISSION_NB MISSION_DIR=$MISSION_DIR "_gsh_$cmd" "$@"
         ret=$?
       else
-        echo "$(eval_gettext "Error: unknown gsh command '\$cmd'.
-Use one of the following commands:")  check, goal, help, reset" >&2
+        echo "$(eval_gettext "Error: unknown gsh command '\$cmd'.")" >&2
+        echo "$(eval_gettext "Use one of the following commands:")  check, goal, help, reset" >&2
         export TEXTDOMAIN=$_TEXTDOMAIN
         unset _TEXTDOMAIN
         return 1
