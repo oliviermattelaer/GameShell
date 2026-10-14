@@ -26,7 +26,29 @@ grep [OPTIONS] STRING FILE1 ... FILEn
   Useful option:
     -l only print the names of files containing the string.
 
-xargs COMMAND
+xargs COMMAND [ARG1 ... ARGk]
   read lines from stdin and run the command
-    COMMAND LINE1 LINE2 ... LINEn
+    COMMAND ARG1 ... ARGk LINE1 LINE2 ... LINEn
+  The lines read from stdin are always added at the END of the 
+  command.
   ``xargs`` is particularly useful after a ``|`` redirection.
+
+  Useful option:
+    -I {}
+      run the command once for each line read from stdin, 
+      replacing ``{}`` in the command by that line.
+      Example:
+        ls | xargs -I {} echo {} found
+
+
+Remark
+------
+
+``mv`` expects the destination directory as its LAST argument, but 
+``xargs`` also adds the lines read from stdin at the end. The command
+    ... | xargs mv DIRECTORY
+thus runs ``mv DIRECTORY FILE`` and does NOT do what you want!
+Use the ``-I {}`` option of ``xargs`` to put the filename where it 
+belongs in the command.
+(On Linux, you can also use the ``-t DIRECTORY`` option of ``mv``, 
+which gives the destination first: ``mv -t DIRECTORY FILE``.)

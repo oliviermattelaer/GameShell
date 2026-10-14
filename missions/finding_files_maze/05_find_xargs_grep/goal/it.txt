@@ -26,7 +26,30 @@ grep [OPZIONE] STRINGA FILE1 ... FILEn
   Parametro utile:
     -l visualizza solo i nomi dei file che contengono la stringa.
 
-xargs COMANDO
-   Legge linee da stdin ed esegue il comando.
-     COMANDO LINEA1 LINEA2 ... LINEAn
+xargs COMANDO [ARG1 ... ARGk]
+   Legge linee da stdin ed esegue il comando
+     COMANDO ARG1 ... ARGk LINEA1 LINEA2 ... LINEAn
+   Le linee lette da stdin sono sempre aggiunte alla FINE del 
+   comando.
    ``xargs`` è particolarmente utile dopo una redirezione con ``|``.
+
+   Parametro utile:
+     -I {}
+       esegue il comando una volta per ogni linea letta da 
+       stdin, sostituendo ``{}`` nel comando con quella linea.
+       Esempio:
+         ls | xargs -I {} echo {} trovato
+
+
+Nota
+----
+
+``mv`` si aspetta la cartella di destinazione come ULTIMO argomento, 
+ma anche ``xargs`` aggiunge le linee lette da stdin alla fine. Il 
+comando
+    ... | xargs mv CARTELLA
+esegue quindi ``mv CARTELLA FILE`` e NON fa quello che vuoi!
+Usa il parametro ``-I {}`` di ``xargs`` per mettere il nome del file 
+al posto giusto nel comando.
+(Su Linux, puoi anche usare il parametro ``-t CARTELLA`` di ``mv``, 
+che indica prima la destinazione: ``mv -t CARTELLA FILE``.)

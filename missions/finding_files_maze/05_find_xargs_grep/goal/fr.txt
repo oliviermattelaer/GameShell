@@ -25,8 +25,34 @@ grep [OPTIONS] CHAINE FICHIER1 ... FICHIERn
   Option utile :
     -l affiche juste le nom des fichiers contenant la chaine.
 
-xargs COMMANDE
+xargs COMMANDE [ARG1 ... ARGk]
   Lit des lignes sur l'entrée standard, et exécute la commande
-      COMMANDE LIGNE1 LIGNE3 ... LIGNEn.
+      COMMANDE ARG1 ... ARGk LIGNE1 LIGNE2 ... LIGNEn
+  Les lignes lues sur l'entrée standard sont toujours ajoutées à la 
+  FIN de la commande.
   ``xargs`` est particulièrement utile derrière une redirection 
   ``|``.
+
+  Option utile :
+    -I {}
+      exécute la commande une fois pour chaque ligne lue sur 
+      l'entrée standard, en remplaçant ``{}`` dans la commande 
+      par cette ligne.
+      Exemple :
+        ls | xargs -I {} echo {} trouvé
+
+
+Remarque
+--------
+
+``mv`` attend le répertoire de destination en DERNIER argument, mais 
+``xargs`` ajoute aussi les lignes lues sur l'entrée standard à la 
+fin. La commande
+    ... | xargs mv REPERTOIRE
+exécute donc ``mv REPERTOIRE FICHIER`` et ne fait PAS ce que vous 
+voulez !
+Utilisez l'option ``-I {}`` de ``xargs`` pour placer le nom du 
+fichier au bon endroit dans la commande.
+(Sous Linux, vous pouvez aussi utiliser l'option ``-t REPERTOIRE`` 
+de ``mv``, qui donne la destination en premier : 
+``mv -t REPERTOIRE FICHIER``.)
