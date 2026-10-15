@@ -2,16 +2,17 @@ Goal of the  mission
 ====================  
 
 
-In this mission the goal is to create your own collection of spell.
-Such that you can activate multiple spell with a name of your choice.
+In this mission the goal is to create your own collection of spells, so that you can activate multiple spells at once with a name of your choice.
 
-Do a collection with the following module:
+Create a collection with the following modules:
     R/4.2.2-foss-2022b
     netCDF/4.9.0-gompi-2022b
     Java/11.0.20
 and name it VESUVE.
 
-First, you will need to remove all the module that you have loaded.
+First, you will need to remove all the modules that you have loaded.
+
+These modules belong to the 2022b release, so after the purge you need to switch to that release ("module load releases/2022b", as in the previous missions) before loading them.
 
 Useful commands
 ===============
@@ -31,8 +32,15 @@ module load XXXXXX
 
 
 module save XXXXXX
-  save the currently loaded module as a "collection" such that you can load them back via the command
-  module load XXXXXX"
+  save the currently loaded modules as a "collection" named XXXXXX
+
+
+module restore XXXXXX
+  load back all the modules of the collection XXXXXX
+
+
+module savelist
+  list your saved collections
 
 
 Useful Trick
