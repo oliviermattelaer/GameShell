@@ -15,10 +15,9 @@ module av XXXXX
 
 
 module load NAME
-  activating a given program (such that you can use the related commands)
-   NAME  can just be the name (like module load Python) then it takes the default
-         can be a name and a version number to load a dedicated version 
-         (like "module load Python/3.12.1") 
+  activate a given program (so that you can use its commands)
+  - NAME can be just the name (like "module load Python"): the default version is then loaded
+  - NAME can also be a name and a version number, to load that specific version (like "module load Python/3.12.1")
 
 which NAME
    print the full path of the executable "NAME"
