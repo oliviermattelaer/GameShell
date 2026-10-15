@@ -3,8 +3,7 @@ Goal of the  mission
 
 The command "python" is not provided by the system by default.
 "python" is a very convenient scripting language which can be activated.
-For your first mission, you will need to ask the librarian what is the default 
-"python" version he can provide.
+For your first mission, you will need to ask the librarian which default "python" version it can provide. In this game, the librarian is the "module" command: it knows every program (spell) installed on the cluster and can activate it for you.
 
 Then when you have the information, please run "gsh check" and tell me which version it is.
 
