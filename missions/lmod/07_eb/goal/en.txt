@@ -1,15 +1,14 @@
-Goal of the  mission
-====================
+Goal of the mission
+===================
 
-If you do not have book/spell program in the library,
-You can check if you can add it ... yourself.
+If a spell (program) is not in the library, you can try to add it yourself.
 
-The library has a simple way to add spell: Easybuild
+The library has a simple way to add spells: EasyBuild.
 
-To succeed this mission, you need to install a new version of VIM on the system
+To complete this mission, you need to install Vim in your home directory.
 
-Instruction
-===========
+Instructions
+============
 
  0. Make sure the "eb" command is available:
     eb --version
@@ -17,26 +16,26 @@ Instruction
     module spider EasyBuild
     and load it. If an "EasyBuild-user" module exists, load that one instead: it is set up to install software in your home directory.
 
- 1. Search what easybuild can install as version of VIM
+ 1. Search which versions of Vim EasyBuild can install:
     eb --search vim
-    It will report a list of path with version that you can install
+    It will report a list of paths, one for each version that you can install.
 
- 2. From the name, you will see that vim depend on GCCcore, so check the current version of GCCcore (this depend on the release) 
+ 2. From the names, you will see that Vim depends on GCCcore, so check the current version of GCCcore (this depends on the release):
     module av GCCcore/
 
  3. Select the path that you think is correct and check what you are going to install:
-   eb PATH_TO_FILE -Dr 
-   "-Dr" is for dry run
-   a line starting with "- [ ]" is a for a dependence that will be installed
-   a line starting with "- [x]" is a dependence already installed
+   eb PATH_TO_FILE -Dr
+   ("-Dr" is for dry run)
+   a line starting with "- [ ]" is for a dependency that will be installed
+   a line starting with "- [x]" is for a dependency that is already installed
   
-   NOTE: If you have more than one "- [ ]" in this case, this means that you are using a wrong file for this tuto.  
+   NOTE: If you have more than one "- [ ]", this means that you are using the wrong file for this tutorial.  
 
- 4. launch the installation:
+ 4. Launch the installation:
    eb PATH_TO_FILE
 
- 5. Wait one minute and you are done
+ 5. Wait one minute and you are done.
 
- 6. load the module with:
+ 6. Load the module with:
    module load use.own Vim
 

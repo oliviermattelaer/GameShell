@@ -11,13 +11,13 @@ then
     true
 elif [ "$anscommit" = "$defpython" ] 
 then
-    echo "$(gettext "This is the default version for python3 on the OS. This is bad to use on cluster since it can differ on each machine.")"
+    echo "$(gettext "This is the default version for python3 on the OS. This is bad to use on a cluster since it can differ on each machine.")"
     echo "$(gettext "This does not provide the python executable --only python3--")"
-    echo "$(gettext "Please Retry")"
+    echo "$(gettext "Please retry.")"
     unset goal anscommit defpython
     false
 else
-	echo "$(gettext "Incorrect (be sure to not add space/...)")"
-    echo "$(gettext "Please Retry")"
+	echo "$(gettext "Incorrect (be sure not to add spaces/...)")"
+    echo "$(gettext "Please retry.")"
     false
 fi

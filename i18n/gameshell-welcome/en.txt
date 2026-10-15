@@ -1,17 +1,17 @@
 Welcome to GameShell (module version)!
 
-In the previous game (bash/shell), you have learned the way to move in a castle,
+In the previous game (bash/shell), you have learned the way to move in a castle, 
 to edit files, to find/clear files, ...
-For that you have learned many command (cd, ls, find, grep).
+For that you have learned many commands (cd, ls, find, grep).
 
-Now all commands are not directly available for you, like for example the one sending
-a burning torch towards a Python, or the one for doing abinitio alchemy.
+Not all commands are directly available to you, like for example the one sending 
+a burning torch towards a Python, or the one for doing ab initio alchemy.
 
-Those commands you need to find them first and then activate them.
-The reason is that multiple people might not want the exact same version of such command and
-that they might not be compatible with each other (and that you have dependency).
+You first need to find these commands and then activate them.
+The reason is that multiple people might not want the exact same version of such a command and 
+that they might not be compatible with each other (and they may depend on each other).
 
-The purpose of this game is to teach you, how to find the verstion of a command/code that you want to use.
+The purpose of this game is to teach you how to find the version of a command/code that you want to use.
 
 
 

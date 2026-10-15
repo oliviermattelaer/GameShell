@@ -1,15 +1,15 @@
-Goal of the  mission
-====================  
+Goal of the mission
+===================  
 
-As you know program depends on each other, so when you load a program, you also automatically load those depencies.
-For this mission, load the most recent version of Python and determine the number of module that has been loaded effectively.
+As you know, programs depend on each other, so when you load a program, you also automatically load its dependencies.
+For this mission, load the most recent version of Python and determine the number of modules that have actually been loaded.
 
 
 Useful commands
 ===============
 
 module spider NAME
-  list all possible version of the program containing NAME in their NAME
+  list all possible versions of the programs whose name contains NAME
 
  
 module spider NAME/VERSION
@@ -18,10 +18,10 @@ module spider NAME/VERSION
 
 module load XXXXXX
   (shortcut: ml XXXXXX)
-  loading the specify module / release 
+  load the specified module / release 
 
 
 module list
-  (shortcut ml)
-  print all the currently loaded module 
+  (shortcut: ml)
+  print all the currently loaded modules 
 

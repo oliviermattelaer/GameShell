@@ -7,7 +7,7 @@ goal_lower=`module -t --raw --redirect spider python |grep python | wc -l`
 
 uniq_version=`module -t --raw --redirect spider Python |grep Python |  tr "-" "\n" | grep Python | uniq | wc -l` 
 #echo "target $goal bad: $uniq_version"
-read -p "How many different version of python can you find on the system " anscommit
+read -p "How many different versions of Python can you find on the system? " anscommit
 
 
 
@@ -26,13 +26,13 @@ elif [ "$goal_lower" = "$anscommit" ]
      true     
 elif [ "$anscommit" = "$uniq_version" ] 
 then
-    echo "$(gettext "This correspond to the number of revision.")"
-    echo "$(gettext "The same version revision can have been compiled with different compiler and might (or not) include some extension (like tqdm)")"
+    echo "$(gettext "This corresponds to the number of distinct version numbers.")"
+    echo "$(gettext "The same version can be compiled with different compilers and may or may not include some extensions (like tqdm).")"
     echo "$(gettext "Please consider those as different for this question.")"
     unset goal anscommit uniq_version
     false
 else
-	echo "$(gettext "Incorrect (be sure to not add space/...)")"
-    echo "$(gettext "Please Retry")"
+	echo "$(gettext "Incorrect (be sure not to add spaces/...)")"
+    echo "$(gettext "Please retry.")"
     false
 fi

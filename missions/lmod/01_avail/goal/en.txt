@@ -1,5 +1,5 @@
-Goal of the  mission
-====================  
+Goal of the mission
+===================  
 
 The command "python" is not provided by the system by default.
 "python" is a very convenient scripting language which can be activated.
@@ -11,12 +11,12 @@ Useful commands
 ===============
 
 module av XXXXX
-  list various currently available program containing name XXXXX
-  if more than one program with the same name are present a  (D) indicates the default version.
+  list the available programs whose name contains XXXXX
+  if more than one program with the same name is present, a (D) indicates the default version.
 
 
 module load XXXXX
-   activating a given program (such that you can use the related commands)
+   activate a given program (so that you can use its commands)
 
 python --version
    print the version of python

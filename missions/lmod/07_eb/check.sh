@@ -3,16 +3,16 @@
 
 if  ! module is-loaded use.own;
 then
-	echo "To pass the level, please load your new module (via use.own)"
+	echo "To pass this level, please load your new module (via use.own)"
         false
 elif  ! module is-loaded  Vim; 
 then
-    echo "No MODULE VIM loaded. Did you name the module correctly?"
+    echo "No Vim module loaded. Did you name the module correctly?"
     false
 elif which vim | grep ".local"; then
-   echo "well done"
+   echo "Well done!"
 else
-   echo "invalid vim executable... try agin"
+   echo "Invalid vim executable... try again."
    false	
 fi
 

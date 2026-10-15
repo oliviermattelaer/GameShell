@@ -1,20 +1,21 @@
-Goal of the  mission
-====================  
+Goal of the mission
+===================  
 
 Good job! 
-Now your goal is to find in which release you have access to a version of Python2
+Now your goal is to find in which release you have access to a version of Python2.
 
+Useful commands
 ===============
 
 module spider NAME
-  list all possible version of the program containing NAME in their NAME
+  list all possible versions of the programs whose name contains NAME
 
 module spider NAME/VERSION
   gives the details on the other modules to be loaded to get access to that particular module
 
 module load XXXXXX 
   (shortcut:  ml XXXXXX)
-  loading the specify module / release 
+  load the specified module / release 
 
 
 

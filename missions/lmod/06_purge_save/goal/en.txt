@@ -1,5 +1,5 @@
-Goal of the  mission
-====================  
+Goal of the mission
+===================  
 
 
 In this mission the goal is to create your own collection of spells, so that you can activate multiple spells at once with a name of your choice.
@@ -18,8 +18,8 @@ Useful commands
 ===============
 
 module purge
-  remove all the module that are currently loaded. 
-  Important module (releases/...) will stay loaded as they should.
+  remove all the modules that are currently loaded. 
+  Sticky modules (releases/...) stay loaded.
 
 
 module spider NAME/VERSION
@@ -28,7 +28,7 @@ module spider NAME/VERSION
 
 module load XXXXXX
   (shortcut: ml XXXXXX)
-  loading the specify module / release 
+  load the specified module / release 
 
 
 module save XXXXXX
@@ -43,10 +43,10 @@ module savelist
   list your saved collections
 
 
-Useful Trick
+Useful trick
 ============
 
-If you want to arrive on the cluster and have a collections activated by default you can use
+If you want to arrive on the cluster and have a collection activated by default, you can use
 module save 
 
-All the module currently loaded will be available by default at each new connection to the cluster.
+All the modules currently loaded will be available by default at each new connection to the cluster.
