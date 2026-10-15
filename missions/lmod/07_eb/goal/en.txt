@@ -11,6 +11,12 @@ To succeed this mission, you need to install a new version of VIM on the system
 Instruction
 ===========
 
+ 0. Make sure the "eb" command is available:
+    eb --version
+    If you get "command not found", ask the librarian: find EasyBuild with
+    module spider EasyBuild
+    and load it. If an "EasyBuild-user" module exists, load that one instead: it is set up to install software in your home directory.
+
  1. Search what easybuild can install as version of VIM
     eb --search vim
     It will report a list of path with version that you can install
