@@ -12,23 +12,18 @@
 # again from the beginning. Python restarts from its checkpoint. The
 # variable SLURM_RESTART_COUNT tells how many times the job was requeued.
 #
-#  * Requeue only AFTER python has saved its progress: requeueing kills the
-#    running job steps. For instance:
+#  * Requeue in on_signal, but only AFTER python has saved its progress:
+#    requeueing kills the running job steps. So wait for python first:
 #
-#        requeue=0
 #        on_signal() {
 #            echo "=== signal received at $(date)"
 #            scancel -s SIGINT $SLURM_JOB_ID
-#            requeue=1
-#        }
-#        trap on_signal USR1
-#
-#        srun python3 -u count_signal.py &
-#        wait
-#        wait
-#        if [ $requeue -eq 1 ]; then
+#            wait          # let python save its progress and stop
 #            scontrol requeue $SLURM_JOB_ID
-#        fi
+#        }
+#
+#    Without that "wait", the requeue kills python before it saves its
+#    progress: each run restarts from 0, and the job never finishes.
 #
 #  * A requeued job does NOT restart immediately: it goes back to the
 #    queue, and Slurm usually keeps it PENDING for a while (squeue shows the

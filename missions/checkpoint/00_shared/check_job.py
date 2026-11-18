@@ -507,7 +507,8 @@ class Checker:
                     f"{prev[2][-1]}: the progress was not saved before the "
                     f"requeue, and the job may never finish. Cancel it with "
                     f"'scancel {jobid}', and requeue only after python has "
-                    f"saved its progress (after the second 'wait').")
+                    f"saved its progress: in on_signal, 'wait' for python "
+                    f"after the scancel, then requeue.")
         return None
 
     def waiting_message(self, job, rows):

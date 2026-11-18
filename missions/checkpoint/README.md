@@ -97,9 +97,12 @@ script that can't be stopped ends within a minute; level 4 sets it back to
 **Level 7**
 - `scontrol requeue` outside the trap/`if`: the job would requeue itself
   forever → caught before submitting.
-- requeue in the trap before python saved (verified: python is killed, the
-  next run restarts from 0, forever) → detected while the job runs, the
-  player is told to `scancel` it.
+- requeue in the trap right after `scancel`, without `wait` (verified: the
+  requeue kills python before it saves, the next run restarts from 0,
+  forever) → detected while the job runs, the player is told to `scancel`
+  it. The example in submit.sh requeues in the trap after a `wait`
+  (verified on lemaitre4); requeueing after the main `wait`s, in an `if`,
+  is accepted too.
 - worried that the requeued job doesn't start → `gsh check` explains
   `BeginTime`.
 
