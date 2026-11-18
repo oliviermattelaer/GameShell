@@ -23,8 +23,8 @@ the end of the job.
 | 2     | write a checkpoint at every iteration   | 15 min    |           |
 | 3     | checkpoint on SIGINT (signal handler)   | 20 min    |           |
 | 4     | sbatch + `scancel -s SIGINT`            | 10 min    | ~1 min    |
-| 5     | `--signal=SIGINT@60`                    | 10 min    | ~3 min    |
-| 6     | `--signal=B:USR1@60` + trap             | 20 min    | ~3.5 min  |
+| 5     | `--signal=SIGINT@60`                    | 10 min    | ~1 min    |
+| 6     | `--signal=B:USR1@60` + trap             | 20 min    | ~1 min    |
 | 7     | automatic requeue                       | 15 min    | ~1.5 min  |
 | 8     | `module load DMTCP`                     | 5 min     |           |
 | 9     | DMTCP on the login node                 | 15 min    |           |
@@ -34,9 +34,11 @@ the end of the job.
 
 Fast participants finish in about 1h30.
 
-Levels 7 and 11 use a walltime of 70 seconds (`--time=00:01:10`, which Slurm
-rounds up to 2 minutes) and `STOP = 80`: with `--signal=...@60`, each run
-counts 30 to 60 numbers, so the job is requeued once (sometimes twice). The
+Levels 5, 6, 7 and 11 use a walltime of 70 seconds (`--time=00:01:10`, which Slurm
+rounds up to 2 minutes), and levels 7 and 11 use `STOP = 80`: with
+`--signal=...@60`, each run counts 30 to 60 numbers, so the job is requeued
+once (sometimes twice). With such a short walltime, `gsh check` cannot tell a
+signal sent by hand from the one sent by Slurm in levels 5 and 6. The
 job times above were measured with the `BeginTime` delay of requeued jobs
 removed; with the default delay of lemaitre4, add ~2 minutes per requeue.
 The goals and `gsh check` explain that delay, without promising a duration.

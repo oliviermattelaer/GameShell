@@ -89,8 +89,8 @@ fi
 } > "$dir/submit.sh"
 
 case $level in
-  7|11)
-    # with --signal=...@60, each run lasts 30 to 60 seconds
+  5|6|7|11)
+    # short levels: with --signal=...@60, each run lasts 30 to 60 seconds
     sed 's/^#SBATCH --time=.*/#SBATCH --time=00:01:10/' "$dir/submit.sh" > "$dir/submit.sh~" &&
       mv "$dir/submit.sh~" "$dir/submit.sh"
     ;;

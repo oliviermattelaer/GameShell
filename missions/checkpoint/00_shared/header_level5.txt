@@ -15,9 +15,12 @@
 #    srun, otherwise it never receives the signal, and the job is simply
 #    killed at the end of the walltime (losing all the progress).
 #
+#  * To make this level quicker, the walltime was reduced to 70 seconds
+#    (--time=00:01:10, which Slurm rounds up to 2 minutes).
+#
 #  * Slurm checks its timers only about once a minute: the signal may arrive
-#    up to 60 seconds earlier than asked. With --time=00:04:00 and @60, the
-#    signal arrives between 2 and 3 minutes after the start of the job.
+#    up to 60 seconds earlier than asked. With this walltime and @60, the
+#    signal arrives 30 to 60 seconds after the start of the job.
 #
 #  * The delay must leave enough time to save the checkpoint: a few seconds
 #    here, but it can be several minutes for a real application!
