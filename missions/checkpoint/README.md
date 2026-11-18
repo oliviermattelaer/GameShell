@@ -26,17 +26,21 @@ the end of the job.
 | 4     | sbatch + `scancel -s SIGINT`            | 10 min    | ~1 min    |
 | 5     | `--signal=SIGINT@60`                    | 10 min    | ~3 min    |
 | 6     | `--signal=B:USR1@60` + trap             | 20 min    | ~3.5 min  |
-| 7     | automatic requeue                       | 15-20 min | ~5.5 min  |
+| 7     | automatic requeue                       | 15 min    | ~1.5 min  |
 | 8     | `module load DMTCP`                     | 5 min     |           |
 | 9     | DMTCP on the login node                 | 15 min    |           |
 | 10    | DMTCP in a job, restart on login node   | 15 min    | ~1 min    |
-| 11    | DMTCP + `--signal` + requeue            | 20 min    | ~6 min    |
-|       | **total**                               | **~2h45** |           |
+| 11    | DMTCP + `--signal` + requeue            | 15-20 min | ~1.5 min  |
+|       | **total**                               | **~2h35** |           |
 
-Fast participants finish in about 1h30. Levels 7 and 11 include ~2 minutes
-during which the requeued job is PENDING with reason `BeginTime`: without
-that delay, they are ~2 minutes shorter. The goals and `gsh check` explain
-that delay, without promising a duration.
+Fast participants finish in about 1h30.
+
+Levels 7 and 11 use a walltime of 70 seconds (`--time=00:01:10`, which Slurm
+rounds up to 2 minutes) and `STOP = 80`: with `--signal=...@60`, each run
+counts 30 to 60 numbers, so the job is requeued once (sometimes twice). The
+job times above were measured with the `BeginTime` delay of requeued jobs
+removed; with the default delay of lemaitre4, add ~2 minutes per requeue.
+The goals and `gsh check` explain that delay, without promising a duration.
 
 ## Expected mistakes, and what `gsh check` answers
 

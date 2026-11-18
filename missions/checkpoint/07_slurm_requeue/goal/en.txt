@@ -3,14 +3,14 @@ Mission goal
 
 Last step: now that the job saves its progress before the walltime, it can also put itself back in the queue, and continue automatically until the computation is finished.
 
-You are in the directory "~/Checkpoint/level7", which contains your scripts from level 6. "STOP" was reduced to 200 in "count_signal.py", so that the whole computation needs 2 or 3 jobs. Follow the comments at the top of "submit.sh":
+You are in the directory "~/Checkpoint/level7", which contains your scripts from level 6. To keep this level short, the walltime of "submit.sh" was reduced to 70 seconds, and "STOP" to 80 in "count_signal.py": the whole computation needs 2 or 3 runs of the job. Follow the comments at the top of "submit.sh":
 
   1. when the signal arrives and python has saved its progress, requeue the job with "scontrol requeue $SLURM_JOB_ID",
   2. add "#SBATCH --requeue".
 
 Submit the job and let it run until the counter reaches the end: it should be requeued at least once, without your help.
 
-Run "gsh check" once the job is COMPLETED. (The whole run takes about 5 to 10 minutes.)
+Run "gsh check" once the job is COMPLETED. (The whole run takes a few minutes.)
 
 
 Remarks

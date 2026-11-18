@@ -27,7 +27,7 @@ MAX_WALLTIME = 5 * 60
 SIGNAL_SLACK = 90
 # Level 7: max value for STOP in count_signal.py, so that the whole run does
 # not take forever.
-MAX_STOP = 300
+MAX_STOP = 150
 CHECKPOINT = "checkpoint.txt"
 
 FINISHED = {"COMPLETED", "FAILED", "TIMEOUT", "CANCELLED", "NODE_FAIL",
@@ -448,12 +448,12 @@ class Checker:
         if stop is None:
             raise Failure(
                 f"I can't find the line 'STOP = ...' in {tilde(path)}. Put it back "
-                f"(with a value of about 200).")
+                f"(with a value of about 80).")
         if stop > MAX_STOP:
             raise Failure(
                 f"STOP = {stop} in {self.script}: the full computation "
                 f"would take {fmt(stop)}, that's too long for a training. "
-                f"Use a value of about 200 (and at most {MAX_STOP}).")
+                f"Use a value of about 80 (and at most {MAX_STOP}).")
         self.stop = stop
 
     # --- the job ------------------------------------------------------------
@@ -461,6 +461,22 @@ class Checker:
     def find_job(self):
         rows = sacct(self.name, self.start,
                      duplicates=(self.level in (7, 11)))
+        if not rows:
+            raise Failure(
+                f"I can't find any job named '{self.name}' submitted since "
+                f"the start of this mission. Submit it with\n"
+                f"    sbatch submit.sh\n"
+                f"(from {tilde(self.dir)}).")
+        # ignore the jobs submitted before the start of the mission (sacct
+        # also lists the jobs that were still running at that time); for a
+        # requeued job, its first submission counts
+        first_submit = {}
+        for r in rows:
+            if r["submit"] is not None:
+                first_submit[r["id"]] = min(first_submit.get(r["id"], r["submit"]),
+                                            r["submit"])
+        rows = [r for r in rows
+                if first_submit.get(r["id"], self.start) >= self.start - 30]
         if not rows:
             raise Failure(
                 f"I can't find any job named '{self.name}' submitted since "

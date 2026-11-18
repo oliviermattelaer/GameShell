@@ -31,8 +31,12 @@
 #    reason "BeginTime", typically a minute or two, depending on the
 #    cluster), then it waits for a free node like any other job.
 #
-#  * STOP was set to 200 in count_nockpt.py, so that the computation needs
-#    2 or 3 jobs (about 5 to 10 minutes in total). Don't make it larger.
+#  * To keep this level short, the walltime was reduced to 70 seconds
+#    (--time=00:01:10; Slurm rounds it up to 2 minutes) and STOP was set to
+#    80 in count_nockpt.py. With the signal 60 seconds before the end, each run
+#    counts 30 to 60 numbers (Slurm checks its timers only about once a
+#    minute), so the job is requeued once or twice: a few minutes in total.
+#    Don't make STOP larger.
 #
 #  * Remove the old checkpoint files (ckpt_*.dmtcp, dmtcp_restart_script*.sh)
 #    before submitting a new job, if any.

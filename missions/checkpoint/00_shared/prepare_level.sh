@@ -61,8 +61,8 @@ fi
 
 case $level in
   7|11)
-    # keep this level short
-    sed 's/^STOP *= *[0-9][0-9]*/STOP = 200/' "$dir/$script" > "$dir/$script~" &&
+    # keep this level short: a smaller STOP (and a shorter walltime, below)
+    sed 's/^STOP *= *[0-9][0-9]*/STOP = 80/' "$dir/$script" > "$dir/$script~" &&
       mv "$dir/$script~" "$dir/$script"
     ;;
 esac
@@ -82,6 +82,14 @@ fi
   fi
   tail -n +2 "$src" | sed "s/--job-name=ckpt_level[0-9]*/--job-name=ckpt_level$level/"
 } > "$dir/submit.sh"
+
+case $level in
+  7|11)
+    # with --signal=...@60, each run lasts 30 to 60 seconds
+    sed 's/^#SBATCH --time=.*/#SBATCH --time=00:01:10/' "$dir/submit.sh" > "$dir/submit.sh~" &&
+      mv "$dir/submit.sh~" "$dir/submit.sh"
+    ;;
+esac
 
 if [ -f "$shared/start_coordinator.sh" ] && [ "$level" -ge 10 ]
 then
