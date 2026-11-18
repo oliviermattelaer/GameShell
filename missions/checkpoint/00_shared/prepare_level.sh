@@ -50,13 +50,13 @@ then
 elif [ "$script" = count_signal.py ] && [ -f "$base/level3/$script" ]
 then
   cp "$base/level3/$script" "$dir/"
+elif [ "$script" = count_signal.py ]
+then
+  # the level 3 script is missing (e.g. "gsh goto"): use a working one
+  cp "$shared/count_signal_ok.py" "$dir/count_signal.py"
+  echo "Note: your count_signal.py from level 3 was not found, I copied a working version instead." >&2
 else
   cp "$shared/$script" "$dir/"
-  if [ "$script" = count_signal.py ]
-  then
-    echo "Warning: your count_signal.py from level 3 was not found, I copied the template instead." >&2
-    echo "Complete it first (see level 3)." >&2
-  fi
 fi
 
 case $level in
