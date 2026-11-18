@@ -5,12 +5,11 @@ program to overcome time limits". Levels 1-3 run anywhere with python3;
 levels 4-11 must be played on the login node of a Slurm cluster (tested on
 lemaitre4: Slurm 24.11, DMTCP 3.0.0, system python 3.6).
 
-Run from the sources with
-
-    ./start.sh missions/checkpoint/index.txt missions/FINAL_MISSION
-
-(`FINAL_MISSION` must come last, otherwise GameShell crashes after the last
-level). Each level starts in its own directory, `~/Checkpoint/levelN`.
+On this branch, `missions/index.txt` only lists this module (and
+`FINAL_MISSION`, which must come last, otherwise GameShell crashes after the
+last level): `./start.sh` and `utils/archive.sh` without arguments give the
+checkpoint game. Each level starts in its own directory,
+`~/Checkpoint/levelN`.
 
 ## Time per level
 
