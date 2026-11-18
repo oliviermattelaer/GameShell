@@ -233,7 +233,23 @@ def read_checkpoint(workdir, when, extra=""):
             .format(CHECKPOINT, content[:40]))
 
 
-def check_value(value, nums, when):
+def appended(text, nums):
+    """Is TEXT (the content of the checkpoint file) several consecutive
+    numbers written one after the other (the file was opened with "a"
+    instead of "w")? For instance "012" when the script printed 0, 1, 2
+    (and saved i or i + 1)."""
+    for seq in (nums, [n + 1 for n in nums]):
+        for i in range(len(seq)):
+            for j in range(i + 2, len(seq) + 1):
+                joined = "".join(str(n) for n in seq[i:j])
+                if joined == text:
+                    return True
+                if len(joined) > len(text):
+                    break
+    return False
+
+
+def check_value(value, nums, when, workdir):
     """The saved value must be the last number printed, or the next one."""
     if not nums:
         return
@@ -244,8 +260,12 @@ def check_value(value, nums, when):
            "contains {}.\nIt should contain the value where the counter "
            "must restart ({} or {})."
            .format(when, last, CHECKPOINT, value, last, last + 1))
-    digits = "".join(str(n) for n in nums)
-    if len(str(value)) > len(str(last)) + 1 or str(value) in digits:
+    try:
+        with open(checkpoint_path(workdir)) as f:
+            text = f.read().strip()
+    except OSError:
+        text = ""
+    if appended(text, nums):
         msg += ("\n\nHint: it looks like the numbers are added at the end of "
                 "the file, one after the other. Open the file with \"w\" "
                 "(write: replaces the content), not with \"a\" (append).")
@@ -293,7 +313,7 @@ def check_save(script, workdir):
                 "every iteration: if the program is killed, the code after "
                 "the loop is never run.")
     value = read_checkpoint(workdir, "while your script was counting", hint)
-    check_value(value, nums, "When it was stopped")
+    check_value(value, nums, "When it was stopped", workdir)
 
     print("Test 3: the counter must restart from the checkpoint file...")
     start = random.randint(20, 40)
@@ -305,7 +325,7 @@ def check_save(script, workdir):
                                                                start))
     run.kill()
     value = read_checkpoint(workdir, "by the second run")
-    check_value(value, nums, "When it was stopped")
+    check_value(value, nums, "When it was stopped", workdir)
 
 
 def not_stopped(script, workdir):
@@ -363,7 +383,7 @@ def check_signal(script, workdir):
     nums = run.numbers()
     value = read_checkpoint(workdir, "after Control-c",
                             missing_after_signal(script, run))
-    check_value(value, nums, "When it received Control-c")
+    check_value(value, nums, "When it received Control-c", workdir)
 
     print("Test 3: restart from the checkpoint file, save again on "
           "Control-c...")
@@ -393,7 +413,7 @@ def check_signal(script, workdir):
         raise Failure(
             "After Control-c, the file '{}' still contains {}: your script "
             "did not save its new progress.".format(CHECKPOINT, start))
-    check_value(value, nums, "When it received Control-c")
+    check_value(value, nums, "When it received Control-c", workdir)
 
 
 def main():

@@ -38,6 +38,11 @@ class Failure(Exception):
     pass
 
 
+class NotVisibleYet(Failure):
+    """A file written by the job is missing or incomplete: right after the
+    end of the job, it may just not be visible yet on the login node."""
+
+
 # ---------------------------------------------------------------------------
 # small parsers
 
@@ -165,11 +170,29 @@ class SubmitScript:
         """Nesting depth (functions, if blocks) of command INDEX."""
         depth = 0
         for c in self.commands[:index]:
-            if re.search(r"\{\s*$", c) or re.match(r"^if\b", c):
+            # "if" and "fi" may be on the same line ("if ...; then ...; fi")
+            depth += len(re.findall(r"(?:^|[;&|]\s*)if\b", c))
+            depth -= len(re.findall(r"(?:^|;\s*)fi\b", c))
+            # a function body: "f() {" ... "}" (but not "f() { ...; }")
+            if re.search(r"\{\s*$", c):
                 depth += 1
-            if re.match(r"^\}", c) or re.match(r"^fi\b", c):
+            if re.match(r"^\}", c):
                 depth -= 1
         return depth
+
+    def unconditional(self, pattern):
+        """The commands matching PATTERN that are always run: not in a
+        function or an if block, and not guarded on their own line (by &&,
+        ||, "then" or a one-line function)."""
+        result = []
+        for n, c in enumerate(self.commands):
+            m = re.search(pattern, c)
+            if not m or self.depth(n) > 0:
+                continue
+            if re.search(r"&&|\|\||\bthen\b|\{", c[:m.start()]):
+                continue
+            result.append(c)
+        return result
 
     def first(self, pattern):
         """Index of the first command matching PATTERN, or None."""
@@ -378,8 +401,7 @@ class Checker:
                     "./dmtcp_restart_script.sh (see the comments at the top "
                     "of submit.sh).")
         if self.level in (7, 11):
-            requeue = s.first(r"scontrol\s+requeue")
-            if requeue is not None and s.depth(requeue) == 0:
+            if s.unconditional(r"scontrol\s+requeue"):
                 raise Failure(
                     "In submit.sh, 'scontrol requeue' is run every time the "
                     "script reaches it, also when the computation is "
@@ -653,7 +675,7 @@ class Checker:
             try:
                 self.check_files(job, rows, workdir)
                 return
-            except Failure:
+            except NotVisibleYet:
                 if attempt == (4 if recent else 0):
                     raise
                 os.listdir(workdir)
@@ -682,7 +704,7 @@ class Checker:
     def check_output(self, job, workdir):
         path = self.output_path(job, workdir)
         if not os.path.isfile(path):
-            raise Failure(f"I can't find the output of job {job['id']} "
+            raise NotVisibleYet(f"I can't find the output of job {job['id']} "
                           f"({tilde(path)}).")
         jobid = re.match(r"^\d+", job["id"]).group(0)
         runs = read_runs(path)
@@ -695,7 +717,7 @@ class Checker:
         self.after = [n for r in runs if r[0] == "after:" + jobid
                       for n in r[2]]
         if not numbers:
-            raise Failure(
+            raise NotVisibleYet(
                 f"Job {job['id']} printed no numbers in {tilde(path)}: did python "
                 f"run correctly? Have a look at that file.")
         return numbers, starts
@@ -703,7 +725,7 @@ class Checker:
     def check_checkpoint(self, job, workdir, numbers):
         path = os.path.join(workdir, CHECKPOINT)
         if not os.path.isfile(path) or os.stat(path).st_mtime < self.start:
-            raise Failure(
+            raise NotVisibleYet(
                 f"Job {job['id']} is finished, but python did not save its "
                 f"progress in {tilde(path)}: it never received the signal, or did "
                 f"not handle it.")
@@ -738,7 +760,7 @@ class Checker:
         images = [f for f in glob.glob(os.path.join(workdir, "ckpt_*.dmtcp"))
                   if os.stat(f).st_mtime >= self.start]
         if not images:
-            raise Failure(f"I can't find any recent DMTCP checkpoint image "
+            raise NotVisibleYet(f"I can't find any recent DMTCP checkpoint image "
                           f"(ckpt_*.dmtcp) in {tilde(workdir)}. {hint}")
 
     def check_not_running(self, output):
@@ -853,7 +875,7 @@ class Checker:
                 f"'--open-mode=append' and the line "
                 f"'echo \"=== job ... started ...\"'?")
         if numbers[-1] < self.stop - 1:
-            raise Failure(
+            raise NotVisibleYet(
                 f"Job {job['id']} is COMPLETED, but it only counted up to "
                 f"{numbers[-1]} (STOP is {self.stop}).")
         self.restarts = max(requeued, restarts)
