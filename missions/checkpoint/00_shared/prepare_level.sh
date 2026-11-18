@@ -6,8 +6,9 @@
 #   (GSH_HOME and GSH_TMP must be set)
 #
 # The python script and the submission script are taken from the previous
-# level (so that the player builds on their own work), with more explanations
-# added on top of the submission script.
+# level (so that the player builds on their own work). On top of the
+# submission script, the instructions of the new level replace those of the
+# previous one.
 
 level=$1
 shared=$2
@@ -87,12 +88,22 @@ else
 fi
 {
   head -n 1 "$src"
-  if [ "$level" -ne "$first" ] && [ -f "$shared/header_level$level.txt" ]
+  if [ "$level" -ne "$first" ] && grep -q '^#SBATCH' "$src"
   then
-    cat "$shared/header_level$level.txt"
+    # the instructions of this level, instead of those of the previous
+    # levels (all the comments before the first #SBATCH line)
+    if [ -f "$shared/header_level$level.txt" ]
+    then
+      cat "$shared/header_level$level.txt"
+    fi
+    echo "#"
+    echo "# The job name and the \"=== job ...\" lines are used by \"gsh check\": keep them."
+    echo
+    sed -n '/^#SBATCH/,$p' "$src"
+  else
+    tail -n +2 "$src"
   fi
-  tail -n +2 "$src" | sed "s/--job-name=ckpt_level[0-9]*/--job-name=ckpt_level$level/"
-} > "$dir/submit.sh"
+} | sed "s/--job-name=ckpt_level[0-9]*/--job-name=ckpt_level$level/" > "$dir/submit.sh"
 
 case $level in
   5|6|7|11)
