@@ -34,6 +34,15 @@ GRACE = 3
 # Python errors a beginner is likely to meet, and what to do about them.
 # (pattern in the error messages, hint)
 ERROR_HINTS = [
+    # writing to a file opened without "w": the traceback shows the line
+    (r"open\((?![^)]*['\"][wa])[^)]*\)\s*\.write|not writable",
+     "To write into a file, open it in write mode: "
+     "open(CHECKPOINT_FILE, \"w\"). Without \"w\", open(...) opens the file "
+     "for reading only (and fails if the file doesn't exist)."),
+    (r"os\.open\(|argument 'flags'",
+     "Use the built-in function open(...), not os.open(...): os.open is a "
+     "low-level function that needs other arguments and doesn't return a "
+     "file."),
     (r"FileNotFoundError.*" + re.escape(CHECKPOINT),
      f"Your script crashes when '{CHECKPOINT}' doesn't exist (the very "
      f"first run). In that case it must start from 0: test whether the file "
