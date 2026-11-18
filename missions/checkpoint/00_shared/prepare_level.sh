@@ -76,6 +76,12 @@ esac
 if [ "$level" -ne "$first" ] && [ -f "$prev/submit.sh" ]
 then
   src=$prev/submit.sh
+elif [ -f "$shared/submit_level$((level - 1))_ok.sh" ]
+then
+  # the script of the previous level is missing (e.g. "gsh goto"): use a
+  # working one
+  src=$shared/submit_level$((level - 1))_ok.sh
+  echo "Note: your submit.sh from level $((level - 1)) was not found, I copied a working version instead." >&2
 else
   src=$shared/submit_level$first.sh
 fi
