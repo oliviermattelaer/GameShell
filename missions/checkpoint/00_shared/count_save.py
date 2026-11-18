@@ -7,6 +7,7 @@
 #     python3 count_save.py
 # then stop it with Control-c and start it again.
 
+import os
 import time
 
 # Name of the file used to save the progress.
