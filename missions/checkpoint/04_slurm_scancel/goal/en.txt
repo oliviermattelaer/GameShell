@@ -35,6 +35,3 @@ tail -f FILE
 
 scancel -s SIGNAL JOBID
   Send SIGNAL (for instance SIGINT) to the job steps of job JOBID.
-
-sacct -X
-  List your recent jobs, with their final state.

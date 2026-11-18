@@ -31,6 +31,3 @@ squeue --me
 
 tail -f FILE
   Display the end of FILE and follow it as it grows (Control-c to stop following).
-
-sacct -X
-  List your recent jobs, with their final state and duration.

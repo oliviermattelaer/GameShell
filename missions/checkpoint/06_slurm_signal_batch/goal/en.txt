@@ -37,6 +37,3 @@ sbatch SCRIPT
 
 squeue --me
   List your jobs, and their state.
-
-sacct -X
-  List your recent jobs, with their final state and duration.
