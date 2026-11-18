@@ -3,7 +3,7 @@ Mission goal
 
 Time to go to the cluster! On a cluster, every job has a maximum duration, the *walltime*: when it is reached, Slurm kills the job and the unsaved progress is lost.
 
-You are in the directory "~/Checkpoint/level4", which contains your "count_signal.py" from level 3, and "submit.sh", a submission script to run it. Read the comments of "submit.sh": they explain the important options.
+You are in the directory "~/Checkpoint/level4", which contains your "count_signal.py" from level 3, and "submit.sh", a submission script to run it. Read the comments of "submit.sh": they explain the important options. In "count_signal.py", "STOP" was increased to 500: the computation now lasts longer than the walltime of the job (4 minutes).
 
   1. Submit the job with "sbatch submit.sh".
   2. Watch it count in the file "count.out".

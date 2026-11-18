@@ -287,7 +287,7 @@ def check_save(script, workdir):
     check_value(value, nums, "When it was stopped")
 
     print("Test 3: the counter must restart from the checkpoint file...")
-    start = random.randint(100, 400)
+    start = random.randint(20, 40)
     with open(checkpoint_path(workdir), "w") as f:
         f.write("{}\n".format(start))
     run = Run(script, workdir, "run2")
@@ -301,7 +301,9 @@ def check_save(script, workdir):
 
 def not_stopped(script, workdir):
     msg = ("Your script was still running {} seconds after receiving SIGINT "
-           "(Control-c). After saving its progress, it must stop."
+           "(Control-c). After saving its progress, it must stop.\n(When "
+           "you test it yourself and Control-c doesn't stop it, use "
+           "Control-\\ instead: it sends another signal, SIGQUIT.)"
            .format(GRACE))
     if os.path.exists(checkpoint_path(workdir)):
         msg += ("\n\nHint: your script saved its progress, but then kept "
@@ -318,7 +320,7 @@ def not_stopped(script, workdir):
                 "        interrupted = True")
     elif not script.has(r"\bbreak\b|sys\.exit|exit\("):
         msg += ("\n\nHint: when 'interrupted' is True, leave the loop with "
-                "'break' (TODO 3).")
+                "'break' (TODO 2).")
     return Failure(msg)
 
 
@@ -327,7 +329,7 @@ def missing_after_signal(script, run):
     if not hint:
         if not script.writes_checkpoint():
             hint = ("\n\nHint: your script never opens a file for writing: "
-                    "save the progress after the loop (TODO 4).")
+                    "save the progress after the loop (TODO 3).")
         else:
             hint = ("\n\nHint: is the code saving the progress really run "
                     "after the loop is interrupted? (It must not be inside "
@@ -356,7 +358,7 @@ def check_signal(script, workdir):
 
     print("Test 3: restart from the checkpoint file, save again on "
           "Control-c...")
-    start = random.randint(100, 400)
+    start = random.randint(20, 40)
     path = checkpoint_path(workdir)
     with open(path, "w") as f:
         f.write("{}\n".format(start))

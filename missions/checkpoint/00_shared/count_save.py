@@ -14,8 +14,9 @@ import time
 # Do NOT change it: "gsh check" looks for this file.
 CHECKPOINT_FILE = "checkpoint.txt"
 
-# Last value (excluded) of the counter.
-STOP = 500
+# Last value (excluded) of the counter: the whole computation takes about
+# one minute.
+STOP = 60
 
 # TODO 1: if CHECKPOINT_FILE exists, read the value stored in it and start
 #         counting from that value. If it does not exist, start from 0.

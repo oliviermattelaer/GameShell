@@ -57,7 +57,12 @@ All of these were reproduced in a real game on lemaitre4.
   `"w"` vs `"a"`.
 - saves only after the loop → "save *inside* the loop".
 
-**Level 3**
+**Level 3** (`STOP = 60` in the templates of levels 2 and 3, so that a
+script that can't be stopped ends within a minute; level 4 sets it back to
+500, longer than the walltime)
+- the handler intercepts Control-c but the loop doesn't stop (e.g. no
+  `global`): Control-c doesn't work anymore → the goal and `gsh check` teach
+  Control-\ (SIGQUIT, "Quit (core dumped)").
 - no `signal.signal(...)` (KeyboardInterrupt) → told to register the handler.
 - no `global interrupted` → the script never stops → hint about `global`.
 - `signal.signal(signal.SIGINT, handler())`, `def handler():` without

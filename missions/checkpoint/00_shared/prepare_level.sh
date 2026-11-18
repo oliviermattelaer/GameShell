@@ -60,6 +60,11 @@ else
 fi
 
 case $level in
+  4|5|6)
+    # the computation must last longer than the walltime of the job
+    sed 's/^STOP *= *[0-9][0-9]*/STOP = 500/' "$dir/$script" > "$dir/$script~" &&
+      mv "$dir/$script~" "$dir/$script"
+    ;;
   7|11)
     # keep this level short: a smaller STOP (and a shorter walltime, below)
     sed 's/^STOP *= *[0-9][0-9]*/STOP = 80/' "$dir/$script" > "$dir/$script~" &&

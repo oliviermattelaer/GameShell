@@ -7,9 +7,10 @@ A better approach is to save the progress only when the program is asked to stop
 
 You are in the directory "~/Checkpoint/level3", which contains "count_signal.py". Complete it (follow the TODO comments) so that
 
-  - it starts from the value saved in "checkpoint.txt" (or from 0 if that file doesn't exist),
   - it does NOT write "checkpoint.txt" while it counts,
   - when it receives SIGINT (Control-c), it writes its progress in "checkpoint.txt" and stops.
+
+Reading "checkpoint.txt" when the script starts (or starting from 0 if that file doesn't exist) is already written for you, as in level 2.
 
 Test it yourself, then run "gsh check".
 
@@ -21,6 +22,8 @@ The comments in the file show how to intercept a signal in python, and how to mo
 
 "gsh check" runs your script in a separate directory and sends it SIGINT itself.
 
+Once your script intercepts SIGINT, Control-c may not stop it anymore (for instance if the loop doesn't stop when "interrupted" is True). Then use Control-\ (backslash): it sends another signal, SIGQUIT, that your script doesn't intercept. (The message "Quit (core dumped)" is normal.)
+
 
 Useful commands
 ===============
@@ -30,6 +33,9 @@ nano FILE
 
 python3 SCRIPT
   Run the python script SCRIPT.
+
+Control-\
+  Stop the program running in the terminal with the signal SIGQUIT, when Control-c doesn't work.
 
 kill -s SIGNAL PID
   Send SIGNAL (for instance INT) to the process number PID. (Control-c sends INT to the program running in the terminal.)

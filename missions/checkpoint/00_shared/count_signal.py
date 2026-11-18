@@ -9,6 +9,7 @@
 #     python3 count_signal.py
 # then stop it with Control-c and start it again.
 
+import os
 import signal
 import sys
 import time
@@ -17,8 +18,9 @@ import time
 # Do NOT change it: "gsh check" looks for this file.
 CHECKPOINT_FILE = "checkpoint.txt"
 
-# Last value (excluded) of the counter.
-STOP = 500
+# Last value (excluded) of the counter: the whole computation takes about
+# one minute.
+STOP = 60
 
 # Global variable telling the main loop that a signal was received.
 interrupted = False
@@ -49,19 +51,23 @@ interrupted = False
 #         the real work.
 
 
-# TODO 2: read the starting value from CHECKPOINT_FILE (as in level 2):
-#         start from 0 if the file does not exist.
-start = 0
+# Start from the value saved in CHECKPOINT_FILE, or from 0 if there is none
+# (as in level 2).
+if os.path.exists(CHECKPOINT_FILE):
+    with open(CHECKPOINT_FILE) as f:
+        start = int(f.read())
+else:
+    start = 0
 
 i = start
 for i in range(start, STOP):
-    # TODO 3: if "interrupted" is True, leave the loop (break).
+    # TODO 2: if "interrupted" is True, leave the loop (break).
 
     print(i, flush=True)
     time.sleep(1)
 
-# TODO 4: save the progress in CHECKPOINT_FILE. This must happen only here,
+# TODO 3: save the progress in CHECKPOINT_FILE. This must happen only here,
 #         after the loop, NOT at every iteration.
 
-# TODO 5: if the loop was interrupted, exit with a non zero code (sys.exit(1))
+# TODO 4: if the loop was interrupted, exit with a non zero code (sys.exit(1))
 #         so that the caller knows the computation is not finished.
