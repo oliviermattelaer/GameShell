@@ -1,0 +1,32 @@
+Mission goal
+============
+
+You are in the directory "~/Checkpoint/level1", which contains a small program, "count.py", that prints a number every second.
+
+  1. Run it with "python3 count.py".
+  2. After a few numbers, stop it with Control-c.
+  3. Without running it again, find which number it will print first if you start it again.
+
+Then run "gsh check" and give your answer.
+
+
+Remark
+------
+
+Each level starts in its own directory, "~/Checkpoint/levelN". If you move elsewhere, come back with "cd ~/Checkpoint/levelN".
+
+
+Useful commands
+===============
+
+python3 SCRIPT
+  Run the python script SCRIPT.
+
+Control-c
+  Stop the program running in the terminal. (Control-c sends the signal SIGINT, "interrupt", to the program.)
+
+ls
+  List the files of the current directory.
+
+cat FILE
+  Display the content of FILE.

@@ -1,0 +1,32 @@
+Mission goal
+============
+
+Changing a program to make it checkpoint itself is the best solution, but it is not always possible: you may not have the source code, or the program may be too complex.
+
+DMTCP (Distributed MultiThreaded CheckPointing) can checkpoint (almost) any program, without changing it: it saves the whole memory of the program to disk, and can restart it later from that image.
+
+DMTCP is installed on the cluster as a module. Find it, and load it in your current shell.
+
+Then run "gsh check".
+
+
+Remarks
+-------
+
+The modules are only loaded in the current shell: if you restart GameShell, you will have to load DMTCP again.
+
+
+Useful commands
+===============
+
+module spider NAME
+  Search the modules whose name contains NAME, in all releases.
+
+module avail NAME
+  List the available modules whose name contains NAME.
+
+module load NAME
+  Load the module NAME.
+
+module list
+  List the modules currently loaded.

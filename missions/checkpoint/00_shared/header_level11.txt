@@ -1,0 +1,40 @@
+#
+# ===========================================================================
+# Level 11: DMTCP, signal from Slurm, and automatic requeue
+# ===========================================================================
+#
+# Combine what you learned in levels 5 to 7 with DMTCP:
+#
+#  * ask Slurm to send USR1 to this script 60 seconds before the walltime:
+#        #SBATCH --signal=B:USR1@60
+#    and allow the job to be requeued:
+#        #SBATCH --requeue
+#
+#  * in on_signal, after the checkpoint and the --quit, put the job back in
+#    the queue:
+#        scontrol requeue $SLURM_JOB_ID
+#
+#  * when the job is restarted (requeued), don't start the program from
+#    scratch: restart it from its checkpoint instead.
+#    SLURM_RESTART_COUNT is only set when the job was requeued:
+#
+#        if [ -n "$SLURM_RESTART_COUNT" ] && [ -e dmtcp_restart_script.sh ]; then
+#            ./dmtcp_restart_script.sh -h $DMTCP_COORD_HOST -p $DMTCP_COORD_PORT >> count.out &
+#        else
+#            srun bash -c 'exec dmtcp_launch --allow-file-overwrite python3 -u count_nockpt.py >> count.out' 10<&- 11>&- &
+#        fi
+#        wait
+#        wait
+#
+#  * A requeued job does NOT restart immediately: it goes back to the
+#    queue, and Slurm usually keeps it PENDING for a while (squeue shows the
+#    reason "BeginTime", typically a minute or two, depending on the
+#    cluster), then it waits for a free node like any other job.
+#
+#  * STOP was set to 200 in count_nockpt.py, so that the computation needs
+#    2 or 3 jobs (about 5 to 10 minutes in total). Don't make it larger.
+#
+#  * Remove the old checkpoint files (ckpt_*.dmtcp, dmtcp_restart_script*.sh)
+#    before submitting a new job, if any.
+#
+# ===========================================================================

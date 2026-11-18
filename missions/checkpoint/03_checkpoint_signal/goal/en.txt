@@ -1,0 +1,35 @@
+Mission goal
+============
+
+Saving the progress at every iteration is safe, but it is costly: for a real application, writing the checkpoint to disk can take longer than the computation itself!
+
+A better approach is to save the progress only when the program is asked to stop, that is when it receives a *signal*. Control-c sends the signal SIGINT ("interrupt") to the program running in the terminal.
+
+You are in the directory "~/Checkpoint/level3", which contains "count_signal.py". Complete it (follow the TODO comments) so that
+
+  - it starts from the value saved in "checkpoint.txt" (or from 0 if that file doesn't exist),
+  - it does NOT write "checkpoint.txt" while it counts,
+  - when it receives SIGINT (Control-c), it writes its progress in "checkpoint.txt" and stops.
+
+Test it yourself, then run "gsh check".
+
+
+Remarks
+-------
+
+The comments in the file show how to intercept a signal in python, and how to modify a global variable from a function.
+
+"gsh check" runs your script in a separate directory and sends it SIGINT itself.
+
+
+Useful commands
+===============
+
+nano FILE
+  Edit FILE (Control-o to save, Control-x to quit).
+
+python3 SCRIPT
+  Run the python script SCRIPT.
+
+kill -s SIGNAL PID
+  Send SIGNAL (for instance INT) to the process number PID. (Control-c sends INT to the program running in the terminal.)

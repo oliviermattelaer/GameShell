@@ -1,0 +1,51 @@
+Mission goal
+============
+
+Let's try DMTCP on the login node first (no Slurm yet). You are in the directory "~/Checkpoint/level9", which contains "count_nockpt.py": a counter that knows nothing about checkpointing.
+
+With the DMTCP module loaded:
+
+  1. Start a DMTCP coordinator:
+         . ./start_coordinator.sh
+  2. Start the counter under DMTCP, in the background:
+         dmtcp_launch python3 -u count_nockpt.py >> count.out &
+  3. After a few numbers ("cat count.out"), checkpoint it:
+         dmtcp_command --bcheckpoint
+     and look at the new files in the directory.
+  4. Wait a few more numbers, then kill the counter (and the coordinator):
+         dmtcp_command --quit
+  5. Restart it from its checkpoint (with a new coordinator):
+         . ./start_coordinator.sh
+         ./dmtcp_restart_script.sh -h $DMTCP_COORD_HOST -p $DMTCP_COORD_PORT >> count.out 2> restart.log &
+  6. Check in "count.out" where it continued counting, and stop it:
+         dmtcp_command --quit
+
+Then run "gsh check".
+
+
+Remarks
+-------
+
+Look at "start_coordinator.sh": it explains why the coordinator uses a free port instead of the default one.
+
+The restarted program writes to the output of "dmtcp_restart_script.sh", hence the second ">> count.out". Use ">>" (add at the end of the file), never ">" (empty the file first).
+
+"2> restart.log" keeps the messages of DMTCP in the file "restart.log". A note about "restore_brk" or "restoreHeap" in it is normal, as long as the counter continues.
+
+If you forgot the "&" at the end of a command, the terminal is blocked: press Control-z (pause the program), then type "bg" (let it continue in the background). Control-c would kill it.
+
+
+Useful commands
+===============
+
+dmtcp_launch COMMAND
+  Run COMMAND under the control of DMTCP.
+
+dmtcp_command --bcheckpoint
+  Checkpoint the programs (and wait until it is done).
+
+dmtcp_command --list
+  List the programs managed by the coordinator.
+
+dmtcp_command --quit
+  Kill the programs, and the coordinator.

@@ -1,0 +1,42 @@
+Mission goal
+============
+
+With "--signal=B:...", Slurm sends the signal to the submission script itself instead of the programs started with srun. The script can then decide what to do: forward a signal to the program, copy files back, clean up, resubmit...
+
+You are in the directory "~/Checkpoint/level6", which contains your scripts from level 5. Follow the comments at the top of "submit.sh":
+
+  1. ask Slurm to send the signal USR1 to the batch script 60 seconds before the end of the walltime,
+  2. catch it in the script with "trap",
+  3. and forward a SIGINT to python with "scancel -s SIGINT $SLURM_JOB_ID", so that it saves its progress.
+
+Submit the job, wait, and check that the progress was saved in "checkpoint.txt".
+
+Run "gsh check" once the job is finished.
+
+
+Remarks
+-------
+
+Bash runs a trap only after the current foreground command is finished. Start srun in the background ("&") and "wait" for it.
+
+
+Useful commands
+===============
+
+trap 'COMMANDS' SIGNAL
+  In a bash script: run COMMANDS when the script receives SIGNAL.
+
+COMMAND &
+  Run COMMAND in the background.
+
+wait
+  Wait until the background commands are finished. (A signal caught with "trap" interrupts "wait".)
+
+sbatch SCRIPT
+  Submit the job described in SCRIPT.
+
+squeue --me
+  List your jobs, and their state.
+
+sacct -X
+  List your recent jobs, with their final state and duration.

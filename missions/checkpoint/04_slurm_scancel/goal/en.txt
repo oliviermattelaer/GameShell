@@ -1,0 +1,40 @@
+Mission goal
+============
+
+Time to go to the cluster! On a cluster, every job has a maximum duration, the *walltime*: when it is reached, Slurm kills the job and the unsaved progress is lost.
+
+You are in the directory "~/Checkpoint/level4", which contains your "count_signal.py" from level 3, and "submit.sh", a submission script to run it. Read the comments of "submit.sh": they explain the important options.
+
+  1. Submit the job with "sbatch submit.sh".
+  2. Watch it count in the file "count.out".
+  3. Before the end of the walltime, send it the signal SIGINT (the cluster's equivalent of Control-c) with "scancel -s SIGINT JOBID".
+  4. Check that the progress was saved in "checkpoint.txt".
+
+Run "gsh check" once the job is finished.
+
+
+Remarks
+-------
+
+"scancel JOBID" without "-s" kills the job: your program has no chance to save its progress.
+
+You can submit the job again to see it continue from "checkpoint.txt". (Remove "checkpoint.txt" to start from 0 again.)
+
+
+Useful commands
+===============
+
+sbatch SCRIPT
+  Submit the job described in SCRIPT. Slurm answers with the job ID.
+
+squeue --me
+  List your jobs, and their state (PD = pending, R = running).
+
+tail -f FILE
+  Display the end of FILE and follow it as it grows (Control-c to stop following).
+
+scancel -s SIGNAL JOBID
+  Send SIGNAL (for instance SIGINT) to the job steps of job JOBID.
+
+sacct -X
+  List your recent jobs, with their final state.

@@ -1,0 +1,36 @@
+Mission goal
+============
+
+You will not always be watching your jobs to send them a signal before the end of their walltime! Slurm can do it for you, with the option "--signal".
+
+You are in the directory "~/Checkpoint/level5", which contains your scripts from level 4. The comments at the top of "submit.sh" explain how to use "--signal".
+
+  1. Add the right "#SBATCH --signal=..." line to "submit.sh", so that Slurm sends SIGINT to python 60 seconds before the end of the walltime.
+  2. Submit the job, and wait. Do not send any signal yourself!
+  3. Check that the progress was saved in "checkpoint.txt".
+
+Run "gsh check" once the job is finished.
+
+
+Remarks
+-------
+
+The signal is sent to the job *steps*: python must be started with "srun".
+
+Slurm only looks at its timers about once a minute: the signal can arrive up to a minute earlier than you asked.
+
+
+Useful commands
+===============
+
+sbatch SCRIPT
+  Submit the job described in SCRIPT.
+
+squeue --me
+  List your jobs, and their state.
+
+tail -f FILE
+  Display the end of FILE and follow it as it grows (Control-c to stop following).
+
+sacct -X
+  List your recent jobs, with their final state and duration.

@@ -1,0 +1,42 @@
+#
+# ===========================================================================
+# Level 6: send the signal to the submission script
+# ===========================================================================
+#
+# With the "B:" prefix, Slurm sends the signal to the *batch script* (this
+# file) instead of the job steps. Replace the --signal line with:
+#
+#     #SBATCH --signal=B:USR1@60
+#
+# Why? The script can then decide what to do: forward a signal to the
+# program, copy results back, clean up, resubmit, ... (USR1 is a "user
+# defined" signal: the script decides what it means.)
+#
+# The script must now do 3 things:
+#
+# 1. catch the signal with "trap":
+#
+#        on_signal() {
+#            echo "=== signal received at $(date)"
+#            # forward a Control-c to python (the job steps)
+#            scancel -s SIGINT $SLURM_JOB_ID
+#        }
+#        trap on_signal USR1
+#
+#    (sending the signal to srun with "kill -INT PID" does not work: srun
+#    only prints the status of the job steps on the first Control-c.)
+#
+# 2. start srun in the background, and wait for it:
+#
+#        srun python3 -u count_signal.py &
+#        wait    # returns as soon as the signal arrives (after the trap)
+#        wait    # wait again, for python to save and stop
+#
+#    Bash runs a trap only when the current *foreground* command is
+#    finished. With a plain "srun python3 -u count_signal.py", the trap would
+#    run only after python is finished, ie. after the end of the walltime:
+#    too late! "wait" on the other hand is interrupted by signals.
+#
+# 3. keep the --open-mode=append and the "=== job ... started" line.
+#
+# ===========================================================================

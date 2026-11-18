@@ -1,0 +1,49 @@
+#
+# ===========================================================================
+# Level 7: automatic requeue
+# ===========================================================================
+#
+# When the signal arrives and python has saved its progress, the script can
+# put the job back in the queue:
+#
+#     scontrol requeue $SLURM_JOB_ID
+#
+# The job keeps its job ID, waits in the queue, and then runs this script
+# again from the beginning. Python restarts from its checkpoint. The
+# variable SLURM_RESTART_COUNT tells how many times the job was requeued.
+#
+#  * Requeue only AFTER python has saved its progress: requeueing kills the
+#    running job steps. For instance:
+#
+#        requeue=0
+#        on_signal() {
+#            echo "=== signal received at $(date)"
+#            scancel -s SIGINT $SLURM_JOB_ID
+#            requeue=1
+#        }
+#        trap on_signal USR1
+#
+#        srun python3 -u count_signal.py &
+#        wait
+#        wait
+#        if [ $requeue -eq 1 ]; then
+#            scontrol requeue $SLURM_JOB_ID
+#        fi
+#
+#  * A requeued job does NOT restart immediately: it goes back to the
+#    queue, and Slurm usually keeps it PENDING for a while (squeue shows the
+#    reason "BeginTime", typically a minute or two, depending on the
+#    cluster), then it waits for a free node like any other job.
+#
+#  * Add "#SBATCH --requeue": on some clusters jobs are not requeueable by
+#    default.
+#
+#  * --open-mode=append is now essential: without it, each restart erases
+#    count.out.
+#
+#  * The job stops for good when python reaches STOP. To keep this level
+#    short, STOP was set to 200 in count_signal.py: with --time=00:04:00
+#    and the signal 60 seconds before the end, the job needs to be requeued
+#    once or twice (about 5 to 10 minutes in total). Don't make it larger.
+#
+# ===========================================================================

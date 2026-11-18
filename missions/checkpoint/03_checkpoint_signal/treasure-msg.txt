@@ -1,0 +1,1 @@
+Your counter now saves its progress only when it is asked to stop. Keep "count_signal.py" safe: the next levels run it on the cluster, where the signal is sent by Slurm instead of Control-c.

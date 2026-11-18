@@ -1,0 +1,6 @@
+The DMTCP commands are now available:
+
+  dmtcp_coordinator   the "manager" of the programs being checkpointed
+  dmtcp_launch        start a program under the control of DMTCP
+  dmtcp_command       ask the coordinator to checkpoint, stop, ... the programs
+  dmtcp_restart       restart programs from their checkpoint images

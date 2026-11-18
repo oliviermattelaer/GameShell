@@ -1,0 +1,40 @@
+Mission goal
+============
+
+Now with Slurm. You are in the directory "~/Checkpoint/level10", which contains "submit.sh", a submission script that runs "count_nockpt.py" under DMTCP, and checkpoints it when the batch script receives the signal USR1. Read its comments.
+
+  1. Submit the job with "sbatch submit.sh".
+  2. When a few numbers are printed in "count.out", ask the batch script to checkpoint:
+         scancel --batch -s USR1 JOBID
+     The job saves the image of the program and stops.
+  3. Restart the computation *on the login node*, from the checkpoint written by the job (with the DMTCP module loaded):
+         . ./start_coordinator.sh
+         ./dmtcp_restart_script.sh -h $DMTCP_COORD_HOST -p $DMTCP_COORD_PORT >> count.out 2> restart.log &
+  4. Check in "count.out" that it continues where the job stopped, and stop it:
+         dmtcp_command --quit
+
+Then run "gsh check".
+
+
+Remarks
+-------
+
+Without "--batch", scancel sends the signal to the job steps (python), not to the batch script: python is killed and nothing is saved.
+
+A checkpoint image is not tied to a node: the program can be restarted on another machine (with the same software environment).
+
+
+Useful commands
+===============
+
+sbatch SCRIPT
+  Submit the job described in SCRIPT.
+
+squeue --me
+  List your jobs, and their state.
+
+scancel --batch -s SIGNAL JOBID
+  Send SIGNAL to the batch script of job JOBID.
+
+dmtcp_command --quit
+  Kill the programs managed by the coordinator, and the coordinator.

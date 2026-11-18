@@ -1,0 +1,3 @@
+Congratulations! Your computation now survives the walltime: it is checkpointed before the end of each job, and the job requeues itself until the work is done.
+
+Remember: use the checkpointing of your software if it has one (lightweight, at meaningful moments), and DMTCP when it doesn't.

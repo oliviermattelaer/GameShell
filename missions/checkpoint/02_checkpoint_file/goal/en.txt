@@ -1,0 +1,31 @@
+Mission goal
+============
+
+Now, write your own restartable counter!
+
+You are in the directory "~/Checkpoint/level2", which contains "count_save.py", a counter that always starts again from 0. Complete it (follow the TODO comments) so that
+
+  - it saves its progress in the file "checkpoint.txt" at every iteration,
+  - it restarts from the value saved in "checkpoint.txt" when that file exists,
+  - it starts from 0 when "checkpoint.txt" doesn't exist.
+
+Test it yourself (run it, stop it with Control-c, run it again), then run "gsh check".
+
+
+Remarks
+-------
+
+"gsh check" runs your script in a separate directory: your own "checkpoint.txt" is not used. Don't change the name of the file "checkpoint.txt" in the script.
+
+
+Useful commands
+===============
+
+nano FILE
+  Edit FILE (Control-o to save, Control-x to quit). Any other text editor (vim, emacs, ...) is fine too.
+
+python3 SCRIPT
+  Run the python script SCRIPT.
+
+rm FILE
+  Remove FILE, for instance to start counting from 0 again.
