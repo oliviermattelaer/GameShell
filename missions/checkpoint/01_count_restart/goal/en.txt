@@ -1,13 +1,13 @@
 Mission goal
 ============
 
-You are in the directory "~/Checkpoint/level1", which contains a small program, "count.py", that prints a number every second.
+You are in the directory "~/Checkpoint/level1", which contains a small program, "count.py", that prints a number every second. Imagine it is a long computation: each number is one more step done.
 
   1. Run it with "python3 count.py".
   2. After a few numbers, stop it with Control-c.
-  3. Without running it again, find which number it will print first if you start it again.
+  3. If you run it again, which number will it print first?
 
-Then run "gsh check" and give your answer.
+You can run it as many times as you want to find out. Then run "gsh check" and give your answer.
 
 
 Remark
@@ -24,9 +24,3 @@ python3 SCRIPT
 
 Control-c
   Stop the program running in the terminal. (Control-c sends the signal SIGINT, "interrupt", to the program.)
-
-ls
-  List the files of the current directory.
-
-cat FILE
-  Display the content of FILE.

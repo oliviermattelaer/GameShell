@@ -19,7 +19,7 @@ the end of the job.
 
 | Level | Topic                                   | Beginner  | Job       |
 |-------|-----------------------------------------|-----------|-----------|
-| 1     | run count.py, guess the restart value   | 5 min     |           |
+| 1     | run count.py: it restarts from 0        | 5 min     |           |
 | 2     | write a checkpoint at every iteration   | 15 min    |           |
 | 3     | checkpoint on SIGINT (signal handler)   | 20 min    |           |
 | 4     | sbatch + `scancel -s SIGINT`            | 10 min    | ~1 min    |
@@ -45,12 +45,9 @@ The goals and `gsh check` explain that delay, without promising a duration.
 
 All of these were reproduced in a real game on lemaitre4.
 
-**Level 1**
-- runs `python3 Checkpoint/level1/count.py` from `~`: the `state` file is
-  written in `~` → told to run it from its directory.
-- answers the last number printed → told the progress is saved *after*
-  printing. Answers 0 → told to look at the files. A wrong answer restarts the
-  level (the `state` file is removed), so guessing doesn't work.
+**Level 1** (count.py has *no* checkpointing: the answer is 0)
+- answers the next number (as if it continued) → told to run it again and
+  see where it starts.
 
 **Level 2** (the error messages show the player's file, not the temporary copy)
 - forgets `int()` around `read()`, writes an int with `f.write(i)`, reads

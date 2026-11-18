@@ -9,7 +9,6 @@ _mission_init() (
   dir=$GSH_HOME/Checkpoint/level1
   mkdir -p "$dir"
   cp "$MISSION_DIR/../00_shared/count.py" "$dir/"
-  rm -f "$dir/state"
 )
 
 # start the level in its directory
