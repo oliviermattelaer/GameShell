@@ -709,6 +709,10 @@ gsh() {
       ;;
 
     *)
+      # "gsh HELP" (the full help) is run by _gsh_full_help: a script called
+      # _gsh_HELP would be the same file as _gsh_help on case-insensitive
+      # file systems (macOS)
+      [ "$cmd" = "HELP" ] && cmd=full_help
       if command -v "_gsh_$cmd" >/dev/null
       then
         local MISSION_NB="$(_gsh_pcm)"

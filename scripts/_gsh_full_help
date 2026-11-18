@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+. gsh_gettext.sh
+
+parchment "$(eval_gettext '$GSH_ROOT/i18n/gsh-full-help/en.txt')" Parchment2 | pager
+

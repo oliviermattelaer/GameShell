@@ -1,9 +1,9 @@
 #, sh-format
-msgid   "$GSH_ROOT/i18n/gameshell-HELP/en.txt"
+msgid   "$GSH_ROOT/i18n/gsh-full-help/en.txt"
 msgstr  ""
 
 #, sh-format
-msgid   "$GSH_ROOT/i18n/gameshell-help/en.txt"
+msgid   "$GSH_ROOT/i18n/gsh-help/en.txt"
 msgstr  ""
 
 #, sh-format
