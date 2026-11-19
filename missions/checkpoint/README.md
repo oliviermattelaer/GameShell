@@ -11,6 +11,17 @@ last level): `./start.sh` and `utils/archive.sh` without arguments give the
 checkpoint game. Each level starts in its own directory,
 `~/Checkpoint/levelN`.
 
+## Leaderboard
+
+`missions/checkpoint/leaderboard.sh [GAME [REFRESH]]` (not part of the game
+archive) shows, every 20 seconds, the current mission of each player (users
+running `checkpoint.gsh` on this login node), how long ago they last did
+something in the game, and their `ckpt_levelN` jobs: job ID, level, state,
+time used, time limit and pending reason.
+
+    PLAYER  MISSION  LAST_ACTION  JOBID    LEVEL  STATE    TIME  LIMIT  REASON
+    omatt   4        1h           8183066  5      PENDING  0:00  2:00   BeginTime
+
 ## Time per level
 
 Estimated for a beginner, including reading the goal and one typical mistake.
