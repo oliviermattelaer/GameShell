@@ -13,6 +13,7 @@ the mission is validated.
 """
 
 import glob
+import pwd
 
 import os
 import re
@@ -248,7 +249,12 @@ def read_runs(path):
 
 def sacct(name, start, duplicates):
     since = time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(start - 120))
-    base = ["sacct", "-n", "-P", "-X", "--name", name, "-S", since]
+    # only the jobs of the player: many players submit jobs with the same
+    # name at the same time (sacct's default is the current user, except for
+    # administrators: make it explicit)
+    user = pwd.getpwuid(os.getuid()).pw_name
+    base = ["sacct", "-n", "-P", "-X", "--user", user, "--name", name,
+            "-S", since]
     if duplicates:
         base.append("-D")
     fields = ["JobID", "State", "Elapsed", "Timelimit", "End", "Submit",
